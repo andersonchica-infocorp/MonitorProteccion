@@ -1,25 +1,25 @@
-<div class="center-div">
+<md-card class="example-card">
+    <md-toolbar>
+        <h2>Login form</h2>
+    </md-toolbar>
 
- <div class="card small">
-    <div class="card-image waves-effect waves-block waves-light">
-      <img class="activator" src="http://lorempixel.com/400/200">
-
-    </div>
-
-     <div class="card-content">
-     <span class="card-title">Login</span>
-         <p>Click to reveal</p>
-  </div>
-  <div class="card-reveal">
-  <span class="card-title grey-text text-darken-4">Login<i class="material-icons right">close</i></span>
-                   <div class="input-field">
-          <input id="user_name" type="text" class="validate">
-          <label for="user_name">Username</label>
+    <md-card-content>
+        <div>
+            <md-input-container class="example-full-width">
+                <input mdInput
+                    placeholder="User Name">
+            </md-input-container>
         </div>
-        <div class="input-field">
-          <input id="password" type="password" class="validate" >
-          <label for="password">Password</label>
+        <div>
+            <md-input-container class="example-full-width">
+                <input mdInput type="password"
+                    placeholder="Password">
+            </md-input-container>
         </div>
-        <button class="waves-effect waves-light btn" (click)="login()">Login</button>
-            </div>
-</div>
+    </md-card-content>
+    <md-card-actions>
+        <button md-button
+            color="primary">OK</button>
+        <button md-button>CANCEL</button>
+    </md-card-actions>
+</md-card>

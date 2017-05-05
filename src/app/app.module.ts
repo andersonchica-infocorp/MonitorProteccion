@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { NG2D3Module } from 'ng2d3';
 import { MaterialModule } from '@angular/material';
 import { AuthenticationModule } from './authentication/shared/authentication.module';
+import { MasterModule } from './master/shared/master.module';
+import { UserModule } from './user/shared/user.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -28,7 +30,9 @@ import { AuthService } from './authentication/shared/authentication.service';
     MaterialModule,
     BrowserAnimationsModule,
     routing,
-    AuthenticationModule
+    AuthenticationModule,
+    MasterModule,
+    UserModule,
   ],
   providers: [AuthManager, AuthService],
   bootstrap: [AppComponent]

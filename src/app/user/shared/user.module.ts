@@ -3,28 +3,31 @@ import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 import { NG2D3Module } from 'ng2d3';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { AuthenticationRouting } from './authentication.routing';
+import { UserRouting } from './user.routing';
 
 import { MaterialModule } from '@angular/material';
 
+import { UserListAdminComponent } from '../user-list-admin/user-list-admin.component';
+import { UserListResultComponent } from '../user-list-result/user-list-result.component';
+import { UserComponent } from '../user/user.component';
 
-import { LoginComponent } from '../login/login.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    AuthenticationRouting,
+    UserRouting,
     BrowserAnimationsModule,
     MaterialModule,
     NG2D3Module,
   ],
   declarations: [
-    LoginComponent,
+    UserListAdminComponent,
+    UserListResultComponent,
+    UserComponent
   ],
   providers: [
   ]
 })
-export class AuthenticationModule { }
+export class UserModule { }

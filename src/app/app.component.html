@@ -1,24 +1,27 @@
+<md-sidenav-container fullscreen>
+    <md-sidenav #sidenav
+        mode="side">
+        <md-nav-list class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+            <a md-list-item
+                *ngFor="let view of views"
+                (click)="goTo(view.link)">
+                <md-icon md-list-icon>{{view.icon}}</md-icon>
+                <span md-line>{{view.name}}</span>
+                <span md-line
+                    class="secondary">{{view.description}}</span>
+            </a>
+        </md-nav-list>
+    </md-sidenav>
 
-
-<md-toolbar color="primary">
-    <md-toolbar-row>
-        <span>QueueApp</span>
-        <span class="example-spacer"></span>
+    <md-toolbar color="primary">
         <button md-icon-button
-            [mdMenuTriggerFor]="menu">
+            (click)="sidenav.toggle()">
             <md-icon>menu</md-icon>
         </button>
-        <md-menu #menu="mdMenu">
-            <button md-menu-item (click)="goTo('register/office')">
-                <md-icon>account_balance</md-icon>
-                Registrar Oficina
-            </button>
-            <button md-menu-item (click)="goTo('authentication/login')">
-                <md-icon>description</md-icon>
-                Registrar Trámite
-            </button>
-        </md-menu>
-    </md-toolbar-row>
-</md-toolbar>
+        Monitor
+    </md-toolbar>
 
-<router-outlet></router-outlet>
+    <div class="app-content">
+        <router-outlet></router-outlet>
+    </div>
+</md-sidenav-container>

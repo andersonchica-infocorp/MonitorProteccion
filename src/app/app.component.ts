@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-
 import { Router, ActivatedRoute, Params } from '@angular/router';
-
 
 @Component({
   selector: 'app-root',
@@ -19,4 +17,18 @@ export class AppComponent {
 goTo(path:string){
     this.router.navigate([path]);
   }
+
+    views: Object[] = [
+    {
+      name: "Login",
+      description: "",
+      icon: "person",
+      link:"authentication/login"
+    },
+    {
+      name: "Potential dates",
+      description: "Find your soulmate!",
+      icon: "pets"
+    }
+  ];
 }
