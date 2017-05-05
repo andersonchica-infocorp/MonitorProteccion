@@ -20,15 +20,22 @@ goTo(path:string){
 
     views: Object[] = [
     {
-      name: "Login",
+      name: "Administrar Usuario",
       description: "",
-      icon: "person",
-      link:"authentication/login"
+      icon: "people",
+      link:"user/admin"
     },
     {
-      name: "Potential dates",
-      description: "Find your soulmate!",
-      icon: "pets"
+      name: "Aplicaciones",
+      description: "Adminsitrar Aplicaciones!",
+      icon: "apps",
+      link: "master/application"
+    },
+    {
+      name: "Histórico",
+      description: "Ver histórico de transacciones",
+      icon: "poll",
+      link: "report/history"
     }
   ];
 }
