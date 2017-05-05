@@ -12,6 +12,9 @@ import { AppComponent } from './app.component';
 import { routing, appRoutingProviders }  from './app.routing';
 import { ChartconceptComponent } from './concept/chartconcept/chartconcept.component';
 
+import { AuthManager } from './authentication/shared/authentication.manage';
+import { AuthService } from './authentication/shared/authentication.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +30,7 @@ import { ChartconceptComponent } from './concept/chartconcept/chartconcept.compo
     routing,
     AuthenticationModule
   ],
-  providers: [],
+  providers: [AuthManager, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
