@@ -8,7 +8,25 @@ import { UserComponent } from '../user/user.component';
 import { AuthManager } from '../../authentication/shared/authentication.manage';
 
 const registerRoutes: Routes = [
-  { path: 'user/admin',  component: UserComponent, canActivate: [AuthManager] },
+  { path: 'user/admin',  component: UserComponent, canActivate: [AuthManager] ,
+	  children:[
+	  		{ path:'', component: UserListAdminComponent }
+	  	],
+  },
+  {
+    path: 'user/admin/new', component: UserComponent,
+    children: [
+      {
+        path: '',
+        component: UserListAdminComponent,
+      },
+      {
+        path: '',
+        component: UserListResultComponent,
+        outlet: 'results'
+      }
+    ]
+  },
 ];
 
 export const UserRouting: ModuleWithProviders = RouterModule.forChild(registerRoutes);

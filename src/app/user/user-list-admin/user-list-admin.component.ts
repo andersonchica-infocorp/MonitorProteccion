@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../../Model/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-list-admin',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListAdminComponent implements OnInit {
 
-  constructor() { }
+usersAdministratos : User[];
+
+  constructor(private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
+  	this.getUsersAdministrators();
   }
+
+getUsersAdministrators(){
+	this.userService.getUsersAdministrators().subscribe(
+  			usersAdministratos => {
+  				this.usersAdministratos = usersAdministratos;
+  			}
+  		)  ;	
+}
 
 }

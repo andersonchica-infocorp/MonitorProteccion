@@ -4,6 +4,8 @@ import { FormsModule }    from '@angular/forms';
 import { NG2D3Module } from 'ng2d3';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserRouting } from './user.routing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 import { MaterialModule } from '@angular/material';
 
@@ -21,6 +23,7 @@ import { UserComponent } from '../user/user.component';
     BrowserAnimationsModule,
     MaterialModule,
     NG2D3Module,
+    ReactiveFormsModule
   ],
   declarations: [
     UserListAdminComponent,
@@ -28,6 +31,7 @@ import { UserComponent } from '../user/user.component';
     UserComponent
   ],
   providers: [
+    UserService
   ]
 })
 export class UserModule { }

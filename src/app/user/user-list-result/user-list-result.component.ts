@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { User } from '../../Model/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-list-result',
@@ -7,9 +11,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListResultComponent implements OnInit {
 
-  constructor() { }
+usersResult : User[];
+form: FormGroup ;
+
+  constructor(private route: ActivatedRoute, public fb: FormBuilder,
+    public router: Router, private userService: UserService) { 
+    this.form = this.fb.group({
+      name: ['', [Validators.required, Validators.maxLength(50)]],  
+    });
+  }
 
   ngOnInit() {
   }
+
+doCancel() {
+    this.router.navigate(['/user/admin']);
+  }
+
+search(){
+  this.userService.getUsersSystem(this.form.controls.name.value).subscribe(
+        usersSystem => {
+          this.usersResult = usersSystem;
+        }
+      )  ;  
+}
 
 }

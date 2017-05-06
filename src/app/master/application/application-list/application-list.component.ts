@@ -25,11 +25,11 @@ export class ApplicationListComponent implements OnInit {
   }
 
   getApplications(){
-	this.applicationService.getApplications().subscribe(
-			applications => {
-				this.applications = applications;
-			}
-		)  	
+  	this.applicationService.getApplications().subscribe(
+  			applications => {
+  				this.applications = applications;
+  			}
+  		)  	
   }
 
 }
