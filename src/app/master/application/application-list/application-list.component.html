@@ -1,3 +1,9 @@
-<p>
-  application-list works!
-</p>
+<md-card class="app-card-content">
+  <md-card-content>
+    <md-nav-list>
+      <md-list-item *ngFor="let application of applications" [class.edited]="application.Id == (editid | async)" routerLinkActive="active" [routerLink]="[ '/master/application',application.Id ]">
+        <h3 md-line>{{application.Name}}</h3>
+      </md-list-item>
+    </md-nav-list>
+  </md-card-content>
+</md-card>

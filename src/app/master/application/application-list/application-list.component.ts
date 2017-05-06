@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { ApplicationService } from '../../../services/application.service';
+
+import { Application } from '../../../Model/application.model'
+import 'rxjs/add/operator/pluck';
 
 @Component({
   selector: 'app-application-list',
@@ -7,9 +13,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplicationListComponent implements OnInit {
 
-  constructor() { }
+  applications: Application[];
+  private editid: number
+
+  constructor(private route: ActivatedRoute, private applicationService: ApplicationService) { }
 
   ngOnInit() {
+  	this.getApplications();
+  	
+  	//this.editid = 0;
+  }
+
+  getApplications(){
+	this.applicationService.getApplications().subscribe(
+			applications => {
+				this.applications = applications;
+			}
+		)  	
   }
 
 }

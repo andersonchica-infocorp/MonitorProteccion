@@ -7,36 +7,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportActualComponent implements OnInit {
 
-  constructor() { }
+  single: any[];
 
-  ngOnInit() {
-  }
+  view: any[] = [700, 400];
 
-view: any[] = [700, 400];
-
-// options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
+  // options
   showLegend = true;
-  showXAxisLabel = true;
-  xAxisLabel = 'Country';
-  showYAxisLabel = true;
-  yAxisLabel = 'Population';
 
-colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  colorScheme = {
+    domain: ['#A10A28', '#5AA454', '#C7B42C', '#AAAAAA']
   };
 
-  data = [{
-  	name: "hola",
-  	value: 4567
-  },{
-  	name: "puto",
-  	value: 676
-  },{
-  	name:"juan",
-  	value: 980
-  }]
+  // pie
+  showLabels = true;
+  explodeSlices = false;
+  doughnut = false;
+
+  constructor() {
+      
+  }
+
+  ngOnInit() {
+     var single = [
+  {
+    "name": "Error",
+    "value": 894
+  },
+  {
+    "name": "Success",
+    "value": 500
+  }
+]; 
+
+    Object.assign(this, {single}) 
+  }
+
 
 }

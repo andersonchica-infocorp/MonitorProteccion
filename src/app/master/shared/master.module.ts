@@ -4,11 +4,13 @@ import { FormsModule }    from '@angular/forms';
 import { NG2D3Module } from 'ng2d3';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MasterRouting } from './master.rounting';
+import { ApplicationService } from '../../services/application.service';
 
 import { MaterialModule } from '@angular/material';
 
 import { ApplicationListComponent } from '../application/application-list/application-list.component';
 import { ApplicationComponent } from '../application/application/application.component';
+import { ApplicationDetailComponent } from '../application/application-detail/application-detail.component';
 
 
 
@@ -19,13 +21,15 @@ import { ApplicationComponent } from '../application/application/application.com
     MasterRouting,
     BrowserAnimationsModule,
     MaterialModule,
-    NG2D3Module,
+    NG2D3Module
   ],
   declarations: [
     ApplicationListComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    ApplicationDetailComponent
   ],
   providers: [
+    ApplicationService
   ]
 })
 export class MasterModule { }

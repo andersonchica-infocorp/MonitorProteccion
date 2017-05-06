@@ -7,6 +7,7 @@ import { ReportRouting } from './report.routing';
 
 import { MaterialModule } from '@angular/material';
 
+import { ReportComponent } from '../report/report.component';
 import { ReportActualComponent } from '../report-actual/report-actual.component';
 import { ReportHistoryComponent } from '../report-history/report-history.component';
 
@@ -22,6 +23,7 @@ import { ReportHistoryComponent } from '../report-history/report-history.compone
   declarations: [
     ReportActualComponent,
     ReportHistoryComponent,
+    ReportComponent
   ],
   providers: [
   ]
