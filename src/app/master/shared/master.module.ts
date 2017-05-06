@@ -5,6 +5,7 @@ import { NG2D3Module } from 'ng2d3';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MasterRouting } from './master.rounting';
 import { ApplicationService } from '../../services/application.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from '@angular/material';
 
@@ -21,7 +22,8 @@ import { ApplicationDetailComponent } from '../application/application-detail/ap
     MasterRouting,
     BrowserAnimationsModule,
     MaterialModule,
-    NG2D3Module
+    NG2D3Module,
+    ReactiveFormsModule
   ],
   declarations: [
     ApplicationListComponent,
