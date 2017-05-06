@@ -17,11 +17,13 @@ import { ChartconceptComponent } from './concept/chartconcept/chartconcept.compo
 
 import { AuthManager } from './authentication/shared/authentication.manage';
 import { AuthService } from './authentication/shared/authentication.service';
+import { ReportComponent } from './report/report/report.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChartconceptComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,
