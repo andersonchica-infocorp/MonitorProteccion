@@ -13,7 +13,7 @@ import { ApplicationListComponent } from '../application/application-list/applic
 import { ApplicationComponent } from '../application/application/application.component';
 import { ApplicationDetailComponent } from '../application/application-detail/application-detail.component';
 
-
+import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 @NgModule({
   imports: [
@@ -23,7 +23,8 @@ import { ApplicationDetailComponent } from '../application/application-detail/ap
     BrowserAnimationsModule,
     MaterialModule,
     NG2D3Module,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   declarations: [
     ApplicationListComponent,

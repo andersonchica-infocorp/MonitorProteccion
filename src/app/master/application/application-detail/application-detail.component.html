@@ -1,6 +1,6 @@
 <md-card class="app-card-content">
-    <md-card-title *ngIf="id">Application #{{id}}</md-card-title>
-    <md-card-title *ngIf="!id">New Application</md-card-title>
+    <md-card-title *ngIf="id">{{'app.master.application.application' | translate}} #{{id}}</md-card-title>
+    <md-card-title *ngIf="!id">{{'app.master.application.new' | translate}}</md-card-title>
     <md-card-content>
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <md-input-container class="example-full-width">
@@ -12,10 +12,9 @@
         </form>
     </md-card-content>
     <md-card-actions align="end">
-        <button md-button type="button" color="warn" *ngIf="id" (click)="doDelete()">Delete</button>
-        <button md-button type="button" (click)="doReset()" [disabled]="!form.status">Reset</button>
-        <button md-button type="button" (click)="doCancel()">Cancel</button>
-        <button md-raised-button color="primary" style="submit" [disabled]="!form.valid">Save</button>
+        <button md-button type="button" (click)="doReset()" [disabled]="!form.status">{{'app.common.reset' | translate}}</button>
+        <button md-button type="button" (click)="doCancel()">{{'app.common.cancel' | translate}}</button>
+        <button md-raised-button color="primary" style="submit" [disabled]="!form.valid">{{'app.common.save' | translate}}</button>
     </md-card-actions>
     <div *ngIf="pleaseSave">Please save or cancel</div>
 </md-card>

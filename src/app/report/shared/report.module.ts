@@ -10,6 +10,7 @@ import { MaterialModule } from '@angular/material';
 import { ReportComponent } from '../report/report.component';
 import { ReportActualComponent } from '../report-actual/report-actual.component';
 import { ReportHistoryComponent } from '../report-history/report-history.component';
+import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ReportHistoryComponent } from '../report-history/report-history.compone
     BrowserAnimationsModule,
     MaterialModule,
     NG2D3Module,
+    TranslateModule
   ],
   declarations: [
     ReportActualComponent,

@@ -1,0 +1,22 @@
+{
+    "app": {
+        "title": "Monitor",
+        "common":{
+        	"reset":"Limpiar",
+        	"cancel":"Cancelar",
+        	"save":"Guardar"
+        },
+        "user": {
+            "title": "Administradores"
+        },
+        "master": {
+            "application": {
+                "title": "Aplicaciones",
+                "new":"Nueva Aplicacion",
+                "name":"Nombre",
+                "description":"Descripcion",
+                "application": "Aplicacion"
+            }
+        }
+    }
+}

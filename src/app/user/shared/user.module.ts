@@ -13,7 +13,7 @@ import { UserListAdminComponent } from '../user-list-admin/user-list-admin.compo
 import { UserListResultComponent } from '../user-list-result/user-list-result.component';
 import { UserComponent } from '../user/user.component';
 
-
+import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 @NgModule({
   imports: [
@@ -23,7 +23,8 @@ import { UserComponent } from '../user/user.component';
     BrowserAnimationsModule,
     MaterialModule,
     NG2D3Module,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   declarations: [
     UserListAdminComponent,
