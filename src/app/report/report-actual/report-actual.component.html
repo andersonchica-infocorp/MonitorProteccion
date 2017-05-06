@@ -1,2 +1,9 @@
-<pie-chart [view]="view" [scheme]="colorScheme" [results]="single" [legend]="showLegend" [explodeSlices]="explodeSlices" [labels]="showLabels" [doughnut]="doughnut" [gradient]="gradient" >
-</pie-chart>
+<md-card class="app-card-content">
+    <md-card-title>{{'app.report.actual.title' | translate}}</md-card-title>
+    <md-card-content>
+        <pie-chart [view]="view" [scheme]="colorScheme" [results]="single" [legend]="showLegend" [explodeSlices]="explodeSlices" [labels]="showLabels" [doughnut]="doughnut" [gradient]="gradient">
+        </pie-chart>
+    </md-card-content>
+    <md-card-actions align="end">
+    </md-card-actions>
+</md-card>

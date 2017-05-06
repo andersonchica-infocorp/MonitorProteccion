@@ -17,6 +17,14 @@
                 "description":"Descripcion",
                 "application": "Aplicacion"
             }
+        },
+        "report":{
+            "actual":{
+                "title": "actual"
+            },
+            "history":{
+                "title":"Historico"
+            }
         }
     }
 }

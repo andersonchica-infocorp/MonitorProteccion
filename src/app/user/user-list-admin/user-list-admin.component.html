@@ -3,7 +3,7 @@
         <md-nav-list>
             <md-list-item *ngFor="let user of usersAdministratos">
                 <h3 md-line>{{user.Name}}</h3>
-                <button md-mini-fab type="button" (click)="delete()" color="warn">
+                <button md-mini-fab type="button" (click)="delete(user)" color="warn">
                     <md-icon>clear</md-icon>
                 </button>
             </md-list-item>
