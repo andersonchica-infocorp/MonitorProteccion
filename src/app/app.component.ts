@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {TranslateService} from 'ng2-translate';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,9 @@ export class AppComponent {
   title = 'app works!';
 
 
- constructor(
-  private router: Router,
-    ){}
+ constructor(private router: Router, private translate: TranslateService){
+   
+ }
 
 goTo(path:string){
     this.router.navigate([path]);
@@ -38,4 +39,8 @@ goTo(path:string){
       link: "report/history"
     }
   ];
+
+  changeLanguage(language : string){
+    this.translate.use(language);
+  }
 }

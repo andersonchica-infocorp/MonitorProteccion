@@ -1,7 +1,34 @@
 {
-	"app":{
-		"user": {
-			"title": "Hola"	
-		}		
-	}
+    "app": {
+        "title": "Monitor1",
+        "language": {
+            "spanish": "spanish",
+            "english": "english"
+        },
+        "common": {
+            "reset": "Limpiar1",
+            "cancel": "Cancela1r",
+            "save": "Guarda1r"
+        },
+        "user": {
+            "title": "Adminis1tradores"
+        },
+        "master": {
+            "application": {
+                "title": "Aplic1aciones",
+                "new": "Nueva Apl1icacion",
+                "name": "No1mbre",
+                "description": "Desc1ripcion",
+                "application": "Apli1cacion"
+            }
+        },
+        "report": {
+            "actual": {
+                "title": "a1ctual"
+            },
+            "history": {
+                "title": "Hist1orico"
+            }
+        }
+    }
 }

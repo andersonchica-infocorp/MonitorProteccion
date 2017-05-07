@@ -1,10 +1,14 @@
 {
     "app": {
         "title": "Monitor",
-        "common":{
-        	"reset":"Limpiar",
-        	"cancel":"Cancelar",
-        	"save":"Guardar"
+        "language": {
+            "spanish": "Espanol",
+            "english": "Ingles"
+        },
+        "common": {
+            "reset": "Limpiar",
+            "cancel": "Cancelar",
+            "save": "Guardar"
         },
         "user": {
             "title": "Administradores"
@@ -12,18 +16,18 @@
         "master": {
             "application": {
                 "title": "Aplicaciones",
-                "new":"Nueva Aplicacion",
-                "name":"Nombre",
-                "description":"Descripcion",
+                "new": "Nueva Aplicacion",
+                "name": "Nombre",
+                "description": "Descripcion",
                 "application": "Aplicacion"
             }
         },
-        "report":{
-            "actual":{
+        "report": {
+            "actual": {
                 "title": "actual"
             },
-            "history":{
-                "title":"Historico"
+            "history": {
+                "title": "Historico"
             }
         }
     }
