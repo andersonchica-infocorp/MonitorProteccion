@@ -1,6 +1,7 @@
 <md-card class="app-card-content">
     <md-card-title *ngIf="id">{{'app.master.application.application' | translate}} #{{id}}</md-card-title>
     <md-card-title *ngIf="!id">{{'app.master.application.new' | translate}}</md-card-title>
+    <md-divider></md-divider>
     <md-card-content>
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <md-input-container class="example-full-width">

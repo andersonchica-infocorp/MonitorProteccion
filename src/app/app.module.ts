@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
-import { NG2D3Module } from 'ng2d3';
+
 import { MaterialModule } from '@angular/material';
 import { AuthenticationModule } from './authentication/shared/authentication.module';
 import { MasterModule } from './master/shared/master.module';
@@ -11,6 +11,7 @@ import { ReportModule } from './report/shared/report.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
+import { SideNavListComponent } from './controls/side-nav-list/side-nav-list.component';
 
 import { routing, appRoutingProviders }  from './app.routing';
 import { ChartconceptComponent } from './concept/chartconcept/chartconcept.component';
@@ -27,12 +28,12 @@ export function createTranslateLoader(http: Http) {
   declarations: [
     AppComponent,
     ChartconceptComponent,
+    SideNavListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    NG2D3Module,
     MaterialModule,
     BrowserAnimationsModule,
     routing,

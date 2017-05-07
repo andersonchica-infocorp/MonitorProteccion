@@ -1,8 +1,8 @@
 <md-card class="app-card-content">
     <md-card-content>
         <md-nav-list>
-            <md-list-item *ngFor="let application of applications" [class.edited]="application.Id == (editid | async)" routerLinkActive="active" [routerLink]="[ '/master/application',application.Id ]">
-                <h3 md-line>{{application.Name}}</h3>
+            <md-list-item *ngFor="let application of applications" >
+                <h3 md-line [class.edited]="application.Id == (editid | async)" routerLinkActive="active" [routerLink]="[ '/master/application',application.Id ]">{{application.Name}}</h3>
                 <button md-mini-fab type="button" (click)="delete(application)" color="warn">
                     <md-icon>clear</md-icon>
                 </button>

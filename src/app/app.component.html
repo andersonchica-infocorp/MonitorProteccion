@@ -1,10 +1,25 @@
 <md-sidenav-container fullscreen>
     <md-sidenav #sidenav mode="side">
         <md-nav-list class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a md-list-item *ngFor="let view of views" (click)="goTo(view.link)">
-                <md-icon md-list-icon>{{view.icon}}</md-icon>
-                <span md-line>{{view.name}}</span>
-                <span md-line class="secondary">{{view.description}}</span>
+            <a md-list-item (click)="goTo('user/admin')">
+                <md-icon md-list-icon>people</md-icon>
+                <span md-line>{{'app.sideNav.user.title' | translate}}</span>
+                <span md-line class="secondary">{{'app.sideNav.user.description' | translate}}</span>
+            </a>
+             <a md-list-item (click)="goTo('master/application')">
+                <md-icon md-list-icon>apps</md-icon>
+                <span md-line>{{'app.sideNav.application.title' | translate}}</span>
+                <span md-line class="secondary">{{'app.sideNav.application.description' | translate}}</span>
+            </a>
+             <a md-list-item (click)="goTo('master/service')">
+                <md-icon md-list-icon>group_work</md-icon>
+                <span md-line>{{'app.sideNav.service.title' | translate}}</span>
+                <span md-line class="secondary">{{'app.sideNav.service.description' | translate}}</span>
+            </a>
+             <a md-list-item (click)="goTo('report/history')">
+                <md-icon md-list-icon>poll</md-icon>
+                <span md-line>{{'app.sideNav.report.title' | translate}}</span>
+                <span md-line class="secondary">{{'app.sideNav.report.description' | translate}}</span>
             </a>
         </md-nav-list>
     </md-sidenav>
@@ -27,7 +42,6 @@
                 <span>{{'app.language.english' | translate}}</span>
             </button>
         </md-menu>
-        
     </md-toolbar>
     <div class="app-content">
         <router-outlet></router-outlet>

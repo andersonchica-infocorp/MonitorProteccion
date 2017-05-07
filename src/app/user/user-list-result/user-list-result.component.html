@@ -1,7 +1,8 @@
 <md-card class="app-card-content">
     <md-card-title>New Administrator</md-card-title>
+    <md-divider></md-divider>
     <md-card-content>
-        <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form" class="app-form">
             <md-input-container class="example-full-width">
                 <input mdInput type="search" placeholder="Nombre" formControlName="name" maxlength="50">
             </md-input-container>

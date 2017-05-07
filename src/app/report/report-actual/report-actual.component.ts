@@ -7,40 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportActualComponent implements OnInit {
 
-  single: any[];
-
-  view: any[] = [700, 400];
-
-  // options
-  showLegend = true;
-
-  colorScheme = {
-    domain: ['#A10A28', '#5AA454', '#C7B42C', '#AAAAAA']
-  };
-
-  // pie
-  showLabels = true;
-  explodeSlices = false;
-  doughnut = false;
+// Pie
+  public pieChartLabels:string[] = ['Error', 'Succes'];
+  public pieChartData:number[] = [300, 500];
+  public pieChartType:string = 'pie';
+  public lineChartColors:Array<any> =[{ backgroundColor: ["green", "blue"] }];
 
   constructor() {
       
   }
 
   ngOnInit() {
-     var single = [
-  {
-    "name": "Error",
-    "value": 894
-  },
-  {
-    "name": "Success",
-    "value": 500
   }
-]; 
-
-    Object.assign(this, {single}) 
-  }
-
 
 }

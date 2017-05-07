@@ -1,7 +1,6 @@
 import { NgModule }       from '@angular/core';
 import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
-import { NG2D3Module } from 'ng2d3';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MasterRouting } from './master.rounting';
 import { ApplicationService } from '../../services/application.service';
@@ -22,7 +21,6 @@ import { TranslateModule } from 'ng2-translate/ng2-translate';
     MasterRouting,
     BrowserAnimationsModule,
     MaterialModule,
-    NG2D3Module,
     ReactiveFormsModule,
     TranslateModule
   ],

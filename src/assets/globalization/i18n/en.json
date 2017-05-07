@@ -5,6 +5,24 @@
             "spanish": "spanish",
             "english": "english"
         },
+        "sideNav": {
+            "user": {
+                "title": "Administrate Users",
+                "description": ""
+            },
+            "application": {
+                "title": "Applications",
+                "description": "Administrate Applications"
+            },
+            "report": {
+                "title": "History",
+                "description": "Transactions History"
+            },
+            "service": {
+                "title": "Services",
+                "description": "Administrate Services"
+            }
+        },
         "common": {
             "reset": "Limpiar1",
             "cancel": "Cancela1r",

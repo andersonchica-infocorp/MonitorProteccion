@@ -5,6 +5,24 @@
             "spanish": "Espanol",
             "english": "Ingles"
         },
+        "sideNav": {
+            "user": {
+                "title": "Administrar Usuario",
+                "description": ""
+            },
+            "application": {
+                "title": "Aplicaciones",
+                "description": "Adminsitrar Aplicaciones"
+            },
+            "report": {
+                "title": "Histórico",
+                "description": "Ver histórico de transacciones"
+            },
+            "service": {
+                "title": "Servicios",
+                "description": "Ver servicios"
+            }
+        },
         "common": {
             "reset": "Limpiar",
             "cancel": "Cancelar",

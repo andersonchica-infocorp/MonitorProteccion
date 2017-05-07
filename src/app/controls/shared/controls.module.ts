@@ -3,26 +3,23 @@ import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AuthenticationRouting } from './authentication.routing';
-
 import { MaterialModule } from '@angular/material';
 
-
-import { LoginComponent } from '../login/login.component';
-
+import { SideNavListComponent } from '../side-nav-list/side-nav-list.component';
+import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    AuthenticationRouting,
     BrowserAnimationsModule,
     MaterialModule,
+    TranslateModule
   ],
   declarations: [
-    LoginComponent,
+    SideNavListComponent,
   ],
   providers: [
   ]
 })
-export class AuthenticationModule { }
+export class ControlsModule { }
