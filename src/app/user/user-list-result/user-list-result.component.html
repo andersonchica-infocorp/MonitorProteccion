@@ -1,25 +1,40 @@
+
 <md-card class="app-card-content">
-    <md-card-title>New Administrator</md-card-title>
+    <md-card-title>{{'app.user.new'|translate}}</md-card-title>
     <md-divider></md-divider>
     <md-card-content>
-        <form (ngSubmit)="onSubmit()" [formGroup]="form" class="app-form">
+        <form (ngSubmit)="onSubmit()"
+            [formGroup]="form"
+            class="app-form">
             <md-input-container class="example-full-width">
-                <input mdInput type="search" placeholder="Nombre" formControlName="name" maxlength="50">
+                <input mdInput
+                    type="search"
+                    placeholder="Nombre"
+                    formControlName="name"
+                    maxlength="50">
             </md-input-container>
-            <button md-mini-fab type="button" (click)="search()" [disabled]="!form.valid" color="primary">
+            <button md-mini-fab
+                type="button"
+                (click)="search()"
+                [disabled]="!form.valid"
+                color="primary"
+                mdTooltip="{{'app.user.common.search' | translate}}">
                 <md-icon>search</md-icon>
             </button>
         </form>
         <md-nav-list>
             <md-list-item *ngFor="let user of usersResult">
                 <h3 md-line>{{user.Name}}</h3>
-                <button md-mini-fab type="button" (click)="addUserAdministratir(user)">
-                    <md-icon>add</md-icon>
-                </button>
+                <md-icon (click)="addUserAdministrator(user)"
+                    class="add"
+                    mdTooltip="{{'app.user.addTooltip' | translate}}"
+                    [mdTooltipPosition]="'above'">add</md-icon>
             </md-list-item>
         </md-nav-list>
     </md-card-content>
     <md-card-actions align="end">
-        <button md-raised-button type="button" (click)="doCancel()">Cancel</button>
+        <button md-raised-button
+            type="button"
+            (click)="doCancel()">Cancel</button>
     </md-card-actions>
 </md-card>

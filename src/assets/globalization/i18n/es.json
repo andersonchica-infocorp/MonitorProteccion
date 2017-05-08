@@ -2,7 +2,7 @@
     "app": {
         "title": "Monitor",
         "language": {
-            "spanish": "Espanol",
+            "spanish": "Español",
             "english": "Ingles"
         },
         "sideNav": {
@@ -21,23 +21,32 @@
             "service": {
                 "title": "Servicios",
                 "description": "Ver servicios"
+            },
+            "retry":{
+                "title": "Reintentos",
+                "description": "Administrar Reintentos"
             }
         },
         "common": {
             "reset": "Limpiar",
             "cancel": "Cancelar",
-            "save": "Guardar"
+            "save": "Guardar",
+            "search": "Buscar"
         },
         "user": {
-            "title": "Administradores"
+            "title": "Administradores",
+            "new": "Nuevo Administrador",
+            "addTooltip": "Agregar administrador",
+            "deleteTooltip": "Eliminar Administrador"
         },
         "master": {
             "application": {
                 "title": "Aplicaciones",
-                "new": "Nueva Aplicacion",
+                "new": "Nueva Aplicación",
                 "name": "Nombre",
-                "description": "Descripcion",
-                "application": "Aplicacion"
+                "description": "Descripción",
+                "application": "Aplicación",
+                "tooltipDelete": "Eliminar Aplicación"
             }
         },
         "report": {
@@ -45,7 +54,7 @@
                 "title": "actual"
             },
             "history": {
-                "title": "Historico"
+                "title": "Histórico"
             }
         }
     }

@@ -11,29 +11,37 @@ import { UserService } from '../../services/user.service';
 })
 export class UserListResultComponent implements OnInit {
 
-usersResult : User[];
-form: FormGroup ;
+  usersResult: User[];
+  form: FormGroup;
+  userAdded: string;
 
   constructor(private route: ActivatedRoute, public fb: FormBuilder,
-    public router: Router, private userService: UserService) { 
+    public router: Router, private userService: UserService) {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],  
+      name: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
     });
   }
 
   ngOnInit() {
   }
 
-doCancel() {
+  doCancel() {
     this.router.navigate(['/user/admin']);
   }
 
-search(){
-  this.userService.getUsersSystem(this.form.controls.name.value).subscribe(
-        usersSystem => {
-          this.usersResult = usersSystem;
-        }
-      )  ;  
-}
+  search() {
+    this.userService.getUsersSystem(this.form.controls.name.value).subscribe(
+      usersSystem => {
+        this.usersResult = usersSystem;
+      }
+    );
+  }
 
+  addUserAdministrator(user: User) {
+    this.userService.addUserAdministrator(user).subscribe(
+      userAdded => {
+        this.userAdded = "";
+      }
+    )
+  }
 }

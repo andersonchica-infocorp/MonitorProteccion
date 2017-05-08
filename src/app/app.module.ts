@@ -8,20 +8,21 @@ import { AuthenticationModule } from './authentication/shared/authentication.mod
 import { MasterModule } from './master/shared/master.module';
 import { UserModule } from './user/shared/user.module';
 import { ReportModule } from './report/shared/report.module';
+import { RetryModule } from './retry/shared/retry.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { SideNavListComponent } from './controls/side-nav-list/side-nav-list.component';
 
-import { routing, appRoutingProviders }  from './app.routing';
+import { routing, appRoutingProviders } from './app.routing';
 import { ChartconceptComponent } from './concept/chartconcept/chartconcept.component';
 
 import { AuthManager } from './authentication/shared/authentication.manage';
 import { AuthService } from './authentication/shared/authentication.service';
-import {TranslateModule, TranslateLoader, TranslateStaticLoader, TranslateService} from 'ng2-translate/ng2-translate';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader, TranslateService } from 'ng2-translate/ng2-translate';
 
 export function createTranslateLoader(http: Http) {
-    return new TranslateStaticLoader(http, '/assets/globalization/i18n', '.json');
+  return new TranslateStaticLoader(http, '/assets/globalization/i18n', '.json');
 }
 
 @NgModule({
@@ -41,21 +42,22 @@ export function createTranslateLoader(http: Http) {
     MasterModule,
     UserModule,
     ReportModule,
+    RetryModule,
     TranslateModule.forRoot({
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [Http]
-        }),
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    }),
   ],
   providers: [AuthManager, AuthService],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
   constructor(translate: TranslateService) {
-          // this language will be used as a fallback when a translation isn't found in the current language
-          translate.setDefaultLang('es');
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translate.setDefaultLang('es');
 
-           // the lang to use, if the lang isn't available, it will use the current loader to get them
-          translate.use('es');
-      }
+    // the lang to use, if the lang isn't available, it will use the current loader to get them
+    translate.use('es');
+  }
 }

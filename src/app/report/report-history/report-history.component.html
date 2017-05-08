@@ -1,9 +1,10 @@
-<md-card class="app-card-content">
-    <md-card-title>{{'app.report.history.title' | translate}}</md-card-title>
-    <md-divider></md-divider>
-    <md-card-content>
-        
-    </md-card-content>
-    <md-card-actions align="end">
-    </md-card-actions>
-</md-card>
+<div>
+    <canvas baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+</div>

@@ -21,15 +21,23 @@
             "service": {
                 "title": "Services",
                 "description": "Administrate Services"
+            },
+            "retry":{
+                "title": "Retries",
+                "description": "Adminitrate retries"
             }
         },
         "common": {
             "reset": "Limpiar1",
             "cancel": "Cancela1r",
-            "save": "Guarda1r"
+            "save": "Guarda1r",
+            "search": "Search"
         },
         "user": {
-            "title": "Adminis1tradores"
+            "title": "Adminis1tradores",
+            "new": "New Administrator",
+            "addTooltip": "Add administrator",
+            "deleteTooltip": "Delete User"
         },
         "master": {
             "application": {
@@ -37,7 +45,8 @@
                 "new": "Nueva Apl1icacion",
                 "name": "No1mbre",
                 "description": "Desc1ripcion",
-                "application": "Apli1cacion"
+                "application": "Apli1cacion",
+                "tooltipDelete": "Delete application"
             }
         },
         "report": {

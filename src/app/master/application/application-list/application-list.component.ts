@@ -19,17 +19,16 @@ export class ApplicationListComponent implements OnInit {
   constructor(private route: ActivatedRoute, private applicationService: ApplicationService) { }
 
   ngOnInit() {
-  	this.getApplications();
-  	
-  	//this.editid = 0;
+    this.getApplications();
+
+    //this.editid = 0;
   }
 
-  getApplications(){
-  	this.applicationService.getApplications().subscribe(
-  			applications => {
-  				this.applications = applications;
-  			}
-  		)  	
+  getApplications() {
+    this.applicationService.getApplications().subscribe(
+      applications => {
+        this.applications = applications;
+      }
+    )
   }
-
 }

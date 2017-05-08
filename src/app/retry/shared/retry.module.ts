@@ -2,15 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MasterRouting } from './master.rounting';
-import { ApplicationService } from '../../services/application.service';
+import { RetryRouting } from './retry.routing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 import { MaterialModule } from '@angular/material';
 
-import { ApplicationListComponent } from '../application/application-list/application-list.component';
-import { ApplicationComponent } from '../application/application/application.component';
-import { ApplicationDetailComponent } from '../application/application-detail/application-detail.component';
+import { AdminRetryComponent } from '../admin-retry/admin-retry.component';
 
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 
@@ -18,19 +16,17 @@ import { TranslateModule } from 'ng2-translate/ng2-translate';
   imports: [
     CommonModule,
     FormsModule,
-    MasterRouting,
+    RetryRouting,
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
     TranslateModule
   ],
   declarations: [
-    ApplicationListComponent,
-    ApplicationComponent,
-    ApplicationDetailComponent
+    AdminRetryComponent
   ],
   providers: [
-    ApplicationService
+    UserService
   ]
 })
-export class MasterModule { }
+export class RetryModule { }

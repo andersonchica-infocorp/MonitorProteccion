@@ -1,1 +1,22 @@
-md-tab-group { height: 100%; }
+md-tab-group {
+    height: 100%;
+}
+
+.card-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+md-card {
+    box-sizing: border-box;
+    margin: 12px;
+}
+
+.actual {
+    flex: 1;
+}
+
+.history {
+	flex: 2;
+}

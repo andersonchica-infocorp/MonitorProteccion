@@ -1,43 +1,57 @@
 <md-sidenav-container fullscreen>
-    <md-sidenav #sidenav mode="side">
+    <md-sidenav #sidenav
+        mode="over">
         <md-nav-list class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a md-list-item (click)="goTo('user/admin')">
+            <a md-list-item
+                (click)="goTo('user/admin')">
                 <md-icon md-list-icon>people</md-icon>
                 <span md-line>{{'app.sideNav.user.title' | translate}}</span>
-                <span md-line class="secondary">{{'app.sideNav.user.description' | translate}}</span>
+                <span md-line
+                    class="secondary">{{'app.sideNav.user.description' | translate}}</span>
             </a>
-             <a md-list-item (click)="goTo('master/application')">
+            <a md-list-item
+                (click)="goTo('master/application')">
                 <md-icon md-list-icon>apps</md-icon>
                 <span md-line>{{'app.sideNav.application.title' | translate}}</span>
-                <span md-line class="secondary">{{'app.sideNav.application.description' | translate}}</span>
+                <span md-line
+                    class="secondary">{{'app.sideNav.application.description' | translate}}</span>
             </a>
-             <a md-list-item (click)="goTo('master/service')">
-                <md-icon md-list-icon>group_work</md-icon>
-                <span md-line>{{'app.sideNav.service.title' | translate}}</span>
-                <span md-line class="secondary">{{'app.sideNav.service.description' | translate}}</span>
-            </a>
-             <a md-list-item (click)="goTo('report/history')">
+            <a md-list-item
+                (click)="goTo('report/history')">
                 <md-icon md-list-icon>poll</md-icon>
                 <span md-line>{{'app.sideNav.report.title' | translate}}</span>
-                <span md-line class="secondary">{{'app.sideNav.report.description' | translate}}</span>
+                <span md-line
+                    class="secondary">{{'app.sideNav.report.description' | translate}}</span>
+            </a>
+            <a md-list-item
+                (click)="goTo('retry')">
+                <md-icon md-list-icon>call_missed_outgoing
+                </md-icon>
+                <span md-line>{{'app.sideNav.retry.title' | translate}}</span>
+                <span md-line
+                    class="secondary">{{'app.sideNav.retry.description' | translate}}</span>
             </a>
         </md-nav-list>
     </md-sidenav>
     <md-toolbar color="primary">
-        <button md-icon-button (click)="sidenav.toggle()">
+        <button md-icon-button
+            (click)="sidenav.toggle()">
             <md-icon>menu</md-icon>
         </button>
         {{'app.title' | translate}}
         <span class="example-spacer"></span>
-        <button md-icon-button [mdMenuTriggerFor]="menu">
+        <button md-icon-button
+            [mdMenuTriggerFor]="menu">
             <md-icon>language</md-icon>
         </button>
         <md-menu #menu="mdMenu">
-            <button md-menu-item (click)="changeLanguage('es')">
+            <button md-menu-item
+                (click)="changeLanguage('es')">
                 <md-icon>dialpad</md-icon>
                 <span>{{'app.language.spanish'| translate}}</span>
             </button>
-            <button md-menu-item (click)="changeLanguage('en')">
+            <button md-menu-item
+                (click)="changeLanguage('en')">
                 <md-icon>voicemail</md-icon>
                 <span>{{'app.language.english' | translate}}</span>
             </button>

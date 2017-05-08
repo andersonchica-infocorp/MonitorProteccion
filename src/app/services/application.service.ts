@@ -27,7 +27,7 @@ export class ApplicationService {
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Accept', 'application/json; charset=utf-8');
 
-    return this.http.get(url,{
+    return this.http.get(url, {
       headers
     }).map(response => {
       return this.applications;

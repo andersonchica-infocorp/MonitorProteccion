@@ -10,20 +10,28 @@ import { UserService } from '../../services/user.service';
 })
 export class UserListAdminComponent implements OnInit {
 
-usersAdministratos : User[];
+  userDeleted: boolean;
+  usersAdministratos: User[];
 
   constructor(private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
-  	this.getUsersAdministrators();
+    this.getUsersAdministrators();
   }
 
-getUsersAdministrators(){
-	this.userService.getUsersAdministrators().subscribe(
-  			usersAdministratos => {
-  				this.usersAdministratos = usersAdministratos;
-  			}
-  		)  ;	
-}
+  getUsersAdministrators() {
+    this.userService.getUsersAdministrators().subscribe(
+      usersAdministratos => {
+        this.usersAdministratos = usersAdministratos;
+      }
+    );
+  }
 
+  deleteUser(user: User) {
+    this.userService.deleteUser(user).subscribe(
+      userDeleted => {
+        this.userDeleted = userDeleted;
+      }
+    );
+  }
 }

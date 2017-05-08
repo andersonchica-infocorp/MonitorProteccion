@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {TranslateService} from 'ng2-translate';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'app-root',
@@ -11,20 +11,20 @@ export class AppComponent {
   title = 'app works!';
 
 
- constructor(private router: Router, private translate: TranslateService){
-   
- }
+  constructor(private router: Router, private translate: TranslateService) {
 
-goTo(path:string){
+  }
+
+  goTo(path: string) {
     this.router.navigate([path]);
   }
 
-    views: Object[] = [
+  views: Object[] = [
     {
       name: "Administrar Usuario",
       description: "",
       icon: "people",
-      link:"user/admin"
+      link: "user/admin"
     },
     {
       name: "Aplicaciones",
@@ -40,7 +40,7 @@ goTo(path:string){
     }
   ];
 
-  changeLanguage(language : string){
+  changeLanguage(language: string) {
     this.translate.use(language);
   }
 }

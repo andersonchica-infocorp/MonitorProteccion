@@ -1,4 +1,4 @@
-import { ModuleWithProviders }  from '@angular/core';
+import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UserListAdminComponent } from '../user-list-admin/user-list-admin.component';
@@ -7,11 +7,12 @@ import { UserComponent } from '../user/user.component';
 
 import { AuthManager } from '../../authentication/shared/authentication.manage';
 
-const registerRoutes: Routes = [
-  { path: 'user/admin',  component: UserComponent, canActivate: [AuthManager] ,
-	  children:[
-	  		{ path:'', component: UserListAdminComponent }
-	  	],
+const userRoutes: Routes = [
+  {
+    path: 'user/admin', component: UserComponent, canActivate: [AuthManager],
+    children: [
+      { path: '', component: UserListAdminComponent }
+    ],
   },
   {
     path: 'user/admin/new', component: UserComponent,
@@ -29,4 +30,4 @@ const registerRoutes: Routes = [
   },
 ];
 
-export const UserRouting: ModuleWithProviders = RouterModule.forChild(registerRoutes);
+export const UserRouting: ModuleWithProviders = RouterModule.forChild(userRoutes);

@@ -7,17 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportActualComponent implements OnInit {
 
-// Pie
-  public pieChartLabels:string[] = ['Error', 'Succes'];
-  public pieChartData:number[] = [300, 500];
-  public pieChartType:string = 'pie';
-  public lineChartColors:Array<any> =[{ backgroundColor: ["green", "blue"] }];
+  // Pie
+  public pieChartLabels: string[] = ['Error', 'Satisfactorio'];
+  public pieChartData: number[] = [300, 500];
+  public pieChartType: string = 'pie';
+  public lineChartColors: Array<any> = [{ backgroundColor: ["#E94E4E", "#5ADCEB"] }];
 
   constructor() {
-      
+
   }
 
   ngOnInit() {
   }
-
 }

@@ -14,6 +14,13 @@ export class UserService {
     { Id: 4, Name: 'User 4', }
   ];
 
+  private usersInsert: User[] = [
+    { Id: 5, Name: 'userInsert 1', },
+    { Id: 6, Name: 'userInsert 2', },
+    { Id: 7, Name: 'userInsert 3', },
+    { Id: 8, Name: 'userInsert 4', }
+  ];
+
 
   constructor(private http: Http) {
 
@@ -27,14 +34,14 @@ export class UserService {
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Accept', 'application/json; charset=utf-8');
 
-    return this.http.get(url,{
+    return this.http.get(url, {
       headers
     }).map(response => {
       return this.users;
     });
   }
 
-  getUsersSystem(user: string ): Observable<User[]> {
+  getUsersSystem(user: string): Observable<User[]> {
 
     var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
     var headers = new Headers();
@@ -42,10 +49,40 @@ export class UserService {
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Accept', 'application/json; charset=utf-8');
 
-    return this.http.get(url,{
+    return this.http.get(url, {
       headers
     }).map(response => {
-      return this.users;
+      return this.usersInsert;
+    });
+  }
+
+  addUserAdministrator(user: User): Observable<string> {
+    var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
+    var headers = new Headers();
+
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+    headers.append('Accept', 'application/json; charset=utf-8');
+
+    return this.http.get(url, {
+      headers
+    }).map(response => {
+      this.users.push(user);
+      return "success";
+    });
+  }
+
+  deleteUser(user: User): Observable<boolean> {
+    var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
+    var headers = new Headers();
+
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+    headers.append('Accept', 'application/json; charset=utf-8');
+
+    return this.http.get(url, {
+      headers
+    }).map(response => {
+      this.users = this.users.filter(item => item.Name.indexOf(user.Name) != 0);
+      return true;
     });
   }
 }

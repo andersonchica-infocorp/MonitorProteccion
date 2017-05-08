@@ -1,6 +1,6 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
-import { FormsModule }    from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReportRouting } from './report.routing';
@@ -21,13 +21,13 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ReportRouting,
     BrowserAnimationsModule,
     MaterialModule,
-    TranslateModule,  
-    ChartsModule  
+    TranslateModule,
+    ChartsModule
   ],
   declarations: [
     ReportActualComponent,
     ReportHistoryComponent,
-    ReportComponent,    
+    ReportComponent,
   ],
   providers: [
   ]
