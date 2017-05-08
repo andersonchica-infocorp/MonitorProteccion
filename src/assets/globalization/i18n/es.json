@@ -22,7 +22,7 @@
                 "title": "Servicios",
                 "description": "Ver servicios"
             },
-            "retry":{
+            "retry": {
                 "title": "Reintentos",
                 "description": "Administrar Reintentos"
             }
@@ -56,6 +56,16 @@
             "history": {
                 "title": "Histórico"
             }
+        },
+        "retry": {
+            "filter": "Filtros",
+            "result": "Resultados",
+            "applications": "Aplicaciones",
+            "services": "Servicios",
+            "message": "Message Id",
+            "initialDate": "Fecha Inicial",
+            "finalDate": "Fecha Final",
+            "consumer": "Consumidor"
         }
     }
 }
