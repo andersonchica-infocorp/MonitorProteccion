@@ -1,5 +1,5 @@
 export interface Service {
 	Id: number,
-	Origen: string,
+	Name: string,
 	Description?: string;
 }

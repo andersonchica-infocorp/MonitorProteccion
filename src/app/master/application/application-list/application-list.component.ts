@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ApplicationService } from '../../../services/application.service';
 
-import { Application } from '../../../Model/application.model'
+import { Application } from '../../../Model/application.model';
 import 'rxjs/add/operator/pluck';
 
 @Component({

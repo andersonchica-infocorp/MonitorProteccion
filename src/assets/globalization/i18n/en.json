@@ -31,7 +31,9 @@
             "reset": "Limpiar1",
             "cancel": "Cancela1r",
             "save": "Guarda1r",
-            "search": "Search"
+            "search": "Search",
+            "retry": "Retry",
+            "refresh": "Refresh"
         },
         "user": {
             "title": "Adminis1tradores",
@@ -65,7 +67,16 @@
             "message": "Message Id",
             "initialDate": "Initial Date",
             "finalDate": "Final Date",
-            "consumer": "Consumer"
+            "consumer": "Consumer",
+            "transactions": "Transactions",
+            "results": {
+                "consumer": "Consumer",
+                "application": "Application",
+                "service": "Service",
+                "messageId": "Message Id",
+                "initialDate": "Initial Date",
+                "finalDate": "Final Date"
+            }
         }
 
     }

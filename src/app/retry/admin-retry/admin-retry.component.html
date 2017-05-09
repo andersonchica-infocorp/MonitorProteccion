@@ -4,14 +4,18 @@
         <md-divider></md-divider>
         <md-card-content>
             <form (ngSubmit)="onSubmit()"
-                [formGroup]="form" class="form_container">
-                <md-select placeholder="{{'app.retry.applications' | translate}}" class="item">
+                [formGroup]="form">
+                <md-select placeholder="{{'app.retry.applications' | translate}}"
+                    class="item"
+                    formControlName="application">
                     <md-option *ngFor="let application of applications"
-                        [value]="application.Id">{{ application.Name }} formControlName="application"</md-option>
+                        [value]="application.Id">{{ application.Name }}</md-option>
                 </md-select>
-                <md-select placeholder="{{'app.retry.services' | translate}}" class="item">
+                <md-select placeholder="{{'app.retry.services' | translate}}"
+                    class="item"
+                    formControlName="serviceControl">
                     <md-option *ngFor="let service of services"
-                        [value]="service.Id">{{ service.Name }} formControlName="service"
+                        [value]="service.Id">{{ service.Name }}
                     </md-option>
                 </md-select>
                 <md-input-container class="item">
@@ -46,18 +50,70 @@
             <button md-mini-fab
                 type="button"
                 (click)="search()"
-                [disabled]="!form.valid"
+                [disabled]="false"
                 color="primary"
                 mdTooltip="{{'app.common.search' | translate}}">
                 <md-icon>search</md-icon>
             </button>
         </md-card-actions>
     </md-card>
-    <md-card class="result" *ngIf="services.length >0">
-        <md-card-title>{{'app.retry.result' | translate}}</md-card-title>
-        <md-divider></md-divider>
+    <md-card class="result"
+        *ngIf="transactions">
         <md-card-content>
-
+            <p-dataTable [value]="transactions"
+                expandableRows="true">
+                <p-header>{{'app.retry.transactions' | translate}}</p-header>
+                <p-column expander="true"
+                    [style]="{'width':'40px'}"
+                    styleClass="col-icon"></p-column>
+                <p-column field="ApplicationId"
+                    header="{{'app.retry.results.application' | translate}}"></p-column>
+                <p-column field="ServiceId"
+                    header="{{'app.retry.results.service' | translate}}"></p-column>
+                <p-column field="Consumer"
+                    header="{{'app.retry.results.consumer' | translate}}"></p-column>
+                <p-column field="MessageId"
+                    header="{{'app.retry.results.messageId' | translate}}"></p-column>
+                <p-column field="InitialDate"
+                    header="{{'app.retry.results.initialDate' | translate}}"></p-column>
+                <p-column field="FinalDate"
+                    header="{{'app.retry.results.finalDate' | translate}}"></p-column>
+                <p-column styleClass="col-button"
+                    [style]="{'width':'40px'}">
+                    <ng-template pTemplate="header">
+                        <md-icon md-list-icon
+                            (click)="refreshTransactions()"
+                            mdTooltip="{{'app.common.refresh' | translate}}">refresh</md-icon>
+                    </ng-template>
+                    <ng-template let-transactionTemplate2="rowData"
+                        pTemplate="body">
+                        <md-icon md-list-icon
+                            (click)="showTransactionsTransaction(transactionTemplate)"
+                            mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
+                    </ng-template>
+                </p-column>
+                <ng-template let-transactionTemplate
+                    pTemplate="rowexpansion">
+                    <p-dataTable [value]="transactionTemplate.Transactions">
+                        <p-column field="ApplicationId"
+                            header="{{'app.retry.results.application' | translate}}"></p-column>
+                        <p-column field="ServiceId"
+                            header="{{'app.retry.results.service' | translate}}"></p-column>
+                        <p-column field="Consumer"
+                            header="{{'app.retry.results.consumer' | translate}}"></p-column>
+                        <p-column field="MessageId"
+                            header="{{'app.retry.results.messageId' | translate}}"></p-column>
+                        <p-column field="InitialDate"
+                            header="{{'app.retry.results.initialDate' | translate}}"></p-column>
+                        <p-column field="FinalDate"
+                            header="{{'app.retry.results.finalDate' | translate}}"></p-column>
+                    </p-dataTable>
+                </ng-template>
+            </p-dataTable>
+            <p-paginator rows="10"
+                [totalRecords]="cantidad"
+                pageLinkSize="5"
+                (onPageChange)="paginate($event)"></p-paginator>
         </md-card-content>
         <md-card-actions align="end">
         </md-card-actions>

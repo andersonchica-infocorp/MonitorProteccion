@@ -1,6 +1,6 @@
 .card-container {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     justify-content: space-between;
 }
 
@@ -15,7 +15,7 @@ md-card {
 }
 
 .result{
-	flex: 3;
+	flex: 1;
 }
 
 .form_container{
@@ -27,5 +27,5 @@ md-card {
 .item{
 	flex: 1;
 	margin: 5px;
-	padding: 5px;
+	padding: 10px;
 }

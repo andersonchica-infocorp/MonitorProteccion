@@ -31,7 +31,9 @@
             "reset": "Limpiar",
             "cancel": "Cancelar",
             "save": "Guardar",
-            "search": "Buscar"
+            "search": "Buscar",
+            "retry": "Reintentar",
+            "refresh": "Refrescar"
         },
         "user": {
             "title": "Administradores",
@@ -65,7 +67,16 @@
             "message": "Message Id",
             "initialDate": "Fecha Inicial",
             "finalDate": "Fecha Final",
-            "consumer": "Consumidor"
+            "consumer": "Consumidor",
+            "transactions": "Transacciones",
+            "results": {
+                "consumer": "Consumidor",
+                "application": "Aplicación",
+                "service": "Servicio",
+                "messageId": "Message Id",
+                "initialDate": "Fecha Inicial",
+                "finalDate": "Fecha Final"
+            }
         }
     }
 }

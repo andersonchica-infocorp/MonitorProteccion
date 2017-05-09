@@ -3,6 +3,7 @@ import { Application } from '../Model/application.model'
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxJs';
 import { AppConfigService } from './app-config.service';
+import { Service } from '../Model/service.model';
 
 @Injectable()
 export class ApplicationService {
@@ -12,6 +13,13 @@ export class ApplicationService {
     { Id: 2, Name: 'Application 2', },
     { Id: 3, Name: 'Application 3', },
     { Id: 4, Name: 'Application 4', }
+  ];
+
+  private services: Service[] = [
+    { Id: 1, Name: 'Service 1', },
+    { Id: 2, Name: 'Service 2', },
+    { Id: 3, Name: 'Service 3', },
+    { Id: 4, Name: 'Service 4', }
   ];
 
 
@@ -33,6 +41,20 @@ export class ApplicationService {
       return this.applications;
     });
   }
+
+getServices(): Observable<Service[]>{
+  var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
+    var headers = new Headers();
+
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+    headers.append('Accept', 'application/json; charset=utf-8');
+
+    return this.http.get(url, {
+      headers
+    }).map(response => {
+      return this.services;
+    });
+}
 
   /*dragonsDetails(id): Dragon {
     let list = this.dragons.filter(d => d.id === id);
