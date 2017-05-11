@@ -4,22 +4,24 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxJs';
 import { AppConfigService } from './app-config.service';
 import { Service } from '../Model/service.model';
+import {User } from '../Model/user.model';
+
 
 @Injectable()
 export class ApplicationService {
 
   private applications: Application[] = [
-    { Id: 1, Name: 'Application 1', },
-    { Id: 2, Name: 'Application 2', },
-    { Id: 3, Name: 'Application 3', },
-    { Id: 4, Name: 'Application 4', }
+    { id: 1, name: 'Application 1', },
+    { id: 2, name: 'Application 2', },
+    { id: 3, name: 'Application 3', },
+    { id: 4, name: 'Application 4', }
   ];
 
   private services: Service[] = [
-    { Id: 1, Name: 'Service 1', },
-    { Id: 2, Name: 'Service 2', },
-    { Id: 3, Name: 'Service 3', },
-    { Id: 4, Name: 'Service 4', }
+    { id: 1, name: 'Service 1', },
+    { id: 2, name: 'Service 2', },
+    { id: 3, name: 'Service 3', },
+    { id: 4, name: 'Service 4', }
   ];
 
 
@@ -27,7 +29,7 @@ export class ApplicationService {
 
   }
 
-  getApplications(): Observable<Application[]> {
+  getApplications(): Observable<User> {
 
     var url = `${AppConfigService.config.webApiUrl}/applications`;
     var headers = new Headers();
@@ -38,7 +40,7 @@ export class ApplicationService {
     return this.http.get(url, {
       headers
     }).map(response => {
-      return this.applications;
+      return response.json() as User;
     });
   }
 

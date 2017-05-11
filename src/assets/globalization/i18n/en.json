@@ -33,7 +33,7 @@
             "save": "Guarda1r",
             "search": "Search",
             "retry": "Retry",
-            "refresh": "Refresh",
+            "refresh": "Refresh"
         },
         "user": {
             "title": "Adminis1tradores",
@@ -81,9 +81,11 @@
                 "service": "Service",
                 "messageId": "Message Id",
                 "initialDate": "Initial Date",
-                "finalDate": "Final Date"
+                "finalDate": "Final Date",
+                "transaction": "Transaction",
+                "errorType": "Error Type",
+                "error": "Error"
             }
         }
-
     }
 }

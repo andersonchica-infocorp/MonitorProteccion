@@ -8,17 +8,17 @@ import { AppConfigService } from './app-config.service';
 export class UserService {
 
   private users: User[] = [
-    { Id: 1, Name: 'User 1', },
-    { Id: 2, Name: 'User 2', },
-    { Id: 3, Name: 'User 3', },
-    { Id: 4, Name: 'User 4', }
+    { id: 1, name: 'User 1' },
+    { id: 2, name: 'User 2' },
+    { id: 3, name: 'User 3' },
+    { id: 4, name: 'User 4' }
   ];
 
   private usersInsert: User[] = [
-    { Id: 5, Name: 'userInsert 1', },
-    { Id: 6, Name: 'userInsert 2', },
-    { Id: 7, Name: 'userInsert 3', },
-    { Id: 8, Name: 'userInsert 4', }
+    { id: 5, name: 'userInsert 1', },
+    { id: 6, name: 'userInsert 2', },
+    { id: 7, name: 'userInsert 3', },
+    { id: 8, name: 'userInsert 4', }
   ];
 
 
@@ -81,7 +81,7 @@ export class UserService {
     return this.http.get(url, {
       headers
     }).map(response => {
-      this.users = this.users.filter(item => item.Name.indexOf(user.Name) != 0);
+      this.users = this.users.filter(item => item.name.indexOf(user.name) != 0);
       return true;
     });
   }

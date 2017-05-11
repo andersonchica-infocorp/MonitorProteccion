@@ -1,9 +1,10 @@
 <div>
     <canvas baseChart
-        [data]="pieChartData"
-        [labels]="pieChartLabels"
-        [chartType]="pieChartType"
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
         (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)"
-        [colors]="lineChartColors"></canvas>
+        (chartClick)="chartClicked($event)"></canvas>
 </div>

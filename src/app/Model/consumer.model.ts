@@ -1,7 +1,6 @@
-export class Service {
+export class Consumer {
 
 	constructor(
-		public id: number,
 		public name: string
 		) { }
 }

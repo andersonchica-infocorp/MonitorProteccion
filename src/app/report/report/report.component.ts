@@ -1,5 +1,6 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-
+import { DashboardService } from '../../services/dashboard.service';
+import { Dashboard } from '../../Model/dashboard.model';
 
 @Component({
 	selector: 'app-report',
@@ -7,9 +8,15 @@ import { Component, OnInit, NgModule } from '@angular/core';
 	styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
+	dashboard: Dashboard;
 
-	constructor() { }
+	constructor(private dashboardService: DashboardService) {
+		this.dashboardService.getDashboard().subscribe(
+			dashboard => this.dashboard = dashboard
+		);
+	}
 
 	ngOnInit() {
+
 	}
 }

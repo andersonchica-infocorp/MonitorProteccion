@@ -3,9 +3,10 @@
         <md-list>
             <md-list-item *ngFor="let application of applications">
                 <h3 md-line
-                    [class.edited]="application.Id == (editid | async)"
+                    [class.edited]="application.id == (editid | async)"
                     routerLinkActive="active"
-                    [routerLink]="[ '/master/application',application.Id ]">{{application.Name}}</h3>
+                    (click)='selectApplication(application)'
+                    [routerLink]="[ '/master/application',application.id ]">{{application.name}}</h3>
                 <md-icon (click)="delete(application)"
                     class="delete"
                     mdTooltip="{{'app.master.application.tooltipDelete' | translate}}"

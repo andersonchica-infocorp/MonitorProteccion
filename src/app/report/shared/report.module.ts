@@ -12,6 +12,9 @@ import { ReportActualComponent } from '../report-actual/report-actual.component'
 import { ReportHistoryComponent } from '../report-history/report-history.component';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 
+import { DashboardService } from '../../services/dashboard.service';
+
+
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
@@ -30,6 +33,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ReportComponent,
   ],
   providers: [
+    DashboardService
   ]
 })
 export class ReportModule { }

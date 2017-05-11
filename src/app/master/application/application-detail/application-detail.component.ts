@@ -6,6 +6,7 @@ import 'rxjs/add/operator/pluck';
 import { ApplicationService } from '../../../services/application.service';
 import { Service } from '../../../Model/service.model';
 
+import { ApplicationComponentService } from '../../shared/application.component.service';
 
 import { Application } from '../../../Model/application.model';
 
@@ -17,7 +18,7 @@ import { Application } from '../../../Model/application.model';
 export class ApplicationDetailComponent implements OnInit {
 
   id: number = null;
-  initialdata: Application = null;
+  initialdata: Application;
   serviceName: string = null;
 
   form: FormGroup;
@@ -25,28 +26,21 @@ export class ApplicationDetailComponent implements OnInit {
   pleaseSave: boolean = false;
 
   constructor(private route: ActivatedRoute, public fb: FormBuilder,
-    public router: Router, private applicationService: ApplicationService) {
+    public router: Router, private applicationService: ApplicationService,
+    public applicationComponentService: ApplicationComponentService) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.maxLength(150)]],
       serviceName: ''
     });
-
-    this.createForm(new Application(0, "", "", []));
   }
 
   ngOnInit() {
-  	/*this.route.data.pluck<Application>('details')
-      .subscribe(d => {
-        this.pleaseSave = false;
-        this.id = d ? d.id : null;
-        if (this.form) {
-          this.updateForm(d);
-        } else {
-          this.createForm(d);
-        }
-        //this.getfocus.focus();
-      });*/
+    this.route.params.subscribe(params => {
+      this.id = +params['id'];
+      this.initialdata = this.applicationComponentService.applicationSelected$;
+      console.log(this.initialdata);
+    });
   }
 
   doCancel() {
@@ -84,7 +78,10 @@ export class ApplicationDetailComponent implements OnInit {
   }
 
   addService(serviceName: string) {
-console.log(serviceName);
-    this.initialdata.Services.push(new Service(0, serviceName));
+    this.initialdata.services.push(new Service(0, serviceName));
+  }
+
+  onSubmit() {
+    console.log(this.form.value);
   }
 }

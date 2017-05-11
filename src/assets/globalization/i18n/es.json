@@ -59,7 +59,7 @@
         },
         "report": {
             "actual": {
-                "title": "actual"
+                "title": "Actual"
             },
             "history": {
                 "title": "Histórico"
@@ -81,7 +81,10 @@
                 "service": "Servicio",
                 "messageId": "Message Id",
                 "initialDate": "Fecha Inicial",
-                "finalDate": "Fecha Final"
+                "finalDate": "Fecha Final",
+                "transaction": "Transacción",
+                "errorType": "Tipo Error",
+                "error": "Error"
             }
         }
     }

@@ -3,32 +3,34 @@ import { Transaction } from '../Model/transaction.model'
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxJs';
 import { AppConfigService } from './app-config.service';
+import { ParentTransaction } from '../Model/parentTransaction.model';
+
 
 @Injectable()
 export class TransactionService {
-
+/*
   private transactionsB: Transaction[] = [
-    { Id: 1, ApplicationId: 2, ServiceId: 3, Consumer: "1 Transaction", MessageId: 1 },
-    { Id: 2, ApplicationId: 1, ServiceId: 4, Consumer: "2 Transaction", MessageId: 1 },
-    { Id: 3, ApplicationId: 4, ServiceId: 1, Consumer: "3 Transaction", MessageId: 1 }];
+    { id: 1, applicationId: 2, serviceId: 3, consumer: "1 Transaction", messageId: 1 },
+    { id: 2, applicationId: 1, serviceId: 4, consumer: "2 Transaction", messageId: 1 },
+    { id: 3, applicationId: 4, serviceId: 1, consumer: "3 Transaction", messageId: 1 }];
 
   private transactions: Transaction[] = [
-    { Id: 1, ApplicationId: 2, ServiceId: 3, Consumer: "1", MessageId: 1, Transactions: this.transactionsB },
-    { Id: 1, ApplicationId: 2, ServiceId: 3, Consumer: "1", MessageId: 1 },
-    { Id: 1, ApplicationId: 2, ServiceId: 3, Consumer: "1", MessageId: 1 },
-    { Id: 1, ApplicationId: 2, ServiceId: 3, Consumer: "1", MessageId: 1 },
-    { Id: 1, ApplicationId: 2, ServiceId: 3, Consumer: "1", MessageId: 1 },
-    { Id: 1, ApplicationId: 2, ServiceId: 3, Consumer: "1", MessageId: 1 },
-    { Id: 1, ApplicationId: 2, ServiceId: 3, Consumer: "1", MessageId: 1 },
-    { Id: 1, ApplicationId: 2, ServiceId: 3, Consumer: "1", MessageId: 1 }];
+    { id: 1, applicationId: 2, serviceId: 3, consumer: "1", messageId: 1, transactions: this.transactionsB },
+    { id: 1, applicationId: 2, serviceId: 3, consumer: "1", messageId: 1 },
+    { id: 1, applicationId: 2, serviceId: 3, consumer: "1", messageId: 1 },
+    { id: 1, applicationId: 2, serviceId: 3, consumer: "1", messageId: 1 },
+    { id: 1, applicationId: 2, serviceId: 3, consumer: "1", messageId: 1 },
+    { id: 1, applicationId: 2, serviceId: 3, consumer: "1", messageId: 1 },
+    { id: 1, applicationId: 2, serviceId: 3, consumer: "1", messageId: 1 },
+    { id: 1, applicationId: 2, serviceId: 3, consumer: "1", messageId: 1 }];*/
 
   constructor(private http: Http) {
 
   }
 
-  getTransactions(applicationId : number, serviceId: number, consumer: string, messageId: number, initialDate: Date, finalDate: Date): Observable<Transaction[]> {
+  getTransactions(applicationId: number, serviceId: number, consumer: string, messageId: number, initialDate: Date, finalDate: Date, page: number, rows: number): Observable<ParentTransaction> {
 
-    var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
+    var url = `${AppConfigService.config.webApiUrl}/parentTransactions?app=` + applicationId + "&service=" + serviceId + "&page=" + page + "&rows=" + rows;
     var headers = new Headers();
 
     headers.append('Content-Type', 'application/json; charset=utf-8');
@@ -37,8 +39,7 @@ export class TransactionService {
     return this.http.get(url, {
       headers
     }).map(response => {
-      console.log([applicationId, serviceId, consumer, messageId, initialDate, finalDate]);
-      return this.transactions;
+      return response.json() as ParentTransaction;
     });
   }
 }

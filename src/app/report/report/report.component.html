@@ -1,18 +1,20 @@
 <div class="card-container">
-    <md-card class="actual">
+    <md-card class="actual"
+        *ngIf="dashboard">
         <md-card-title>{{'app.report.actual.title' | translate}}</md-card-title>
         <md-divider></md-divider>
         <md-card-content>
-            <app-report-actual></app-report-actual>
+            <app-report-actual [actual]="dashboard.actual"></app-report-actual>
         </md-card-content>
         <md-card-actions align="end">
         </md-card-actions>
     </md-card>
-    <md-card class="history">
+    <md-card class="history"
+        *ngIf="dashboard">
         <md-card-title>{{'app.report.history.title' | translate}}</md-card-title>
         <md-divider></md-divider>
         <md-card-content>
-            <app-report-history></app-report-history>
+            <app-report-history [history]="dashboard.history"></app-report-history>
         </md-card-content>
         <md-card-actions align="end">
         </md-card-actions>

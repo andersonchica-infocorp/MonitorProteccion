@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { History } from '../../Model/history.model';
+import { BarChartData } from '../../Model/barChartData.model';
 
 @Component({
   selector: 'app-report-history',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./report-history.component.scss']
 })
 export class ReportHistoryComponent implements OnInit {
+
+@Input() history: History[];
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -15,35 +19,22 @@ export class ReportHistoryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.history != null) {
+      let count = 0;
+      this.history.forEach(element => {
+        this.barChartLabels[count] = element.category;
+        this.barChartData[0].data[count] = element.nok;
+        this.barChartData[1].data[count] = element.ok;
+      });
+    }
   }
 
-  public barChartLabels: string[] = ['2006 - Enero', '2006 - Febrero', '2006 - Marzo', '2006 - Abril', '2006 - Mayo', '2006 - Junio'];
+  public barChartLabels: string[] = [];
   public barChartType: string = 'bar';
   public barChartLegend: boolean = true;
 
   public barChartData: any[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Error' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Satisfactorio' }
+    { data: [], label: 'Error' },
+    { data: [], label: 'Satisfactorio' }
   ];
-
-  public randomize(): void {
-    // Only Change 3 values
-    let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-    /**
-     * (My guess), for Angular to recognize the change in the dataset
-     * it has to change the dataset variable directly,
-     * so one way around it, is to clone the data, change it and then
-     * assign it;
-     */
-  }
 }

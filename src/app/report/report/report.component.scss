@@ -5,12 +5,16 @@ md-tab-group {
 .card-container {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 md-card {
     box-sizing: border-box;
     margin: 12px;
+    max-width: 740px;
+    max-height: 600x;
+    min-width: 740px;
+    min-height: 600x;
 }
 
 .actual {
@@ -18,5 +22,5 @@ md-card {
 }
 
 .history {
-	flex: 2;
+    flex: 1;
 }

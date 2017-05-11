@@ -13,6 +13,9 @@ import { ApplicationComponent } from '../application/application/application.com
 import { ApplicationDetailComponent } from '../application/application-detail/application-detail.component';
 
 import { ServiceListComponent } from '../service/service-list/service-list.component';
+import { ApplicationComponentService } from './application.component.service';
+
+
 
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 
@@ -33,7 +36,8 @@ import { TranslateModule } from 'ng2-translate/ng2-translate';
     ServiceListComponent
   ],
   providers: [
-    ApplicationService
+    ApplicationService,
+    ApplicationComponentService
   ]
 })
 export class MasterModule { }

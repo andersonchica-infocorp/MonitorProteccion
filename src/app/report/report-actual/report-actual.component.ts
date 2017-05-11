@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Actual } from '../../Model/actual.model';
+import { BarChartData } from '../../Model/barChartData.model';
 
 @Component({
   selector: 'app-report-actual',
@@ -7,16 +9,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportActualComponent implements OnInit {
 
-  // Pie
-  public pieChartLabels: string[] = ['Error', 'Satisfactorio'];
-  public pieChartData: number[] = [300, 500];
-  public pieChartType: string = 'pie';
-  public lineChartColors: Array<any> = [{ backgroundColor: ["#E94E4E", "#5ADCEB"] }];
+  @Input() actual: Actual[];
 
-  constructor() {
 
-  }
+  public barChartOptions: any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+
+  public barChartLabels: string[] = [];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
+
+  public barChartData: BarChartData[] = [
+    { data: [], label: 'Error' },
+    { data: [], label: 'Satisfactorio' }
+  ];
+  constructor() { }
 
   ngOnInit() {
+    if (this.actual != null) {
+      let count = 0;
+      this.actual.forEach(element => {
+        this.barChartLabels[count] = element.application;
+        this.barChartData[0].data[count] = element.nok;
+        this.barChartData[1].data[count] = element.ok;
+      });
+    }
   }
 }
