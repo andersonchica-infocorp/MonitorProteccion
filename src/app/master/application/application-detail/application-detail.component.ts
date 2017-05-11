@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import 'rxjs/add/operator/pluck';
+import { ApplicationService } from '../../../services/application.service';
+import { Service } from '../../../Model/service.model';
+
 
 import { Application } from '../../../Model/application.model';
 
@@ -13,21 +16,23 @@ import { Application } from '../../../Model/application.model';
 })
 export class ApplicationDetailComponent implements OnInit {
 
+  id: number = null;
+  initialdata: Application = null;
+  serviceName: string = null;
 
-id:number = null;
-initialdata: Application = null;
+  form: FormGroup;
 
-
-form: FormGroup ;
-
-pleaseSave: boolean = false;
+  pleaseSave: boolean = false;
 
   constructor(private route: ActivatedRoute, public fb: FormBuilder,
-    public router: Router) { 
+    public router: Router, private applicationService: ApplicationService) {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],  
-      description: ['', [Validators.maxLength(150)]], 
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.maxLength(150)]],
+      serviceName: ''
     });
+
+    this.createForm(new Application(0, "", "", []));
   }
 
   ngOnInit() {
@@ -44,21 +49,23 @@ pleaseSave: boolean = false;
       });*/
   }
 
-doCancel() {
+  doCancel() {
     this.router.navigate(['/master/application']);
   }
 
-doReset() {
+  doReset() {
     this.createForm(this.initialdata);
     this.pleaseSave = false;
   }
 
-private createForm(data: Application) {
-    this.initialdata = data;
+  private createForm(data: Application) {
+
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],  
-      description: ['', [Validators.maxLength(150)]], 
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.maxLength(150)]],
+      serviceName: ''
     });
+    this.initialdata = data;
     /*this.nameCtrl = new FormControl(data ? data.name : '', Validators.required);
     this.reallyThirstyCtrl = new FormControl(data ? data.reallyThirsty : null, Validators.required);
     this.preferredDrinkCtrl = new FormControl(data ? data.preferredDrink : 'water');
@@ -76,4 +83,8 @@ private createForm(data: Application) {
     this.preferredDrinkCtrl.setValue(data ? data.preferredDrink : 'water');*/
   }
 
+  addService(serviceName: string) {
+console.log(serviceName);
+    this.initialdata.Services.push(new Service(0, serviceName));
+  }
 }

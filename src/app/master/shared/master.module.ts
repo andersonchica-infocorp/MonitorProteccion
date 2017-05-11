@@ -12,6 +12,8 @@ import { ApplicationListComponent } from '../application/application-list/applic
 import { ApplicationComponent } from '../application/application/application.component';
 import { ApplicationDetailComponent } from '../application/application-detail/application-detail.component';
 
+import { ServiceListComponent } from '../service/service-list/service-list.component';
+
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 @NgModule({
@@ -27,7 +29,8 @@ import { TranslateModule } from 'ng2-translate/ng2-translate';
   declarations: [
     ApplicationListComponent,
     ApplicationComponent,
-    ApplicationDetailComponent
+    ApplicationDetailComponent,
+    ServiceListComponent
   ],
   providers: [
     ApplicationService

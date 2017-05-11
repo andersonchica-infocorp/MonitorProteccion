@@ -15,6 +15,8 @@ export class AppComponent {
 
   }
 
+
+
   goTo(path: string) {
     this.router.navigate([path]);
   }

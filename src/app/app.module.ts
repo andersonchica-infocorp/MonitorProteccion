@@ -29,7 +29,7 @@ export function createTranslateLoader(http: Http) {
   declarations: [
     AppComponent,
     ChartconceptComponent,
-    SideNavListComponent
+    SideNavListComponent,
   ],
   imports: [
     BrowserModule,

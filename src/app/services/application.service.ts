@@ -29,7 +29,7 @@ export class ApplicationService {
 
   getApplications(): Observable<Application[]> {
 
-    var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
+    var url = `${AppConfigService.config.webApiUrl}/applications`;
     var headers = new Headers();
 
     headers.append('Content-Type', 'application/json; charset=utf-8');
@@ -53,6 +53,20 @@ getServices(): Observable<Service[]>{
       headers
     }).map(response => {
       return this.services;
+    });
+}
+
+addService(serviceName:string): Observable<boolean>{
+  var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
+    var headers = new Headers();
+
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+    headers.append('Accept', 'application/json; charset=utf-8');
+
+    return this.http.get(url, {
+      headers
+    }).map(response => {
+      return true;
     });
 }
 

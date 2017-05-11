@@ -1,12 +1,12 @@
 <md-card class="app-card-content">
     <md-card-content>
-        <md-nav-list>
+        <md-list>
             <md-list-item *ngFor="let user of usersAdministratos">
                 <h3 md-line>{{user.Name}}</h3>
                 <md-icon (click)="deleteUser(user)" class="delete"
                     mdTooltip="{{'app.user.deleteTooltip' | translate}}"
                     [mdTooltipPosition]="'above'">delete</md-icon>
             </md-list-item>
-        </md-nav-list>
+        </md-list>
     </md-card-content>
 </md-card>

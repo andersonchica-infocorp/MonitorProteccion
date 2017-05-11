@@ -22,7 +22,7 @@
                 <md-icon>search</md-icon>
             </button>
         </form>
-        <md-nav-list>
+        <md-list>
             <md-list-item *ngFor="let user of usersResult">
                 <h3 md-line>{{user.Name}}</h3>
                 <md-icon (click)="addUserAdministrator(user)"
@@ -30,7 +30,7 @@
                     mdTooltip="{{'app.user.addTooltip' | translate}}"
                     [mdTooltipPosition]="'above'">add</md-icon>
             </md-list-item>
-        </md-nav-list>
+        </md-list>
     </md-card-content>
     <md-card-actions align="end">
         <button md-raised-button

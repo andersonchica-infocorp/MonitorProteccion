@@ -5,7 +5,7 @@ export class AppConfigService {
 
 	static get config() {
 		return {
-			webApiUrl: 'http://localhost/Aco.Aprendizaje.WebApi/api'
+			webApiUrl: 'http://192.168.1.165:9081/reintentos_war_cert/api/rest'
 		};
 	}
 }

@@ -82,12 +82,14 @@
                     [style]="{'width':'40px'}">
                     <ng-template pTemplate="header">
                         <md-icon md-list-icon
+                            class="refresh"
                             (click)="refreshTransactions()"
                             mdTooltip="{{'app.common.refresh' | translate}}">refresh</md-icon>
                     </ng-template>
                     <ng-template let-transactionTemplate2="rowData"
                         pTemplate="body">
                         <md-icon md-list-icon
+                            class="retry"
                             (click)="showTransactionsTransaction(transactionTemplate)"
                             mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
                     </ng-template>

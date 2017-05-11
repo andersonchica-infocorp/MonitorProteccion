@@ -48,7 +48,13 @@
                 "name": "Nombre",
                 "description": "Descripción",
                 "application": "Aplicación",
-                "tooltipDelete": "Eliminar Aplicación"
+                "tooltipDelete": "Eliminar Aplicación",
+                "services": "Servicios",
+                "nameService": "Nombre Servicio",
+                "addService": "Agregar Servicio"
+            },
+            "service": {
+                "deleteTooltip": "Eliminar Servicio"
             }
         },
         "report": {

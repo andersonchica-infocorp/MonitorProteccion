@@ -1,0 +1,9 @@
+<md-list>
+    <md-list-item *ngFor="let service of services">
+        <h3 md-line>{{service.Name}}</h3>
+        <md-icon (click)="deleteService(user)"
+            class="delete"
+            mdTooltip="{{'app.master.service.deleteTooltip' | translate}}"
+            [mdTooltipPosition]="'above'">delete</md-icon>
+    </md-list-item>
+</md-list>

@@ -33,7 +33,7 @@
             "save": "Guarda1r",
             "search": "Search",
             "retry": "Retry",
-            "refresh": "Refresh"
+            "refresh": "Refresh",
         },
         "user": {
             "title": "Adminis1tradores",
@@ -48,7 +48,13 @@
                 "name": "No1mbre",
                 "description": "Desc1ripcion",
                 "application": "Apli1cacion",
-                "tooltipDelete": "Delete application"
+                "tooltipDelete": "Delete application",
+                "services": "Services",
+                "nameService": "Service Name",
+                "addService": "Agregar Servicio"
+            },
+            "service": {
+                "deleteTooltip": "Delete Service"
             }
         },
         "report": {
