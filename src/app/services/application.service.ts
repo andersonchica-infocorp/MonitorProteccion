@@ -32,6 +32,7 @@ export class ApplicationService {
   getApplications(): Observable<User> {
 
     var url = `${AppConfigService.config.webApiUrl}/applications`;
+    url = AppConfigService.config.webApiUrl;
     var headers = new Headers();
 
     headers.append('Content-Type', 'application/json; charset=utf-8');

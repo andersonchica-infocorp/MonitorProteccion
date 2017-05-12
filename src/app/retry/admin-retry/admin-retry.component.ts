@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -24,9 +24,11 @@ export class AdminRetryComponent implements OnInit {
 	form: FormGroup;
 	transactions: Transaction[];
 	consumers: string[];
+	xmlTransactionSelected: string;
 
 	selectedTransaction: Transaction;
 	selectedApplication: Application;
+	selectedTransactionXml: Transaction;
 
 	constructor(private route: ActivatedRoute, public fb: FormBuilder,
 		public router: Router, private applicationService: ApplicationService,
@@ -67,7 +69,7 @@ export class AdminRetryComponent implements OnInit {
 	}
 
 	showTransaction(transaction: Transaction) {
-		this.selectedTransaction = transaction;
+
 	}
 
 	paginate(event) {
@@ -101,5 +103,27 @@ export class AdminRetryComponent implements OnInit {
 		}*/
 
 
+	}
+
+	getTransactionsTransaction(transactionTemplate) {
+		let idTransaction = transactionTemplate.data.id;
+		this.transactionService.getTransactionsTransaction(idTransaction).subscribe(
+			transactions => {
+				this.transactions.map(transaction => {
+					if (transaction.id == idTransaction) {
+						transaction.transactions = transactions.transactions;
+					}
+				});
+
+			});
+	}
+
+	showXml(transactionTemplate) {
+		this.selectedTransactionXml = transactionTemplate;
+		this.transactionService.getXmlTransaction(transactionTemplate.id)
+			.subscribe(xml => {
+				this.xmlTransactionSelected = xml;
+				console.log(xml);
+			});
 	}
 }

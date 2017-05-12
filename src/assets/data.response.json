@@ -1,0 +1,109 @@
+{
+    "data": {
+        "parentTransaction": {
+            "records": 3,
+            "transactions": [{
+                "id": 2786,
+                "msgId": "DA123456",
+                "start": "2017-05-03 12:54:19.783",
+                "end": "2017-05-03 12:54:21.765",
+                "errorType": "NEGOCIO",
+                "errorMessage": "El servicio generó un error:Timestamp: 5/3/2017 5:56:16 PM;Codigo: -2147209463;Mensaje: SecLib::RetrievePrivilegeForUser failed - no roles are assigned to user. Returned hr \u003d -2147209463, User: 0df9098e-87bc-e611-80f8-2c59e53a5504;Trace: \n[PI.DobleAsesoria.Import: PI.DobleAsesoria.Import.Import]\n[e75f2e5c-8c5d-e611-945e-00155d0d212d: PI.DobleAsesoria.Import.Import: Create of pro_asesoria]\n\n;Source: CRM_Proteccion_Services;Trace 2: \nServer stack trace: \n   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc\u0026 rpc)\n   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)\n   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)\n   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)\n\nException rethrown at [0]: \n   at CRM_Proteccion_Services.CRM_Proteccion_Services.crearDobleAsesoria(DobleAsesoria nuevaAsesoria);"
+            }, {
+                "id": 2791,
+                "msgId": "DA1234567",
+                "start": "2017-05-03 13:08:11.324",
+                "end": "2017-05-03 13:08:13.485",
+                "errorType": "NEGOCIO",
+                "errorMessage": "El servicio generó un error:Timestamp: 5/3/2017 6:10:11 PM;Codigo: -2147209463;Mensaje: SecLib::RetrievePrivilegeForUser failed - no roles are assigned to user. Returned hr \u003d -2147209463, User: 0df9098e-87bc-e611-80f8-2c59e53a5504;Trace: \n[PI.DobleAsesoria.Import: PI.DobleAsesoria.Import.Import]\n[e75f2e5c-8c5d-e611-945e-00155d0d212d: PI.DobleAsesoria.Import.Import: Create of pro_asesoria]\n\n;Source: CRM_Proteccion_Services;Trace 2: \nServer stack trace: \n   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc\u0026 rpc)\n   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)\n   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)\n   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)\n\nException rethrown at [0]: \n   at CRM_Proteccion_Services.CRM_Proteccion_Services.crearDobleAsesoria(DobleAsesoria nuevaAsesoria);"
+            }, {
+                "id": 3062,
+                "msgId": "DA201705000039",
+                "start": "2017-05-08 11:32:37.467",
+                "end": "2017-05-08 11:32:41.088",
+                "errorType": "NEGOCIO",
+                "errorMessage": "El servicio generó un error:Timestamp: 5/8/2017 4:34:42 PM;Codigo: -2147220891;Mensaje: El Afiliado ya tiene una Asesoría Pensional en estado abierto, no se permite crear una nueva asesoría;Trace: \n[PI.DobleAsesoria.Import: PI.DobleAsesoria.Import.Import]\n[e75f2e5c-8c5d-e611-945e-00155d0d212d: PI.DobleAsesoria.Import.Import: Create of pro_asesoria]\n\n;Source: CRM_Proteccion_Services;Trace 2: \nServer stack trace: \n   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc\u0026 rpc)\n   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)\n   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)\n   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)\n\nException rethrown at [0]: \n   at CRM_Proteccion_Services.CRM_Proteccion_Services.crearDobleAsesoria(DobleAsesoria nuevaAsesoria);"
+            }]
+        },
+        "dashboard": {
+            "actual": [{
+                "application": "CRM",
+                "ok": 70,
+                "nok": 2
+            }],
+            "history": [{
+                "category": "2017-5",
+                "total": 0,
+                "ok": 70,
+                "nok": 2,
+                "retry": 0
+            }]
+        },
+        "childTransaction": {
+            "records": 6,
+            "transactions": [{
+                "id": 2792,
+                "msgId": "2017-05-03 13:08:15.757",
+                "start": "u1",
+                "end": "adadadada"
+            }, {
+                "id": 2793,
+                "msgId": "2017-05-03 13:08:16.844",
+                "start": "u1",
+                "end": "adadadada"
+            }, {
+                "id": 2794,
+                "msgId": "2017-05-03 13:08:17.665",
+                "start": "u1",
+                "end": "adadadada"
+            }, {
+                "id": 2795,
+                "msgId": "2017-05-03 13:08:18.193",
+                "start": "u1",
+                "end": "adadadada"
+            }, {
+                "id": 2796,
+                "msgId": "2017-05-03 13:08:18.662",
+                "start": "u1",
+                "end": "adadadada"
+            }, {
+                "id": 2797,
+                "msgId": "2017-05-03 13:08:19.330",
+                "start": "u1",
+                "end": "adadadada"
+            }]
+        },
+        "user": {
+            "id": "GDUTTA",
+            "admin": true,
+            "consumers": ["SUCCESS FACTORS", "PORTAL", "INTERNET", "DOBLE ASESORIA", "ASPEN"],
+            "applications": [{
+                "services": [{
+                    "id": "1",
+                    "name": "CRM_Proteccion_Services"
+                }, {
+                    "id": "2",
+                    "name": "CRM_Proteccion_Services"
+                }, {
+                    "id": "3",
+                    "name": "CRM_Proteccion_Services"
+                }, {
+                    "id": "6",
+                    "name": "CRM_Proteccion_Services"
+                }, {
+                    "id": "7",
+                    "name": "CRM_Proteccion_Services"
+                }],
+                "id": "1",
+                "name": "CRM"
+            }, {
+                "services": [{
+                    "id": "5",
+                    "name": "SFEmpleadoReplicacionProxy"
+                }],
+                "id": "6",
+                "name": "NOMINA"
+            }]
+        }
+    }
+}

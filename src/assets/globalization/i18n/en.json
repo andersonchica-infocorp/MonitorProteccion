@@ -33,7 +33,8 @@
             "save": "Guarda1r",
             "search": "Search",
             "retry": "Retry",
-            "refresh": "Refresh"
+            "refresh": "Refresh",
+            "xml": "View Xml"
         },
         "user": {
             "title": "Adminis1tradores",
@@ -84,7 +85,8 @@
                 "finalDate": "Final Date",
                 "transaction": "Transaction",
                 "errorType": "Error Type",
-                "error": "Error"
+                "error": "Error",
+                "xml":"Xml"
             }
         }
     }

@@ -33,7 +33,8 @@
             "save": "Guardar",
             "search": "Buscar",
             "retry": "Reintentar",
-            "refresh": "Refrescar"
+            "refresh": "Refrescar",
+            "xml": "Ver Xml"
         },
         "user": {
             "title": "Administradores",
@@ -84,7 +85,8 @@
                 "finalDate": "Fecha Final",
                 "transaction": "Transacción",
                 "errorType": "Tipo Error",
-                "error": "Error"
+                "error": "Error",
+                "xml":"Xml"
             }
         }
     }

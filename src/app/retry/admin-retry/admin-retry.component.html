@@ -1,5 +1,6 @@
 <div class="card-container">
-    <md-card class="search">
+    <md-card class="search"
+        [style.display]="xmlTransactionSelected ? 'none' : 'block' ">
         <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
         <md-divider></md-divider>
         <md-card-content>
@@ -26,25 +27,13 @@
                     <md-option *ngFor="let consumer of consumers"
                         [value]="consumer">{{ consumer }}
                     </md-option>
-                </md-select
->                <md-input-container class="item">
+                </md-select>
+                <md-input-container class="item">
                     <input mdInput
                         type="number"
                         placeholder="{{'app.retry.message' | translate}}"
                         formControlName="messageId"
                         maxlength="10">
-                </md-input-container>
-                <md-input-container class="item">
-                    <input mdInput
-                        type="date"
-                        placeholder="{{'app.retry.initialDate' | translate}}"
-                        formControlName="initialDate">
-                </md-input-container>
-                <md-input-container class="item">
-                    <input mdInput
-                        type="date"
-                        placeholder="{{'app.retry.finalDate' | translate}}"
-                        formControlName="finalDate">
                 </md-input-container>
             </form>
         </md-card-content>
@@ -63,6 +52,7 @@
         *ngIf="transactions">
         <md-card-content>
             <p-dataTable [value]="transactions"
+                (onRowExpand)="getTransactionsTransaction($event)"
                 expandableRows="true">
                 <p-header>{{'app.retry.transactions' | translate}}</p-header>
                 <p-column expander="true"
@@ -72,14 +62,23 @@
                     header="{{'app.retry.results.transaction' | translate}}"></p-column>
                 <p-column field="msgId"
                     header="{{'app.retry.results.messageId' | translate}}"></p-column>
-                <p-column field="start"
-                    header="{{'app.retry.results.initialDate' | translate}}"></p-column>
-                <p-column field="end"
-                    header="{{'app.retry.results.finalDate' | translate}}"></p-column>
                 <p-column field="errorType"
                     header="{{'app.retry.results.errorType' | translate}}"></p-column>
                 <p-column field="errorMessage"
                     header="{{'app.retry.results.error' | translate}}"></p-column>
+                <p-column styleClass="col-button"
+                    [style]="{'width':'40px'}">
+                    <ng-template pTemplate="header">
+                        <span>{{'app.retry.results.xml' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-transactionTemplate="rowData"
+                        pTemplate="body">
+                        <md-icon md-list-icon
+                            class="xml"
+                            (click)="showXml(transactionTemplate)"
+                            mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
+                    </ng-template>
+                </p-column>
                 <p-column styleClass="col-button"
                     [style]="{'width':'40px'}">
                     <ng-template pTemplate="header">
@@ -98,18 +97,14 @@
                 </p-column>
                 <ng-template let-transactionTemplate
                     pTemplate="rowexpansion">
-                    <p-dataTable [value]="transactionTemplate.Transactions">
-                        <p-column field="ApplicationId"
-                            header="{{'app.retry.results.application' | translate}}"></p-column>
-                        <p-column field="ServiceId"
-                            header="{{'app.retry.results.service' | translate}}"></p-column>
-                        <p-column field="Consumer"
-                            header="{{'app.retry.results.consumer' | translate}}"></p-column>
-                        <p-column field="MessageId"
+                    <p-dataTable [value]="transactionTemplate.transactions">
+                        <p-column field="id"
+                            header="{{'app.retry.results.transaction' | translate}}"></p-column>
+                        <p-column field="msgId"
                             header="{{'app.retry.results.messageId' | translate}}"></p-column>
-                        <p-column field="InitialDate"
+                        <p-column field="start"
                             header="{{'app.retry.results.initialDate' | translate}}"></p-column>
-                        <p-column field="FinalDate"
+                        <p-column field="end"
                             header="{{'app.retry.results.finalDate' | translate}}"></p-column>
                     </p-dataTable>
                 </ng-template>
@@ -120,6 +115,19 @@
                 (onPageChange)="paginate($event)"></p-paginator>
         </md-card-content>
         <md-card-actions align="end">
+        </md-card-actions>
+    </md-card>
+</div>
+<div *ngIf="selectedTransactionXml">
+    <md-card class="search">
+        <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
+        <md-divider></md-divider>
+        <md-card-content>
+            {{ xmlTransactionSelected }}
+
+        </md-card-content>
+        <md-card-actions align="end">
+
         </md-card-actions>
     </md-card>
 </div>
