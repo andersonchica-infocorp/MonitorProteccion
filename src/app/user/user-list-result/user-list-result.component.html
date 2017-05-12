@@ -14,13 +14,16 @@
                     maxlength="50">
             </md-input-container>
             <button md-mini-fab
+
                 type="button"
                 (click)="search()"
                 [disabled]="!form.valid"
                 color="primary"
                 mdTooltip="{{'app.user.common.search' | translate}}">
-                <md-icon>search</md-icon>
+                <md-icon color="accent">search</md-icon>
             </button>
+
+            <md-icon color="accent" class="proteccion">search</md-icon>
         </form>
         <md-list>
             <md-list-item *ngFor="let user of usersResult">
