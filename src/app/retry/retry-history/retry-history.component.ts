@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,15 +10,14 @@ import { TransactionService } from '../../services/transaction.service';
 import { Observable } from 'rxJs';
 import { Consumer } from '../../Model/consumer.model';
 
-
 @Component({
-	selector: 'app-admin-retry',
-	templateUrl: './admin-retry.component.html',
-	styleUrls: ['./admin-retry.component.scss']
+	selector: 'app-retry-history',
+	templateUrl: './retry-history.component.html',
+	styleUrls: ['./retry-history.component.scss']
 })
-export class AdminRetryComponent implements OnInit {
+export class RetryHistoryComponent implements OnInit {
+	page: number= 0;
 
-	prueba: string[] = [];
 	applications: Application[];
 	services: Service[];
 	form: FormGroup;
@@ -29,21 +28,8 @@ export class AdminRetryComponent implements OnInit {
 	selectedTransaction: Transaction;
 	selectedApplication: Application;
 	selectedTransactionXml: Transaction;
-
-	constructor(private route: ActivatedRoute, public fb: FormBuilder,
-		public router: Router, private applicationService: ApplicationService,
-		private transactionService: TransactionService) {
-		this.form = this.fb.group({
-			consumer: [''],
-			messageId: [''],
-			initialDate: [''],
-			finalDate: [''],
-			application: ['', Validators.required],
-			serviceControl: ['', Validators.required],
-		});
-	}
-
 	totalRows: number;
+	cantidad: number = 0;
 
 	ngOnInit() {
 		this.applicationService.getUserData()
@@ -54,6 +40,20 @@ export class AdminRetryComponent implements OnInit {
 			});
 	}
 
+	constructor(private route: ActivatedRoute, public fb: FormBuilder,
+		public router: Router, private applicationService: ApplicationService,
+		private transactionService: TransactionService) {
+
+		this.form = this.fb.group({
+			consumer: [''],
+			messageId: [''],
+			initialDate: [''],
+			finalDate: [''],
+			application: ['', Validators.required],
+			serviceControl: ['', Validators.required],
+		});
+	}
+
 	search() {
 		var consumer = this.form.get('consumer').value;
 		var messageId = this.form.get('messageId').value;
@@ -62,9 +62,10 @@ export class AdminRetryComponent implements OnInit {
 		var applicationId = this.form.get('application').value;
 		var serviceId = this.form.get('serviceControl').value;
 
-		this.transactionService.getTransactions(applicationId, serviceId, consumer, messageId, initialDate, finalDate, 0, 10)
+		this.transactionService.getGlobalSearchTransaction(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
 			.subscribe(parentTransaction => {
 				this.transactions = parentTransaction.transactions;
+				this.cantidad = parentTransaction.records;
 			});
 	}
 
@@ -75,8 +76,12 @@ export class AdminRetryComponent implements OnInit {
 	paginate(event) {
 		//event.first = Index of the first record
 		//event.rows = Number of rows to display in new page
-		//event.page = Index of the new page
+		this.page = event.page;
+
+		this.search();
 		//event.pageCount = Total number of pages
+
+
 	}
 
 	onSelectApplication(value) {
@@ -126,4 +131,5 @@ export class AdminRetryComponent implements OnInit {
 				console.log(xml);
 			});
 	}
+
 }

@@ -35,6 +35,18 @@
                         formControlName="messageId"
                         maxlength="10">
                 </md-input-container>
+                <md-input-container class="item">
+                    <input mdInput
+                        type="date"
+                        placeholder="{{'app.retry.initialDate' | translate}}"
+                        formControlName="initialDate">
+                </md-input-container>
+                <md-input-container class="item">
+                    <input mdInput
+                        type="date"
+                        placeholder="{{'app.retry.finalDate' | translate}}"
+                        formControlName="finalDate">
+                </md-input-container>
             </form>
         </md-card-content>
         <md-card-actions align="end">
@@ -51,13 +63,8 @@
     <md-card class="result"
         *ngIf="transactions">
         <md-card-content>
-            <p-dataTable [value]="transactions"
-                (onRowExpand)="getTransactionsTransaction($event)"
-                expandableRows="true">
+            <p-dataTable [value]="transactions">
                 <p-header>{{'app.retry.transactions' | translate}}</p-header>
-                <p-column expander="true"
-                    [style]="{'width':'40px'}"
-                    styleClass="col-icon"></p-column>
                 <p-column field="id"
                     header="{{'app.retry.results.transaction' | translate}}"></p-column>
                 <p-column field="msgId"
@@ -77,22 +84,6 @@
                             class="xml"
                             (click)="showXml(transactionTemplate)"
                             mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
-                    </ng-template>
-                </p-column>
-                <p-column styleClass="col-button"
-                    [style]="{'width':'40px'}">
-                    <ng-template pTemplate="header">
-                        <md-icon md-list-icon
-                            class="refresh"
-                            (click)="refreshTransactions()"
-                            mdTooltip="{{'app.common.refresh' | translate}}">refresh</md-icon>
-                    </ng-template>
-                    <ng-template let-transactionTemplate2="rowData"
-                        pTemplate="body">
-                        <md-icon md-list-icon
-                            class="retry"
-                            (click)="showTransactionsTransaction(transactionTemplate)"
-                            mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
                     </ng-template>
                 </p-column>
                 <ng-template let-transactionTemplate

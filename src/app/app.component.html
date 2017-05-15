@@ -1,35 +1,65 @@
-<md-sidenav-container fullscreen >
+<md-sidenav-container fullscreen>
     <md-sidenav #sidenav
-        mode="over" >
-        <md-nav-list class="demo-navigation mdl-navigation mdl-color--blue-grey-800" color="primary">
+        mode="over"
+        class="side_nav">
+        <md-nav-list class="demo-navigation mdl-navigation mdl-color--blue-grey-800"
+            color="primary">
             <a md-list-item
                 (click)="sidenav.close(); goTo('user/admin')">
-                <md-icon md-list-icon class="proteccion" color="accent">people</md-icon>
+                <md-icon md-list-icon
+                    class="proteccion"
+                    color="accent">people</md-icon>
                 <span md-line>{{'app.sideNav.user.title' | translate}}</span>
                 <span md-line
                     class="secondary">{{'app.sideNav.user.description' | translate}}</span>
             </a>
             <a md-list-item
                 (click)="sidenav.close(); goTo('master/application')">
-                <md-icon md-list-icon class="proteccion" color="accent">apps</md-icon>
+                <md-icon md-list-icon
+                    class="proteccion"
+                    color="accent">apps</md-icon>
                 <span md-line>{{'app.sideNav.application.title' | translate}}</span>
                 <span md-line
                     class="secondary">{{'app.sideNav.application.description' | translate}}</span>
             </a>
             <a md-list-item
                 (click)="sidenav.close(); goTo('report/history')">
-                <md-icon md-list-icon class="proteccion" color="accent">poll</md-icon>
+                <md-icon md-list-icon
+                    class="proteccion"
+                    color="accent">poll</md-icon>
                 <span md-line>{{'app.sideNav.report.title' | translate}}</span>
                 <span md-line
                     class="secondary">{{'app.sideNav.report.description' | translate}}</span>
             </a>
             <a md-list-item
+                (click)="sidenav.close(); goTo('retry/history')">
+                <md-icon md-list-icon
+                    class="proteccion"
+                    color="accent">group_work
+                </md-icon>
+                <span md-line>{{'app.sideNav.historyRetry.title' | translate}}</span>
+                <span md-line
+                    class="secondary">{{'app.sideNav.historyRetry.description' | translate}}</span>
+            </a>
+            <a md-list-item
                 (click)="sidenav.close(); goTo('retry')">
-                <md-icon md-list-icon class="proteccion" color="accent">call_missed_outgoing
+                <md-icon md-list-icon
+                    class="proteccion"
+                    color="accent">call_missed_outgoing
                 </md-icon>
                 <span md-line>{{'app.sideNav.retry.title' | translate}}</span>
                 <span md-line
                     class="secondary">{{'app.sideNav.retry.description' | translate}}</span>
+            </a>
+            <a md-list-item
+                (click)="sidenav.close(); goTo('master/service')">
+                <md-icon md-list-icon
+                    class="proteccion"
+                    color="accent">group_work
+                </md-icon>
+                <span md-line>{{'app.sideNav.service.title' | translate}}</span>
+                <span md-line
+                    class="secondary">{{'app.sideNav.service.description' | translate}}</span>
             </a>
         </md-nav-list>
     </md-sidenav>
@@ -39,8 +69,7 @@
             <md-icon>menu</md-icon>
         </button>
         <img src="../assets/images/proteccion-logo.png"
-            alt="some_text"
-            style="width:width;height:height;">
+            alt="proteccionycesantias" />
         <span class="example-spacer"></span>
         <button md-icon-button
             [mdMenuTriggerFor]="menu">

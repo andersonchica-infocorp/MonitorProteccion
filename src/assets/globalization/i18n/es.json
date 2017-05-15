@@ -3,7 +3,7 @@
         "title": "Monitor",
         "language": {
             "spanish": "Español",
-            "english": "Ingles"
+            "english": "Inglés"
         },
         "sideNav": {
             "user": {
@@ -25,6 +25,10 @@
             "retry": {
                 "title": "Reintentos",
                 "description": "Administrar Reintentos"
+            },
+            "historyRetry":{
+                "title": "Histórico Reintentos",
+                "description": "Ver Histórico de Reintentos"
             }
         },
         "common": {
@@ -55,7 +59,9 @@
                 "addService": "Agregar Servicio"
             },
             "service": {
-                "deleteTooltip": "Eliminar Servicio"
+                "deleteTooltip": "Eliminar Servicio",
+                "title": "Servicios",
+                "new": "Nuevo Servicio"
             }
         },
         "report": {
@@ -86,7 +92,7 @@
                 "transaction": "Transacción",
                 "errorType": "Tipo Error",
                 "error": "Error",
-                "xml":"Xml"
+                "xml": "Xml"
             }
         }
     }

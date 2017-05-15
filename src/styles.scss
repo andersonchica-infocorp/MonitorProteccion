@@ -37,8 +37,8 @@ md-icon.proteccion {
 }
 
 md-icon.proteccion:hover {
-    color: #E3E829;
-    border: 2px solid #E3E829;
+    //color: #E3E829;
+    //border: 2px solid #E3E829;
     border-radius: 50%;
 }
 
@@ -48,4 +48,63 @@ span {
 
 .secondary {
     color: #00AECB;
+}
+
+.md_card_app {
+    background-color: #F7F7F7;
+}
+
+.side_nav {
+    //background-color: #E3E829;
+    background-color: #F7F7F7;
+}
+
+.toolbar_header {
+    background-color: #008AD1;
+}
+
+.loading {
+    opacity: 0;
+    transition: opacity .8s ease-in-out;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #E3E829;
+    z-index: -1;
+}
+
+
+/* .loading screen is visible when app is not bootstraped yet, .my-app is empty */
+
+my-app:empty + .loading {
+    opacity: 1;
+    z-index: 100;
+}
+
+.toolbar_header.span {
+    color: #FFFFFF;
+}
+
+.responsive-container {
+  margin: 1em auto;
+  min-height: 1024px;       /* cap container min width */
+  max-height: 1024px;       /* cap container max width */
+  position: relative;
+  overflow: hidden;       /* crop if image is larger than container */
+  background-color: #E3E829;
+}
+.responsive-container:before {
+  content: "";            /* using pseudo element for 1:1 ratio */
+  display: block;
+  padding-top: 100%;
+}
+.responsive-container img {
+  position: absolute;
+  top: -999px;            /* use sufficiently large number */
+  bottom: -500px;
+  left: -999px;
+  right: -999px;
+  margin: auto;           /* center horizontally and vertically */
 }

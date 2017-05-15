@@ -5,8 +5,9 @@ export class AppConfigService {
 
 	static get config() {
 		return {
-			//webApiUrl: 'http://192.168.1.165:9081/reintentos_war_cert/api/rest'
-			webApiUrl: 'assets/data.response.json'
+			webApiUrl: 'http://192.168.1.165:9080/reintentos/api/rest'
+			//webApiUrl: 'assets/data.response.json'
+			//webApiUrl:'http://localhost/Aco.Mandalas.Marmoleria.Api/api',
 		};
 	}
 }

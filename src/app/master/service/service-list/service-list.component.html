@@ -1,9 +1,17 @@
-<md-list>
-    <md-list-item *ngFor="let service of services">
-        <h3 md-line>{{service.name}}</h3>
-        <md-icon (click)="deleteService(user)"
-            class="delete"
-            mdTooltip="{{'app.master.service.deleteTooltip' | translate}}"
-            [mdTooltipPosition]="'above'">delete</md-icon>
-    </md-list-item>
-</md-list>
+<md-card class="app-card-content md_card_app" *ngIf="services">
+    <md-card-content>
+        <md-list>
+            <md-list-item *ngFor="let service of services">
+                <h3 md-line
+                    [class.edited]="service.id == (editid | async)"
+                    routerLinkActive="active"
+                    (click)='selectservice(service)'
+                    [routerLink]="[ '/master/service',service.id ]">{{service.name}}</h3>
+                <md-icon (click)="delete(service)"
+                    class="delete"
+                    mdTooltip="{{'app.master.service.tooltipDelete' | translate}}"
+                    [mdTooltipPosition]="'above'">delete</md-icon>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>

@@ -10,10 +10,11 @@ import { TransactionService } from '../../services/transaction.service';
 import { MaterialModule } from '@angular/material';
 
 import { AdminRetryComponent } from '../admin-retry/admin-retry.component';
+import { RetryHistoryComponent } from '../retry-history/retry-history.component';
 
 import { TranslateModule } from 'ng2-translate/ng2-translate';
-import {DataTableModule,SharedModule} from 'primeng/primeng';
-import {PaginatorModule} from 'primeng/primeng';
+import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { PaginatorModule } from 'primeng/primeng';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {PaginatorModule} from 'primeng/primeng';
     PaginatorModule
   ],
   declarations: [
-    AdminRetryComponent
+    AdminRetryComponent,
+    RetryHistoryComponent
   ],
   providers: [
     UserService,

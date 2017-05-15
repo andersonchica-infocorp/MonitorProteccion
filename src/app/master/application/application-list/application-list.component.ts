@@ -30,7 +30,7 @@ export class ApplicationListComponent implements OnInit {
   }
 
   getApplications() {
-    this.applicationService.getApplications().subscribe(
+    this.applicationService.getUserData().subscribe(
       user => {
         this.applicationComponentService.assignApplications(user.applications);
       }

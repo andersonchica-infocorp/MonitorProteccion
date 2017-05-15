@@ -4,7 +4,7 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxJs';
 import { AppConfigService } from './app-config.service';
 import { Service } from '../Model/service.model';
-import {User } from '../Model/user.model';
+import { User } from '../Model/user.model';
 
 
 @Injectable()
@@ -29,10 +29,9 @@ export class ApplicationService {
 
   }
 
-  getApplications(): Observable<User> {
+  getUserData(): Observable<User> {
 
     var url = `${AppConfigService.config.webApiUrl}/applications`;
-    url = AppConfigService.config.webApiUrl;
     var headers = new Headers();
 
     headers.append('Content-Type', 'application/json; charset=utf-8');
@@ -45,22 +44,8 @@ export class ApplicationService {
     });
   }
 
-getServices(): Observable<Service[]>{
-  var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
-    var headers = new Headers();
-
-    headers.append('Content-Type', 'application/json; charset=utf-8');
-    headers.append('Accept', 'application/json; charset=utf-8');
-
-    return this.http.get(url, {
-      headers
-    }).map(response => {
-      return this.services;
-    });
-}
-
-addService(serviceName:string): Observable<boolean>{
-  var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
+  addService(serviceName: string): Observable<boolean> {
+    var url = `${AppConfigService.config.webApiUrl}/Aprendizaje`;
     var headers = new Headers();
 
     headers.append('Content-Type', 'application/json; charset=utf-8');
@@ -71,7 +56,7 @@ addService(serviceName:string): Observable<boolean>{
     }).map(response => {
       return true;
     });
-}
+  }
 
   /*dragonsDetails(id): Dragon {
     let list = this.dragons.filter(d => d.id === id);

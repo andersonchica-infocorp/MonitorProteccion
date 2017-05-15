@@ -25,6 +25,10 @@
             "retry": {
                 "title": "Retries",
                 "description": "Adminitrate retries"
+            },
+            "historyRetry":{
+                "title": "Retry History",
+                "description": "View Retry History"
             }
         },
         "common": {
@@ -55,7 +59,9 @@
                 "addService": "Agregar Servicio"
             },
             "service": {
-                "deleteTooltip": "Delete Service"
+                "deleteTooltip": "Delete Service",
+                "title": "Services",
+                "new": "New Service"
             }
         },
         "report": {

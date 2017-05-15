@@ -1,0 +1,32 @@
+<md-card  class="app-card-content md_card_app">
+    <md-card-title *ngIf="initialdata">{{'app.master.service.service' | translate}} {{initialdata.name}}</md-card-title>
+    <md-card-title *ngIf="!initialdata">{{'app.master.service.new' | translate}}</md-card-title>
+    <md-divider></md-divider>
+    <md-card-content>
+        <form (ngSubmit)="onSubmit()"
+            [formGroup]="form">
+            <md-input-container class="example-full-width">
+                <input mdInput
+                    type="text"
+                    placeholder="Nombre"
+                    formControlName="name"
+                    maxlength="50">
+            </md-input-container>
+        </form>
+    </md-card-content>
+    <md-card-actions align="end">
+        <button md-raised-button
+            type="button"
+            (click)="doReset()"
+            [disabled]="!form.status">{{'app.common.reset' | translate}}</button>
+        <button md-raised-button
+            type="button"
+            (click)="doCancel()">{{'app.common.cancel' | translate}}</button>
+        <button md-raised-button
+            color="primary"
+            style="submit"
+            (click)="onSubmit()"
+            [disabled]="!form.valid">{{'app.common.save' | translate}}</button>
+    </md-card-actions>
+    <div *ngIf="pleaseSave">Please save or cancel</div>
+</md-card>
