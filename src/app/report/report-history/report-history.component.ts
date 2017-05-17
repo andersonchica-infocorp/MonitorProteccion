@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { History } from '../../Model/history.model';
 import { BarChartData } from '../../Model/barChartData.model';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-report-history',
@@ -9,14 +10,14 @@ import { BarChartData } from '../../Model/barChartData.model';
 })
 export class ReportHistoryComponent implements OnInit {
 
-@Input() history: History[];
+  @Input() history: History[];
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     if (this.history != null) {
@@ -26,6 +27,12 @@ export class ReportHistoryComponent implements OnInit {
         this.barChartData[0].data[count] = element.nok;
         this.barChartData[1].data[count] = element.ok;
       });
+    }
+  }
+
+  chartClicked(event) {
+    if (event.active.length > 0) {
+      this.router.navigate(['/retry/history']);
     }
   }
 

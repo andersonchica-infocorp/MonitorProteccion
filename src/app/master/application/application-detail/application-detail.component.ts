@@ -78,7 +78,7 @@ export class ApplicationDetailComponent implements OnInit {
   }
 
   addService(serviceName: string) {
-    this.initialdata.services.push(new Service(0, serviceName));
+    //this.initialdata.services.push(new Service(0, serviceName));
   }
 
   onSubmit() {

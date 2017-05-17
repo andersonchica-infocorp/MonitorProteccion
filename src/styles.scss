@@ -17,6 +17,7 @@ $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 md-icon.delete:hover {
     color: red;
+    cursor: pointer;
 }
 
 md-icon.add:hover {
@@ -28,7 +29,8 @@ md-icon.refresh:hover {
 }
 
 md-icon.retry:hover {
-    color: blue;
+    color: green;
+    cursor: pointer;
 }
 
 md-icon.proteccion {
@@ -40,6 +42,11 @@ md-icon.proteccion:hover {
     //color: #E3E829;
     //border: 2px solid #E3E829;
     border-radius: 50%;
+}
+
+md-icon.xml:hover{
+  color:#008AD1;
+  cursor: pointer;
 }
 
 span {

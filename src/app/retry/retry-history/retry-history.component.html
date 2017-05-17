@@ -1,3 +1,4 @@
+<md-progress-bar mode="indeterminate" *ngIf="isChargingInitialData"></md-progress-bar>
 <div class="card-container">
     <md-card class="search md_card_app"
         [style.display]="xmlTransactionSelected ? 'none' : 'block' ">
@@ -60,10 +61,12 @@
             </button>
         </md-card-actions>
     </md-card>
-    <md-card class="result"
-        *ngIf="transactions">
+    <md-card class="result md_card_app"
+        [style.display]="xmlTransactionSelected ? 'none' : 'block' "
+        *ngIf="showTransactions">
         <md-card-content>
-            <p-dataTable [value]="transactions">
+        <md-progress-bar mode="indeterminate" *ngIf="isSearching"></md-progress-bar>
+            <p-dataTable [value]="transactions" *ngIf="!isSearching">
                 <p-header>{{'app.retry.transactions' | translate}}</p-header>
                 <p-column field="id"
                     header="{{'app.retry.results.transaction' | translate}}"></p-column>
@@ -100,7 +103,7 @@
                     </p-dataTable>
                 </ng-template>
             </p-dataTable>
-            <p-paginator rows="10"
+            <p-paginator rows="10" *ngIf="!isSearching"
                 [totalRecords]="cantidad"
                 pageLinkSize="5"
                 (onPageChange)="paginate($event)"></p-paginator>
@@ -109,16 +112,32 @@
         </md-card-actions>
     </md-card>
 </div>
-<div *ngIf="selectedTransactionXml">
-    <md-card class="search">
-        <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
+<div *ngIf="xmlTransactionSelected">
+    <md-card class="search md_card_app xml_container">
+
         <md-divider></md-divider>
         <md-card-content>
-            {{ xmlTransactionSelected }}
-
+            <div ace-editor
+                [(text)]="xmlTransactionSelected"
+                [mode]="'sql'"
+                [theme]="'clouds'"
+                [options]="options"
+                [readOnly]="true"
+                [autoUpdateContent]="true"
+                [durationBeforeCallback]="1000"
+                (textChanged)="onChange($event)"
+                style="min-height: 200px; width:100%; overflow: auto;"></div>
         </md-card-content>
         <md-card-actions align="end">
-
+            <button md-mini-fab
+                type="button"
+                (click)="backToGrid()"
+                color="primary"
+                mdTooltip="{{'app.retry.history.back' | translate}}">
+                <md-icon>grid_on</md-icon>
+            </button>
         </md-card-actions>
     </md-card>
 </div>
+
+

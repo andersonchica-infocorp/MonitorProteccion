@@ -4,7 +4,7 @@
         class="side_nav">
         <md-nav-list class="demo-navigation mdl-navigation mdl-color--blue-grey-800"
             color="primary">
-            <a md-list-item
+            <!-- <a md-list-item
                 (click)="sidenav.close(); goTo('user/admin')">
                 <md-icon md-list-icon
                     class="proteccion"
@@ -12,8 +12,8 @@
                 <span md-line>{{'app.sideNav.user.title' | translate}}</span>
                 <span md-line
                     class="secondary">{{'app.sideNav.user.description' | translate}}</span>
-            </a>
-            <a md-list-item
+            </a>-->
+           <!-- <a md-list-item
                 (click)="sidenav.close(); goTo('master/application')">
                 <md-icon md-list-icon
                     class="proteccion"
@@ -21,12 +21,12 @@
                 <span md-line>{{'app.sideNav.application.title' | translate}}</span>
                 <span md-line
                     class="secondary">{{'app.sideNav.application.description' | translate}}</span>
-            </a>
+            </a>-->
             <a md-list-item
                 (click)="sidenav.close(); goTo('report/history')">
                 <md-icon md-list-icon
                     class="proteccion"
-                    color="accent">poll</md-icon>
+                    color="accent">dashboard</md-icon>
                 <span md-line>{{'app.sideNav.report.title' | translate}}</span>
                 <span md-line
                     class="secondary">{{'app.sideNav.report.description' | translate}}</span>
@@ -35,7 +35,7 @@
                 (click)="sidenav.close(); goTo('retry/history')">
                 <md-icon md-list-icon
                     class="proteccion"
-                    color="accent">group_work
+                    color="accent">graphic_eq
                 </md-icon>
                 <span md-line>{{'app.sideNav.historyRetry.title' | translate}}</span>
                 <span md-line

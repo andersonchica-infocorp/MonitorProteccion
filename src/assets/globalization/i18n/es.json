@@ -15,7 +15,7 @@
                 "description": "Adminsitrar Aplicaciones"
             },
             "report": {
-                "title": "Histórico",
+                "title": "Dashboard",
                 "description": "Ver histórico de transacciones"
             },
             "service": {
@@ -38,7 +38,9 @@
             "search": "Buscar",
             "retry": "Reintentar",
             "refresh": "Refrescar",
-            "xml": "Ver Xml"
+            "xml": "Ver Xml",
+            "close": "Cerrar",
+            "update": "Actualizar"
         },
         "user": {
             "title": "Administradores",
@@ -92,7 +94,12 @@
                 "transaction": "Transacción",
                 "errorType": "Tipo Error",
                 "error": "Error",
-                "xml": "Xml"
+                "xml": "Xml",
+                "actions":"Acciones",
+                "retry": "Reintentar"
+            },
+            "history":{
+                "back":"View Grid"
             }
         }
     }

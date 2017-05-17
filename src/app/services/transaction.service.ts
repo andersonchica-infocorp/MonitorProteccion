@@ -5,7 +5,7 @@ import { Observable } from 'rxJs';
 import { AppConfigService } from './app-config.service';
 import { ParentTransaction } from '../Model/parentTransaction.model';
 import { TransactionChild } from '../Model/transactionChildResponse.model';
-
+import {Service} from '../Model/service.model';
 
 
 @Injectable()
@@ -81,8 +81,23 @@ export class TransactionService {
     return this.http.get(url, {
       headers
     }).map(response => {
-      console.log(url);
       return response.json() as ParentTransaction;
+    });
+  }
+
+  updateXml(transactionId: number, xml: string) {
+    var url = `${AppConfigService.config.webApiUrl}/transactiondatamodified`;
+    var headers = new Headers();
+    var data = "trx=" + transactionId + "&data=" + xml;
+
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Accept', 'application/json; charset=utf-8');
+
+    return this.http.post(url,
+      data,
+      { headers }
+    ).map(response => {
+      return response.text();
     });
   }
 }

@@ -10,13 +10,19 @@ import { TransactionService } from '../../services/transaction.service';
 import { Observable } from 'rxJs';
 import { Consumer } from '../../Model/consumer.model';
 
+import 'brace';
+import 'brace/theme/clouds';
+import 'brace/mode/sql';
+
 @Component({
 	selector: 'app-retry-history',
 	templateUrl: './retry-history.component.html',
 	styleUrls: ['./retry-history.component.scss']
 })
 export class RetryHistoryComponent implements OnInit {
-	page: number= 0;
+	options: any = { maxLines: 1000, printMargin: true };
+	config = { lineNumbers: true };
+	page: number = 0;
 
 	applications: Application[];
 	services: Service[];
@@ -30,13 +36,18 @@ export class RetryHistoryComponent implements OnInit {
 	selectedTransactionXml: Transaction;
 	totalRows: number;
 	cantidad: number = 0;
+	isSearching: boolean;
+	showTransactions: boolean;
+	isChargingInitialData:boolean;
 
 	ngOnInit() {
+		this.isChargingInitialData = true;
 		this.applicationService.getUserData()
 			.subscribe(
 			user => {
 				this.applications = user.applications;
 				this.consumers = user.consumers;
+				this.isChargingInitialData = false;
 			});
 	}
 
@@ -62,10 +73,13 @@ export class RetryHistoryComponent implements OnInit {
 		var applicationId = this.form.get('application').value;
 		var serviceId = this.form.get('serviceControl').value;
 
+		this.showTransactions = true;
+		this.isSearching = true;
 		this.transactionService.getGlobalSearchTransaction(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
 			.subscribe(parentTransaction => {
 				this.transactions = parentTransaction.transactions;
 				this.cantidad = parentTransaction.records;
+				this.isSearching = false;
 			});
 	}
 
@@ -74,14 +88,8 @@ export class RetryHistoryComponent implements OnInit {
 	}
 
 	paginate(event) {
-		//event.first = Index of the first record
-		//event.rows = Number of rows to display in new page
 		this.page = event.page;
-
 		this.search();
-		//event.pageCount = Total number of pages
-
-
 	}
 
 	onSelectApplication(value) {
@@ -93,21 +101,6 @@ export class RetryHistoryComponent implements OnInit {
 
 	onValueChanged(data?: any) {
 		if (!this.form) { return; }
-
-		/*const form = this.heroForm;
-		for (const field in this.formErrors) {
-		  // clear previous error message (if any)
-		  this.formErrors[field] = '';
-		  const control = form.get(field);
-		  if (control && control.dirty && !control.valid) {
-			const messages = this.validationMessages[field];
-			for (const key in control.errors) {
-			  this.formErrors[field] += messages[key] + ' ';
-			}
-		  }
-		}*/
-
-
 	}
 
 	getTransactionsTransaction(transactionTemplate) {
@@ -127,9 +120,55 @@ export class RetryHistoryComponent implements OnInit {
 		this.selectedTransactionXml = transactionTemplate;
 		this.transactionService.getXmlTransaction(transactionTemplate.id)
 			.subscribe(xml => {
-				this.xmlTransactionSelected = xml;
+				this.xmlTransactionSelected = this.formatXML(xml);;
 				console.log(xml);
 			});
 	}
 
+	backToGrid() {
+		this.xmlTransactionSelected = undefined;
+	}
+
+	formatXML(input) {
+
+		// PART 1: Add \n where necessary
+		// A) add \n between sets of angled brackets without content between them
+		// B) remove \n between opening and closing tags of the same node if no content is between them
+		// C) add \n between a self-closing set of angled brackets and the next set
+		// D) split it into an array
+
+		let xmlString = input.trim()
+			.replace(/>\s*</g, '>\n<')
+			.replace(/(<[^\/>].*>)\n(<[\/])/g, '$1$2')
+			.replace(/(<\/[^>]+>|<[^>]+\/>)(<[^>]+>)/g, '$1\n$2');
+		let xmlArr = xmlString.split('\n');
+
+		// PART 2: indent each line appropriately
+
+		var tabs = '';          //store the current indentation
+		var start = 0;          //starting line
+		if (/^<[?]xml/.test(xmlArr[0])) start++;    //if the first line is a header, ignore it
+
+		for (var i = start; i < xmlArr.length; i++) { //for each line
+			var line = xmlArr[i].trim();    //trim it just in case
+			if (/^<[/]/.test(line)) { // if the line is a closing tag
+				// remove one tab from the store
+				// add the tabs at the beginning of the line
+				tabs = tabs.replace(/.$/, '');
+				xmlArr[i] = tabs + line;
+			} else if (/<.*>.*<\/.*>|<.*[^>]\/>/.test(line)) { // if the line contains an entire node
+				// leave the store as is
+				// add the tabs at the beginning of the line
+				xmlArr[i] = tabs + line;
+			} else { // if the line starts with an opening tag and does not contain an entire node
+				// add the tabs at the beginning of the line
+				// and add one tab to the store
+				xmlArr[i] = tabs + line;
+				tabs += '\t';
+			}
+		}
+
+		//rejoin the array to a string and return it
+		return xmlArr.join('\n');
+	}
 }

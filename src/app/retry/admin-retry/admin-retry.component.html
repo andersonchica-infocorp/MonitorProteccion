@@ -1,6 +1,5 @@
 <div class="card-container">
-    <md-card class="search md_card_app"
-        [style.display]="xmlTransactionSelected ? 'none' : 'block' ">
+    <md-card class="search md_card_app">
         <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
         <md-divider></md-divider>
         <md-card-content>
@@ -48,7 +47,7 @@
             </button>
         </md-card-actions>
     </md-card>
-    <md-card class="result"
+    <md-card class="result md_card_app"
         *ngIf="transactions">
         <md-card-content>
             <p-dataTable [value]="transactions"
@@ -59,36 +58,27 @@
                     [style]="{'width':'40px'}"
                     styleClass="col-icon"></p-column>
                 <p-column field="id"
+                    [style]="{'width':'100px'}"
                     header="{{'app.retry.results.transaction' | translate}}"></p-column>
                 <p-column field="msgId"
+                    [style]="{'width':'100px'}"
                     header="{{'app.retry.results.messageId' | translate}}"></p-column>
                 <p-column field="errorType"
+                    [style]="{'width':'100px'}"
                     header="{{'app.retry.results.errorType' | translate}}"></p-column>
                 <p-column field="errorMessage"
                     header="{{'app.retry.results.error' | translate}}"></p-column>
                 <p-column styleClass="col-button"
-                    [style]="{'width':'40px'}">
+                    [style]="styleCellActions">
                     <ng-template pTemplate="header">
-                        <span>{{'app.retry.results.xml' | translate}}</span>
+                        <span>{{'app.retry.results.actions' | translate}}</span>
                     </ng-template>
                     <ng-template let-transactionTemplate="rowData"
                         pTemplate="body">
-                        <md-icon md-list-icon
+                        <md-icon md-list-icon style=""
                             class="xml"
                             (click)="showXml(transactionTemplate)"
                             mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
-                    </ng-template>
-                </p-column>
-                <p-column styleClass="col-button"
-                    [style]="{'width':'40px'}">
-                    <ng-template pTemplate="header">
-                        <md-icon md-list-icon
-                            class="refresh"
-                            (click)="refreshTransactions()"
-                            mdTooltip="{{'app.common.refresh' | translate}}">refresh</md-icon>
-                    </ng-template>
-                    <ng-template let-transactionTemplate2="rowData"
-                        pTemplate="body">
                         <md-icon md-list-icon
                             class="retry"
                             (click)="showTransactionsTransaction(transactionTemplate)"
@@ -115,19 +105,6 @@
                 (onPageChange)="paginate($event)"></p-paginator>
         </md-card-content>
         <md-card-actions align="end">
-        </md-card-actions>
-    </md-card>
-</div>
-<div *ngIf="selectedTransactionXml">
-    <md-card class="search">
-        <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
-        <md-divider></md-divider>
-        <md-card-content>
-            {{ xmlTransactionSelected }}
-
-        </md-card-content>
-        <md-card-actions align="end">
-
         </md-card-actions>
     </md-card>
 </div>

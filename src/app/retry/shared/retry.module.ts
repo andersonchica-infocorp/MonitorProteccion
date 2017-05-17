@@ -15,6 +15,8 @@ import { RetryHistoryComponent } from '../retry-history/retry-history.component'
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { PaginatorModule } from 'primeng/primeng';
+import { AceEditorModule } from 'ng2-ace-editor';
+import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 
 @NgModule({
   imports: [
@@ -27,15 +29,20 @@ import { PaginatorModule } from 'primeng/primeng';
     TranslateModule,
     DataTableModule,
     SharedModule,
-    PaginatorModule
+    PaginatorModule,
+    AceEditorModule
   ],
   declarations: [
     AdminRetryComponent,
-    RetryHistoryComponent
+    RetryHistoryComponent,
+    ModalXmlComponent
   ],
   providers: [
     UserService,
     TransactionService
+  ],
+  entryComponents: [
+    ModalXmlComponent
   ]
 })
 export class RetryModule { }

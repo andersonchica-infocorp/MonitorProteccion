@@ -1,5 +1,12 @@
-<md-card class="app-card-content md_card_app" *ngIf="services">
+<md-card class="app-card-content md_card_app">
     <md-card-content>
+        <md-select placeholder="{{'app.retry.applications' | translate}}"
+            class="item"
+            (change)="onSelectApplication()"
+            [(ngModel)]="selectedApplication">
+            <md-option *ngFor="let application of applications"
+                [value]="application.id">{{ application.name }}</md-option>
+        </md-select>
         <md-list>
             <md-list-item *ngFor="let service of services">
                 <h3 md-line

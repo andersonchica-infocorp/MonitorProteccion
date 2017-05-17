@@ -30,6 +30,7 @@
     "d3": "^4.8.0",
     "font-awesome": "^4.7.0",
     "moment": "^2.18.1",
+    "ng2-ace-editor": "^0.2.2",
     "ng2-charts": "^1.5.0",
     "ng2-translate": "^5.0.0",
     "primeng": "^4.0.0",

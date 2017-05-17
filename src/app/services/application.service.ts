@@ -5,6 +5,8 @@ import { Observable } from 'rxJs';
 import { AppConfigService } from './app-config.service';
 import { Service } from '../Model/service.model';
 import { User } from '../Model/user.model';
+import { ServicesApplication } from '../Model/services.application.model'
+
 
 
 @Injectable()
@@ -40,6 +42,7 @@ export class ApplicationService {
     return this.http.get(url, {
       headers
     }).map(response => {
+      console.log(response.json());
       return response.json() as User;
     });
   }
@@ -58,25 +61,18 @@ export class ApplicationService {
     });
   }
 
-  /*dragonsDetails(id): Dragon {
-    let list = this.dragons.filter(d => d.id === id);
-    return list.length ? list[0] : null;
-  }
+  getServicesApplication(applicationId: number): Observable<ServicesApplication> {
 
-  dragonDelete(id: number) {
-    this.dragons = this.dragons.filter(d => d.id !== id);
-  }
+    var url = `${AppConfigService.config.webApiUrl}/services?app=` + applicationId;
+    var headers = new Headers();
 
-  dragonAdd(name: string): number {
-    let newId = 1 + this.dragons.map(d => d.id).reduce((a, b) => Math.max(a, b));
-    this.dragons.push({ id: newId, name: name} as Dragon);
-    return newId;
-  }
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+    headers.append('Accept', 'application/json; charset=utf-8');
 
-  dragonUpdate(id: number, name: string) {
-    let dragons: Dragon[] = this.dragons.filter(d => d.id === id);
-    if (dragons.length) {
-      dragons[0].name = name;
-    }
-  }*/
+    return this.http.get(url, {
+      headers
+    }).map(response => {
+      return response.json() as ServicesApplication;
+    });
+  }
 }

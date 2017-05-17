@@ -12,7 +12,7 @@ import { ServiceDetailComponent } from '../Service/Service-detail/Service-detail
 import { AuthManager } from '../../authentication/shared/authentication.manage';
 
 const registerRoutes: Routes = [
-  {
+  /*{
     path: 'master/application', component: ApplicationComponent, canActivate: [AuthManager],
     children: [
       { path: '', component: ApplicationListComponent }
@@ -45,7 +45,7 @@ const registerRoutes: Routes = [
         outlet: 'details',
       }
     ]
-  },
+  },*/
 
 
 

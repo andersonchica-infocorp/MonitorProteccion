@@ -2,9 +2,9 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminRetryComponent } from '../admin-retry/admin-retry.component';
+import { RetryHistoryComponent } from '../retry-history/retry-history.component';
 
 import { AuthManager } from '../../authentication/shared/authentication.manage';
-import { RetryHistoryComponent } from '../retry-history/retry-history.component';
 
 const retryRoutes: Routes = [
   {
@@ -14,6 +14,5 @@ const retryRoutes: Routes = [
     path: 'retry/history', component: RetryHistoryComponent, canActivate: [AuthManager],
   }
 ];
-
 
 export const RetryRouting: ModuleWithProviders = RouterModule.forChild(retryRoutes);

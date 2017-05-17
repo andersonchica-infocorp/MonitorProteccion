@@ -15,7 +15,7 @@
                 "description": "Administrate Applications"
             },
             "report": {
-                "title": "History",
+                "title": "Dashboard",
                 "description": "Transactions History"
             },
             "service": {
@@ -38,7 +38,9 @@
             "search": "Search",
             "retry": "Retry",
             "refresh": "Refresh",
-            "xml": "View Xml"
+            "xml": "View Xml",
+            "close": "Close",
+            "update": "Update"
         },
         "user": {
             "title": "Adminis1tradores",
@@ -92,7 +94,12 @@
                 "transaction": "Transaction",
                 "errorType": "Error Type",
                 "error": "Error",
-                "xml":"Xml"
+                "xml":"Xml",
+                "actions":"Actions",
+                "retry": "Retry"
+            },
+            "history":{
+                "back":"View Grid"
             }
         }
     }

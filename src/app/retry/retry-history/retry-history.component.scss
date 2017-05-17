@@ -18,6 +18,10 @@ md-card {
 	flex: 1;
 }
 
+.xml_container{
+
+}
+
 .form_container{
 	display: flex;
 	flex-flow: column wrap;
@@ -28,4 +32,9 @@ md-card {
 	flex: 1;
 	margin: 5px;
 	padding: 10px;
+}
+
+.cell_grid{
+	text-align:center;
+	width:100px;
 }
