@@ -1,6 +1,6 @@
 <md-progress-bar mode="indeterminate" *ngIf="updatingXml"></md-progress-bar>
 <h2 md-dialog-title>Neptune</h2>
-<md-dialog-content class="">
+<div md-dialog-content>
     <div ace-editor
         [(text)]="xmlSelected"
         [mode]="'xml'"
@@ -8,8 +8,8 @@
         [options]="options"
         [readOnly]="readOnly"
         style="min-height: 400px;max-height: 90%; width:100%; overflow: auto;"></div>
-</md-dialog-content>
-<md-dialog-actions align="end">
+</div>
+<div md-dialog-actions align="end">
     <button md-raised-button
         style="padding-right: 10px"
         color="primary"
@@ -17,4 +17,4 @@
     <button md-raised-button
         color="primary"
         md-dialog-close>{{'app.common.close' | translate}}</button>
-</md-dialog-actions>
+</div>

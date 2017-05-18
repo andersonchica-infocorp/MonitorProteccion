@@ -12,20 +12,6 @@ import { ServicesApplication } from '../Model/services.application.model'
 @Injectable()
 export class ApplicationService {
 
-  private applications: Application[] = [
-    { id: 1, name: 'Application 1', },
-    { id: 2, name: 'Application 2', },
-    { id: 3, name: 'Application 3', },
-    { id: 4, name: 'Application 4', }
-  ];
-
-  private services: Service[] = [
-    { id: 1, name: 'Service 1', },
-    { id: 2, name: 'Service 2', },
-    { id: 3, name: 'Service 3', },
-    { id: 4, name: 'Service 4', }
-  ];
-
 
   constructor(private http: Http) {
 
@@ -74,5 +60,35 @@ export class ApplicationService {
     }).map(response => {
       return response.json() as ServicesApplication;
     });
+  }
+
+  updateService(service: Service, applicationId: number) {
+    console.log(service);
+    var url = `${AppConfigService.config.webApiUrl}/serviceupdate`;
+    var headers = new Headers();
+    var data = "app=" + applicationId +
+      this.constructParam("url", service.invokeUrl) +
+      this.constructParam("timeout", service.invokeTimeout) +
+      this.constructParam("retryCount", service.retryCount) +
+      this.constructParam("retryDelay", service.retryDelay) +
+      this.constructParam("callbackEnabled", service.reqCallback) +
+      this.constructParam("callBackStatus", service.callBackStatus) +
+      this.constructParam("verCode", service.verCode) +
+      this.constructParam("verCodeUrl", service.verCodeUrl) +
+      this.constructParam("verCodeTimeout", service.verCodeTimeut);
+
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Accept', 'application/json; charset=utf-8');
+    return this.http.post(url,
+      data,
+      { headers }
+    ).map(response => {
+      return response.text();
+    });
+  }
+
+  private constructParam(parameter: string, value) {
+    return "&" + parameter + "=" + value;
+
   }
 }

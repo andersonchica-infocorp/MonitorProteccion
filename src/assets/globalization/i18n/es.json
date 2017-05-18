@@ -26,7 +26,7 @@
                 "title": "Reintentos",
                 "description": "Administrar Reintentos"
             },
-            "historyRetry":{
+            "historyRetry": {
                 "title": "Histórico Reintentos",
                 "description": "Ver Histórico de Reintentos"
             }
@@ -40,7 +40,8 @@
             "refresh": "Refrescar",
             "xml": "Ver Xml",
             "close": "Cerrar",
-            "update": "Actualizar"
+            "update": "Actualizar",
+            "edit": "Editar"
         },
         "user": {
             "title": "Administradores",
@@ -63,7 +64,21 @@
             "service": {
                 "deleteTooltip": "Eliminar Servicio",
                 "title": "Servicios",
-                "new": "Nuevo Servicio"
+                "new": "Nuevo Servicio",
+                "operation": "Operación",
+                "messageId": "MessageId",
+                "genResponse": "Gen Response",
+                "parseResponse": "Parse Response",
+                "actions": "Acciones",
+                "url": "Url",
+                "timeOut": "Invoke Time Out",
+                "retryCount": "Retry Count",
+                "retryDelay": "Retry Delay",
+                "reqCallBack": "Requiere Callback",
+                "callBackStatus": "Callback Status",
+                "verCode": "Ver Code",
+                "verCodeUrl": "Ver Code Url",
+                "verCodeTimeOut": "Ver Code Timeout"
             }
         },
         "report": {
@@ -95,11 +110,11 @@
                 "errorType": "Tipo Error",
                 "error": "Error",
                 "xml": "Xml",
-                "actions":"Acciones",
+                "actions": "Acciones",
                 "retry": "Reintentar"
             },
-            "history":{
-                "back":"View Grid"
+            "history": {
+                "back": "View Grid"
             }
         }
     }

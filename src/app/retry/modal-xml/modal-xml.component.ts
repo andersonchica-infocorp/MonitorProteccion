@@ -40,8 +40,4 @@ export class ModalXmlComponent implements OnInit {
 				this.updatingXml = false;
 			});
 	}
-
-	onChange(){
-console.log(event);
-	}
 }

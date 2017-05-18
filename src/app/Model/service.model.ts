@@ -12,6 +12,9 @@ export class Service {
 		public reqCallback: boolean,
 		public retryCount: number,
 		public retryDelay: number,
-		public verCodeTimeut: number
+		public verCode:string,
+		public verCodeTimeut?: number,
+		public verCodeUrl?:string,
+		public callBackStatus?: string,
 		) { }
 }

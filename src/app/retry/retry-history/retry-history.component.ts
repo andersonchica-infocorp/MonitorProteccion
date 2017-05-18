@@ -38,7 +38,8 @@ export class RetryHistoryComponent implements OnInit {
 	cantidad: number = 0;
 	isSearching: boolean;
 	showTransactions: boolean;
-	isChargingInitialData:boolean;
+	isChargingInitialData: boolean;
+	resetPaginator: boolean;
 
 	ngOnInit() {
 		this.isChargingInitialData = true;
@@ -75,16 +76,24 @@ export class RetryHistoryComponent implements OnInit {
 
 		this.showTransactions = true;
 		this.isSearching = true;
+		this.cantidad = 0;
 		this.transactionService.getGlobalSearchTransaction(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
 			.subscribe(parentTransaction => {
 				this.transactions = parentTransaction.transactions;
 				this.cantidad = parentTransaction.records;
 				this.isSearching = false;
+				this.resetPaginator = false;
 			});
 	}
 
 	showTransaction(transaction: Transaction) {
 
+	}
+
+	onSearch() {
+		this.resetPaginator = true;
+		this.page = 0;
+		this.search();
 	}
 
 	paginate(event) {

@@ -26,7 +26,7 @@
                 "title": "Retries",
                 "description": "Adminitrate retries"
             },
-            "historyRetry":{
+            "historyRetry": {
                 "title": "Retry History",
                 "description": "View Retry History"
             }
@@ -40,7 +40,8 @@
             "refresh": "Refresh",
             "xml": "View Xml",
             "close": "Close",
-            "update": "Update"
+            "update": "Update",
+            "edit": "Edit"
         },
         "user": {
             "title": "Adminis1tradores",
@@ -63,7 +64,21 @@
             "service": {
                 "deleteTooltip": "Delete Service",
                 "title": "Services",
-                "new": "New Service"
+                "new": "New Service",
+                "operation": "Operation",
+                "messageId": "MessageId",
+                "genResponse": "Gen Response",
+                "parseResponse": "Parse Response",
+                "actions": "Actions",
+                "url": "Url",
+                "timeOut": "Invoke Time Out",
+                "retryCount": "Retry Count",
+                "retryDelay": "Retry Delay",
+                "reqCallBack": "Requiere Callback",
+                "callBackStatus": "Callback Status",
+                "verCode": "Ver Code",
+                "verCodeUrl": "Ver Code Url",
+                "verCodeTimeOut": "Ver Code Timeout"
             }
         },
         "report": {
@@ -94,12 +109,12 @@
                 "transaction": "Transaction",
                 "errorType": "Error Type",
                 "error": "Error",
-                "xml":"Xml",
-                "actions":"Actions",
+                "xml": "Xml",
+                "actions": "Actions",
                 "retry": "Retry"
             },
-            "history":{
-                "back":"View Grid"
+            "history": {
+                "back": "View Grid"
             }
         }
     }

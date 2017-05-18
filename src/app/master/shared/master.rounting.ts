@@ -5,9 +5,8 @@ import { ApplicationListComponent } from '../application/application-list/applic
 import { ApplicationComponent } from '../application/application/application.component';
 import { ApplicationDetailComponent } from '../application/application-detail/application-detail.component';
 
-import { ServiceListComponent } from '../Service/Service-list/Service-list.component';
-import { ServiceComponent } from '../Service/Service/Service.component';
-import { ServiceDetailComponent } from '../Service/Service-detail/Service-detail.component';
+import { ServiceListComponent } from '../service/service-list/service-list.component';
+import { ServiceComponent } from '../service/service/service.component';
 
 import { AuthManager } from '../../authentication/shared/authentication.manage';
 
@@ -54,34 +53,6 @@ const registerRoutes: Routes = [
     children: [
       { path: '', component: ServiceListComponent }
     ],
-  },
-  {
-    path: 'master/service/new', component: ServiceComponent,
-    children: [
-      {
-        path: '',
-        component: ServiceListComponent,
-      },
-      {
-        path: '',
-        component: ServiceDetailComponent,
-        outlet: 'details'
-      }
-    ]
-  },
-  {
-    path: 'master/service/:id', component: ServiceComponent,
-    children: [
-      {
-        path: '',
-        component: ServiceListComponent,
-      },
-      {
-        path: '',
-        component: ServiceDetailComponent,
-        outlet: 'details',
-      }
-    ]
   }
 ];
 
