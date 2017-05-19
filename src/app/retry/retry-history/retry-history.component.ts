@@ -9,7 +9,7 @@ import { Transaction } from '../../Model/transaction.model';
 import { TransactionService } from '../../services/transaction.service';
 import { Observable } from 'rxJs';
 import { Consumer } from '../../Model/consumer.model';
-import { MdDialog } from '@angular/material';
+import { MdDialog, DateAdapter } from '@angular/material';
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 
 import 'brace';
@@ -43,6 +43,14 @@ export class RetryHistoryComponent implements OnInit {
 	isChargingInitialData: boolean;
 	resetPaginator: boolean;
 
+touch: boolean;
+  filterOdd: boolean;
+  yearView: boolean;
+  minDate: Date;
+  maxDate: Date;
+  startAt: Date;
+  date: Date;
+
 	ngOnInit() {
 		this.isChargingInitialData = true;
 		this.applicationService.getUserData()
@@ -56,7 +64,9 @@ export class RetryHistoryComponent implements OnInit {
 
 	constructor(private route: ActivatedRoute, public fb: FormBuilder,
 		public router: Router, private applicationService: ApplicationService,
-		private transactionService: TransactionService, public dialog: MdDialog) {
+		private transactionService: TransactionService, public dialog: MdDialog, private dateAdapter:DateAdapter<Date>) {
+
+		dateAdapter.setLocale('es-co');
 
 		this.form = this.fb.group({
 			consumer: [''],
@@ -79,7 +89,7 @@ export class RetryHistoryComponent implements OnInit {
 		this.showTransactions = true;
 		this.isSearching = true;
 		this.cantidad = 0;
-		
+
 		this.transactionService.getGlobalSearchTransaction(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
 			.subscribe(parentTransaction => {
 				this.transactions = parentTransaction.transactions;

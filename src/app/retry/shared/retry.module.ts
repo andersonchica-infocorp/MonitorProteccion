@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { TransactionService } from '../../services/transaction.service';
 
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdNativeDateModule } from '@angular/material';
 
 import { AdminRetryComponent } from '../admin-retry/admin-retry.component';
 import { RetryHistoryComponent } from '../retry-history/retry-history.component';
@@ -30,7 +30,8 @@ import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
     DataTableModule,
     SharedModule,
     PaginatorModule,
-    AceEditorModule
+    AceEditorModule,
+    MdNativeDateModule
   ],
   declarations: [
     AdminRetryComponent,
