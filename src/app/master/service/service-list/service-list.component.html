@@ -4,6 +4,7 @@
     <md-card-content>
         <md-select placeholder="{{'app.retry.applications' | translate}}"
             class="item"
+            color="accent"
             (change)="onSelectApplication()"
             [(ngModel)]="selectedApplication">
             <md-option *ngFor="let application of applications"

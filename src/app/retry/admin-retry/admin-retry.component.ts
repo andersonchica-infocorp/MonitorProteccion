@@ -37,6 +37,12 @@ export class AdminRetryComponent implements OnInit {
 	selectedTransaction: Transaction;
 	selectedApplication: Application;
 	selectedTransactionXml: Transaction;
+	
+	isChargingInitialData: boolean;
+	resetPaginator: boolean;
+	isSearching: boolean;
+	showTransactions: boolean;
+	cantidad: number = 0;
 
 	styleCellActions = { "width": "100px", "text-align": "center" }
 
@@ -56,18 +62,17 @@ export class AdminRetryComponent implements OnInit {
 	totalRows: number;
 
 	ngOnInit() {
+		this.isChargingInitialData = true;
 		this.applicationService.getUserData()
 			.subscribe(
 			user => {
 				this.applications = user.applications;
 				this.consumers = user.consumers;
+				this.isChargingInitialData = false;
 			});
 	}
 
 	search() {
-		this.xmlTransactionSelected = this.formatXML('<out5:crearDobleAsesoria xmlns:out5="http://tempuri.org/" xmlns:out7="http://schemas.datacontract.org/2004/07/CRM_Proteccion_Services"><out5:nuevaAsesoria><out7:ApruebaHistoria>true</out7:ApruebaHistoria><out7:Asunto>Doble Asesoria</out7:Asunto><out7:ClienteContactado>true</out7:ClienteContactado><out7:Consecutivo>DA1234567</out7:Consecutivo><out7:Descripcion>Se le explica la diferencia de r�gimen.</out7:Descripcion><out7:ElAfiliadoDecide>2</out7:ElAfiliadoDecide><out7:EstadoHistoriaLaboral>1</out7:EstadoHistoriaLaboral><out7:FechaInicio>2017-02-02T12:09:23.299-05:00</out7:FechaInicio><out7:LeConvieneQuedarse>1</out7:LeConvieneQuedarse><out7:ListaDocumentos/><out7:MasAnosRAI>true</out7:MasAnosRAI><out7:MedioUtilizado>2</out7:MedioUtilizado><out7:NumeroIdentificacion>1</out7:NumeroIdentificacion><out7:Propietario>JMGIL</out7:Propietario><out7:SegundaAsesoria>false</out7:SegundaAsesoria><out7:TipoAsesoria>2</out7:TipoAsesoria><out7:TipoIdentificacion>CC</out7:TipoIdentificacion></out5:nuevaAsesoria></out5:crearDobleAsesoria>');
-		console.log(this.xmlTransactionSelected);
-
 		var consumer = this.form.get('consumer').value;
 		var messageId = this.form.get('messageId').value;
 		var initialDate = this.form.get('initialDate').value;
@@ -75,10 +80,22 @@ export class AdminRetryComponent implements OnInit {
 		var applicationId = this.form.get('application').value;
 		var serviceId = this.form.get('serviceControl').value;
 
-		this.transactionService.getTransactions(applicationId, serviceId, consumer, messageId, initialDate, finalDate, 0, 10)
+		this.isSearching = true;
+		this.cantidad = 0;	
+		this.showTransactions = true;	
+
+		this.transactionService.getTransactions(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
 			.subscribe(parentTransaction => {
 				this.transactions = parentTransaction.transactions;
+				this.isSearching = false;
+				this.resetPaginator = false;
 			});
+	}
+
+	onSearch() {
+		this.resetPaginator = true;
+		this.page = 0;
+		this.search();
 	}
 
 	showTransaction(transaction: Transaction) {
@@ -119,7 +136,6 @@ export class AdminRetryComponent implements OnInit {
 		this.transactionService.getXmlTransaction(transactionTemplate.id)
 			.subscribe(xml => {
 				this.xmlTransactionSelected = this.formatXML(xml);
-				console.log(this.xmlTransactionSelected);
 
 				let dialogRef = this.dialog.open(ModalXmlComponent, {
 					data: {

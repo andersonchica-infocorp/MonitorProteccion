@@ -1,3 +1,6 @@
+<md-progress-bar mode="indeterminate"
+    color="accent"
+    *ngIf="isChargingInitialData"></md-progress-bar>
 <div class="card-container">
     <md-card class="search md_card_app">
         <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
@@ -6,7 +9,8 @@
             <form (ngSubmit)="onSubmit()"
                 [formGroup]="form">
                 <md-select placeholder="{{'app.retry.applications' | translate}}"
-                    class="item"
+                    class="item" 
+                    color="accent"
                     (change)="onSelectApplication($event.value)"
                     [(ngModel)]="selectedApplication"
                     formControlName="application">
@@ -14,20 +18,22 @@
                         [value]="application.id">{{ application.name }}</md-option>
                 </md-select>
                 <md-select placeholder="{{'app.retry.services' | translate}}"
-                    class="item"
+                    class="item" 
+                    color="accent"
                     formControlName="serviceControl">
                     <md-option *ngFor="let service of services"
                         [value]="service.id">{{ service.name }}
                     </md-option>
                 </md-select>
                 <md-select placeholder="{{'app.retry.consumer' | translate}}"
-                    class="item"
+                    class="item" 
+                    color="accent"
                     formControlName="consumer">
                     <md-option *ngFor="let consumer of consumers"
                         [value]="consumer">{{ consumer }}
                     </md-option>
                 </md-select>
-                <md-input-container class="item">
+                <md-input-container class="item" color="accent">
                     <input mdInput
                         type="number"
                         placeholder="{{'app.retry.message' | translate}}"
@@ -39,7 +45,7 @@
         <md-card-actions align="end">
             <button md-mini-fab
                 type="button"
-                (click)="search()"
+                (click)="onSearch()"
                 [disabled]="false"
                 color="primary"
                 mdTooltip="{{'app.common.search' | translate}}">
@@ -48,9 +54,14 @@
         </md-card-actions>
     </md-card>
     <md-card class="result md_card_app"
-        *ngIf="transactions">
+        [style.display]="xmlTransactionSelected ? 'none' : 'block' "
+        *ngIf="showTransactions">
         <md-card-content>
+        <md-progress-bar mode="indeterminate"
+                color="accent"
+                *ngIf="isSearching"></md-progress-bar>
             <p-dataTable [value]="transactions"
+                *ngIf="!isSearching"
                 (onRowExpand)="getTransactionsTransaction($event)"
                 expandableRows="true">
                 <p-header>{{'app.retry.transactions' | translate}}</p-header>
@@ -100,6 +111,8 @@
                 </ng-template>
             </p-dataTable>
             <p-paginator rows="10"
+                *ngIf="!resetPaginator"
+                [style.display]="isSearching ? 'none' : 'block' "
                 [totalRecords]="cantidad"
                 pageLinkSize="5"
                 (onPageChange)="paginate($event)"></p-paginator>

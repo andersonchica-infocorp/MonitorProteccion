@@ -9,10 +9,15 @@ import { Dashboard } from '../../Model/dashboard.model';
 })
 export class ReportComponent implements OnInit {
 	dashboard: Dashboard;
+	isChargingInitialData: boolean;
 
 	constructor(private dashboardService: DashboardService) {
+		this.isChargingInitialData = true;
 		this.dashboardService.getDashboard().subscribe(
-			dashboard => this.dashboard = dashboard
+			dashboard => {
+				this.dashboard = dashboard;
+				this.isChargingInitialData = false;
+			}
 		);
 	}
 
