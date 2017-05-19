@@ -54,7 +54,8 @@
                         placeholder="{{'app.retry.initialDate' | translate}}">
 
                 </md-input-container>
-                <button type="button" [mdDatepickerToggle]="resultPickerInitial"></button>
+                <button type="button"
+                    [mdDatepickerToggle]="resultPickerInitial"></button>
                 <md-datepicker #resultPickerInitial
                     [touchUi]="touch"
                     [startAt]="startAt"
@@ -72,7 +73,8 @@
                         placeholder="{{'app.retry.finalDate' | translate}}">
 
                 </md-input-container>
-                <button type="button" [mdDatepickerToggle]="resultPicker"></button>
+                <button type="button"
+                    [mdDatepickerToggle]="resultPicker"></button>
                 <md-datepicker #resultPicker
                     [touchUi]="touch"
                     [startAt]="startAt"
@@ -117,10 +119,16 @@
                     <ng-template let-transactionTemplate="rowData"
                         pTemplate="body">
                         <md-icon md-list-icon
+                            *ngIf="!isShowingXml"
                             class="xml"
                             (click)="showXml(transactionTemplate)"
                             mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
                     </ng-template>
+                    <md-spinner class="example-margin"
+                        *ngIf="isShowingXml"
+                        color="accent"
+                        mode="indeterminate">
+                    </md-spinner>
                 </p-column>
                 <ng-template let-transactionTemplate
                     pTemplate="rowexpansion">

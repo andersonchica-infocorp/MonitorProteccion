@@ -42,6 +42,9 @@ export class AdminRetryComponent implements OnInit {
 	resetPaginator: boolean;
 	isSearching: boolean;
 	showTransactions: boolean;
+
+	isSendingRetry: boolean;
+	isShowingXml: boolean;
 	cantidad: number = 0;
 
 	isSearchingTransactionsTransaction: boolean;
@@ -101,9 +104,12 @@ export class AdminRetryComponent implements OnInit {
 	}
 
 	retry(transaction: Transaction) {
+
+		this.isSendingRetry = true;
 		this.transactionService.retry(transaction)
 			.subscribe(response => {
 				console.log(response);
+				this.isSendingRetry = false;
 			});
 	}
 

@@ -50,6 +50,7 @@ export class RetryHistoryComponent implements OnInit {
 	maxDate: Date;
 	startAt: Date;
 	date: Date;
+	isShowingXml: boolean;
 
 	ngOnInit() {
 		this.isChargingInitialData = true;
@@ -140,9 +141,11 @@ export class RetryHistoryComponent implements OnInit {
 	}
 
 	showXml(transactionTemplate) {
+		this.isShowingXml = true;
 		this.selectedTransactionXml = transactionTemplate;
 		this.transactionService.getXmlTransaction(transactionTemplate.id)
 			.subscribe(xml => {
+				this.isShowingXml = false;
 				this.xmlTransactionSelected = this.formatXML(xml);;
 
 				let dialogRef = this.dialog.open(ModalXmlComponent, {

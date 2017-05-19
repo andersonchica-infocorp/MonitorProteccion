@@ -91,14 +91,24 @@
                     <ng-template let-transactionTemplate="rowData"
                         pTemplate="body">
                         <md-icon md-list-icon
-                            style=""
+                            *ngIf="!isShowingXml"
                             class="xml"
                             (click)="showXml(transactionTemplate)"
                             mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
+                        <md-spinner class="example-margin"
+                            *ngIf="isShowingXml"
+                            color="accent"
+                            mode="indeterminate">
+                        </md-spinner>
                         <md-icon md-list-icon
+                            *ngIf="!isSendingRetry"
                             class="retry"
                             (click)="retry(transactionTemplate)"
                             mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
+                        <md-spinner class="example-margin"
+                            *ngIf="isSendingRetry"
+                            color="accent"
+                            mode="indeterminate">
                     </ng-template>
                 </p-column>
                 <ng-template let-transactionTemplate
