@@ -1,62 +1,119 @@
 <md-card class="app-card-content md_card_app">
+    <md-progress-bar mode="indeterminate"
+        color="accent"
+        *ngIf="isUpdating"></md-progress-bar>
     <md-card-title *ngIf="!initialdata">{{'app.master.application.new' | translate}}</md-card-title>
     <md-card-content>
-        <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <form (ngSubmit)="onSubmit()"
+            [formGroup]="form">
             <section>
-                <md-input-container class="form_control_container" color="accent">
-                    <input mdInput type="text" placeholder="{{'app.master.service.url' | translate}}" formControlName="invokeUrl" maxlength="500">
+                <md-checkbox formControlName="reqCallback">{{'app.master.service.reqCallBack' | translate}}</md-checkbox>
+            </section>
+            <section>
+                <md-input-container class="form_control_container"
+                    color="accent"
+                    [hidden]="!form.get('reqCallback').value">
+                    <input mdInput
+                        type="text"
+                        placeholder="{{'app.master.service.callBackStatus' | translate}}"
+                        formControlName="callBackStatus"
+                        maxlength="500">
+                    <md-error *ngIf="form.controls.callBackStatus.hasError('required')">
+                        {{'app.common.error.required' |translate}}
+                    </md-error>
+                </md-input-container>
+            </section>
+            <section>
+                <md-input-container class="form_control_container"
+                    color="accent">
+                    <textarea mdInput
+                        mdTextareaAutosize
+                        placeholder="{{'app.master.service.url' | translate}}"
+                        formControlName="invokeUrl"
+                        maxlength="500"></textarea>
                     <md-error *ngIf="form.controls.invokeUrl.hasError('required')">
                         {{'app.common.error.required' |translate}}
                     </md-error>
                 </md-input-container>
-                <md-input-container class="form_control_container" color="accent">
-                    <input mdInput type="number" placeholder="{{'app.master.service.timeOut' | translate}}" formControlName="invokeTimeout" maxlength="10">
+            </section>
+            <section>
+                <md-input-container class="form_control_container"
+                    color="accent">
+                    <input mdInput
+                        type="number"
+                        placeholder="{{'app.master.service.timeOut' | translate}}"
+                        formControlName="invokeTimeout"
+                        maxlength="10">
                     <md-error *ngIf="form.controls.invokeTimeout.hasError('required')">
                         {{'app.common.error.required' |translate}}
                     </md-error>
                 </md-input-container>
             </section>
             <section>
-                <md-input-container class="form_control_container" color="accent">
-                    <input mdInput type="number" placeholder="{{'app.master.service.retryCount' | translate}}" formControlName="retryCount" maxlength="10">
+                <md-input-container class="form_control_container"
+                    color="accent">
+                    <input mdInput
+                        type="number"
+                        placeholder="{{'app.master.service.retryCount' | translate}}"
+                        formControlName="retryCount"
+                        maxlength="10">
                     <md-error *ngIf="form.controls.retryCount.hasError('required')">
                         {{'app.common.error.required' |translate}}
                     </md-error>
                 </md-input-container>
-                <md-input-container class="form_control_container" color="accent">
-                    <input mdInput type="number" placeholder="{{'app.master.service.retryDelay' | translate}}" formControlName="retryDelay" maxlength="50">
+            </section>
+            <section>
+                <md-input-container class="form_control_container"
+                    color="accent">
+                    <input mdInput
+                        type="number"
+                        placeholder="{{'app.master.service.retryDelay' | translate}}"
+                        formControlName="retryDelay"
+                        maxlength="50">
                     <md-error *ngIf="form.controls.retryDelay.hasError('required')">
                         {{'app.common.error.required' |translate}}
                     </md-error>
                 </md-input-container>
             </section>
             <section>
-                <md-input-container class="form_control_container" color="accent" [style.display]="!form.get('verCode').value ?' none' : 'block' ">
-                    <input mdInput type="text" placeholder="{{'app.master.service.verCode' | translate}}" formControlName="verCode" maxlength="500" readonly>
+                <md-input-container class="form_control_container"
+                    color="accent"
+                    [hidden]="!form.get('verCode').value">
+                    <input mdInput
+                        type="text"
+                        placeholder="{{'app.master.service.verCode' | translate}}"
+                        formControlName="verCode"
+                        maxlength="500"
+                        readonly>
                     <md-error *ngIf="form.controls.verCode.hasError('required')">
                         {{'app.common.error.required' |translate}}
                     </md-error>
                 </md-input-container>
             </section>
             <section>
-                <md-input-container class="form_control_container" color="accent" [style.display]="emptyVerCode ? 'none' : 'block' ">
-                    <input mdInput type="text" placeholder="{{'app.master.service.verCodeUrl' | translate}}" formControlName="verCodeUrl" maxlength="500">
+                <md-input-container class="form_control_container"
+                    color="accent"
+                    [hidden]="emptyVerCode">
+                    <textarea mdInput
+                        mdTextareaAutosize
+                        placeholder="{{'app.master.service.verCodeUrl' | translate}}"
+                        formControlName="verCodeUrl"
+                        maxlength="500"></textarea>
                     <md-error *ngIf="form.controls.verCodeUrl.hasError('required')">
-                        {{'app.common.error.required' |translate}}
-                    </md-error>
-                </md-input-container>
-                <md-input-container class="form_control_container" color="accent" [style.display]="emptyVerCode ? 'none' : 'block' ">
-                    <input mdInput type="number" placeholder="{{'app.master.service.verCodeTimeOut' | translate}}" formControlName="verCodeTimeut" maxlength="50">
-                    <md-error *ngIf="form.controls.verCodeTimeut.hasError('required')">
                         {{'app.common.error.required' |translate}}
                     </md-error>
                 </md-input-container>
             </section>
             <section>
-                <md-checkbox formControlName="reqCallback">{{'app.master.service.reqCallBack' | translate}}</md-checkbox>
-                <md-input-container class="form_control_container" color="accent" [style.display]="!form.get('reqCallback').value ? 'none' : 'block' ">
-                    <input mdInput type="text" placeholder="{{'app.master.service.callBackStatus' | translate}}" formControlName="callBackStatus" maxlength="500">
-                    <md-error *ngIf="form.controls.callBackStatus.hasError('required')">
+                <md-input-container class="form_control_container"
+                    color="accent"
+                    [hidden]="emptyVerCode">
+                    <input mdInput
+                        type="number"
+                        placeholder="{{'app.master.service.verCodeTimeOut' | translate}}"
+                        formControlName="verCodeTimeut"
+                        maxlength="50">
+                    <md-error *ngIf="form.controls.verCodeTimeut.hasError('required')">
                         {{'app.common.error.required' |translate}}
                     </md-error>
                 </md-input-container>
@@ -64,7 +121,14 @@
         </form>
     </md-card-content>
     <md-card-actions align="end">
-        <button md-raised-button type="button" (click)="doCancel()">{{'app.common.cancel' | translate}}</button>
-        <button md-raised-button color="primary" style="submit" (click)="onSubmit()" [disabled]="!form.valid">{{'app.common.save' | translate}}</button>
+        <button md-raised-button
+            type="button"
+            [disabled]="isUpdating"
+            (click)="doCancel()">{{'app.common.cancel' | translate}}</button>
+        <button md-raised-button
+            color="primary"
+            style="submit"
+            (click)="onSubmit()"
+            [disabled]="!form.valid || isUpdating">{{'app.common.save' | translate}}</button>
     </md-card-actions>
 </md-card>

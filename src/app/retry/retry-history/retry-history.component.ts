@@ -43,13 +43,13 @@ export class RetryHistoryComponent implements OnInit {
 	isChargingInitialData: boolean;
 	resetPaginator: boolean;
 
-touch: boolean;
-  filterOdd: boolean;
-  yearView: boolean;
-  minDate: Date;
-  maxDate: Date;
-  startAt: Date;
-  date: Date;
+	touch: boolean;
+	filterOdd: boolean;
+	yearView: boolean;
+	minDate: Date;
+	maxDate: Date;
+	startAt: Date;
+	date: Date;
 
 	ngOnInit() {
 		this.isChargingInitialData = true;
@@ -64,7 +64,7 @@ touch: boolean;
 
 	constructor(private route: ActivatedRoute, public fb: FormBuilder,
 		public router: Router, private applicationService: ApplicationService,
-		private transactionService: TransactionService, public dialog: MdDialog, private dateAdapter:DateAdapter<Date>) {
+		private transactionService: TransactionService, public dialog: MdDialog, private dateAdapter: DateAdapter<Date>) {
 
 		dateAdapter.setLocale('es-co');
 
@@ -116,6 +116,7 @@ touch: boolean;
 
 	onSelectApplication(value) {
 		this.selectedApplication = value;
+		this.form.get('serviceControl').setValue('');
 
 		this.services = this.applications
 			.filter(c => c.id === value)[0].services

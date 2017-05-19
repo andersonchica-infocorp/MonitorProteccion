@@ -37,12 +37,14 @@ export class AdminRetryComponent implements OnInit {
 	selectedTransaction: Transaction;
 	selectedApplication: Application;
 	selectedTransactionXml: Transaction;
-	
+
 	isChargingInitialData: boolean;
 	resetPaginator: boolean;
 	isSearching: boolean;
 	showTransactions: boolean;
 	cantidad: number = 0;
+
+	isSearchingTransactionsTransaction: boolean;
 
 	styleCellActions = { "width": "100px", "text-align": "center" }
 
@@ -81,8 +83,8 @@ export class AdminRetryComponent implements OnInit {
 		var serviceId = this.form.get('serviceControl').value;
 
 		this.isSearching = true;
-		this.cantidad = 0;	
-		this.showTransactions = true;	
+		this.cantidad = 0;
+		this.showTransactions = true;
 
 		this.transactionService.getTransactions(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
 			.subscribe(parentTransaction => {
@@ -98,6 +100,13 @@ export class AdminRetryComponent implements OnInit {
 		this.search();
 	}
 
+	retry(transaction: Transaction) {
+		this.transactionService.retry(transaction)
+			.subscribe(response => {
+				console.log(response);
+			});
+	}
+
 	showTransaction(transaction: Transaction) {
 
 	}
@@ -109,6 +118,7 @@ export class AdminRetryComponent implements OnInit {
 
 	onSelectApplication(value) {
 		this.selectedApplication = value;
+		this.form.get('serviceControl').setValue('');
 
 		this.services = this.applications
 			.filter(c => c.id === value)[0].services
@@ -119,9 +129,11 @@ export class AdminRetryComponent implements OnInit {
 	}
 
 	getTransactionsTransaction(transactionTemplate) {
+		this.isSearchingTransactionsTransaction = true;
 		let idTransaction = transactionTemplate.data.id;
 		this.transactionService.getTransactionsTransaction(idTransaction).subscribe(
 			transactions => {
+				this.isSearchingTransactionsTransaction = false;
 				this.transactions.map(transaction => {
 					if (transaction.id == idTransaction) {
 						transaction.transactions = transactions.transactions;

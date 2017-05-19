@@ -2,10 +2,10 @@
     color="accent"
     *ngIf="isChargingInitialData"></md-progress-bar>
 <div class="card-container">
-    <md-card class="search md_card_app"
-        [style.display]="xmlTransactionSelected ? 'none' : 'block' ">
+    <md-card class="search md_card_app">
         <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
         <md-divider></md-divider>
+
         <md-card-content>
             <form (ngSubmit)="onSubmit()"
                 [formGroup]="form">
@@ -34,57 +34,58 @@
                         [value]="consumer">{{ consumer }}
                     </md-option>
                 </md-select>
-                <md-input-container class="item" color="accent">
+                <md-input-container class="item"
+                    color="accent">
                     <input mdInput
                         type="number"
                         placeholder="{{'app.retry.message' | translate}}"
                         formControlName="messageId"
                         maxlength="10">
                 </md-input-container>
-               
-             
-             <md-input-container color="accent" class="item">
-                    <input mdInput 
-                           [mdDatepicker]="resultPickerInitial"
-                           formControlName="initialDate"
-                           [min]="minDate"
-                           [max]="maxDate"
-                           [mdDatepickerFilter]="filterOdd ? dateFilter : null"
-                           placeholder="{{'app.retry.initialDate' | translate}}">
-                   
-                  </md-input-container>
-                  <button [mdDatepickerToggle]="resultPickerInitial"></button>
-                  <md-datepicker
-                      #resultPickerInitial
-                      [touchUi]="touch"
-                      [startAt]="startAt"
-                      [startView]="yearView ? 'year' : 'month'">
-                  </md-datepicker>
 
-                  <md-input-container color="accent" class="item">
-                    <input mdInput 
-                           [mdDatepicker]="resultPicker"
-                           formControlName="finalDate"
-                           [min]="minDate"
-                           [max]="maxDate"
-                           [mdDatepickerFilter]="filterOdd ? dateFilter : null"
-                           placeholder="{{'app.retry.finalDate' | translate}}">
-                   
-                  </md-input-container>
-                  <button [mdDatepickerToggle]="resultPicker"></button>
-                  <md-datepicker
-                      #resultPicker
-                      [touchUi]="touch"
-                      [startAt]="startAt"
-                      [startView]="yearView ? 'year' : 'month'">
-                  </md-datepicker>
+                <md-input-container color="accent"
+                    class="item">
+                    <input mdInput
+                        [mdDatepicker]="resultPickerInitial"
+                        formControlName="initialDate"
+                        [min]="minDate"
+                        [max]="maxDate"
+                        [mdDatepickerFilter]="filterOdd ? dateFilter : null"
+                        placeholder="{{'app.retry.initialDate' | translate}}">
+
+                </md-input-container>
+                <button type="button" [mdDatepickerToggle]="resultPickerInitial"></button>
+                <md-datepicker #resultPickerInitial
+                    [touchUi]="touch"
+                    [startAt]="startAt"
+                    [startView]="yearView ? 'year' : 'month'">
+                </md-datepicker>
+
+                <md-input-container color="accent"
+                    class="item">
+                    <input mdInput
+                        [mdDatepicker]="resultPicker"
+                        formControlName="finalDate"
+                        [min]="minDate"
+                        [max]="maxDate"
+                        [mdDatepickerFilter]="filterOdd ? dateFilter : null"
+                        placeholder="{{'app.retry.finalDate' | translate}}">
+
+                </md-input-container>
+                <button type="button" [mdDatepickerToggle]="resultPicker"></button>
+                <md-datepicker #resultPicker
+                    [touchUi]="touch"
+                    [startAt]="startAt"
+                    [startView]="yearView ? 'year' : 'month'">
+                </md-datepicker>
             </form>
         </md-card-content>
+
         <md-card-actions align="end">
             <button md-mini-fab
                 type="button"
                 (click)="onSearch()"
-                [disabled]="false"
+                [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value)"
                 color="primary"
                 mdTooltip="{{'app.common.search' | translate}}">
                 <md-icon>search</md-icon>
@@ -92,7 +93,6 @@
         </md-card-actions>
     </md-card>
     <md-card class="result md_card_app"
-        [style.display]="xmlTransactionSelected ? 'none' : 'block' "
         *ngIf="showTransactions">
         <md-card-content>
             <md-progress-bar mode="indeterminate"
@@ -147,4 +147,3 @@
         </md-card-actions>
     </md-card>
 </div>
-  

@@ -1,8 +1,10 @@
-<md-progress-bar mode="indeterminate" color="accent"
+<md-progress-bar mode="indeterminate"
+    color="accent"
     *ngIf="isChargingInitialData || isChargingServices"></md-progress-bar>
 <md-card class="app-card-content md_card_app">
     <md-card-content>
         <md-select placeholder="{{'app.retry.applications' | translate}}"
+            [disabled]="isChargingServices"
             class="item"
             color="accent"
             (change)="onSelectApplication()"
@@ -11,31 +13,30 @@
                 [value]="application.id">{{ application.name }}</md-option>
         </md-select>
         <div class="table">
-        <p-dataTable [value]="services"
-            *ngIf="services !== undefined">
-            <p-header>{{'app.master.service.title' | translate}}</p-header>
-            <p-column field="opration"
-                header="{{'app.master.service.operation' | translate}}"></p-column>
-            <p-column field="msgId"
-                header="{{'app.master.service.messageId' | translate}}"></p-column>
-            <p-column field="genResponse"
-                header="{{'app.master.service.genResponse' | translate}}"></p-column>
-            <p-column field="parseResponse"
-                header="{{'app.master.service.parseResponse' | translate}}"></p-column>
-            <p-column
-                [style]="styleCellActions">
-                <ng-template pTemplate="header">
-                    <span>{{'app.master.service.actions' | translate}}</span>
-                </ng-template>
-                <ng-template let-serviceTemplate="rowData"
-                    pTemplate="body">
-                    <md-icon md-list-icon
-                        class="edit"
-                        (click)="editService(serviceTemplate)"
-                        mdTooltip="{{'app.common.edit' | translate}}">edit</md-icon>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
+            <p-dataTable [value]="services"
+                *ngIf="services !== undefined">
+                <p-header>{{'app.master.service.title' | translate}}</p-header>
+                <p-column field="opration"
+                    header="{{'app.master.service.operation' | translate}}"></p-column>
+                <p-column field="msgId"
+                    header="{{'app.master.service.messageId' | translate}}"></p-column>
+                <p-column field="genResponse"
+                    header="{{'app.master.service.genResponse' | translate}}"></p-column>
+                <p-column field="parseResponse"
+                    header="{{'app.master.service.parseResponse' | translate}}"></p-column>
+                <p-column [style]="styleCellActions">
+                    <ng-template pTemplate="header">
+                        <span>{{'app.master.service.actions' | translate}}</span>
+                    </ng-template>
+                    <ng-template let-serviceTemplate="rowData"
+                        pTemplate="body">
+                        <md-icon md-list-icon
+                            class="edit"
+                            (click)="editService(serviceTemplate)"
+                            mdTooltip="{{'app.common.edit' | translate}}">edit</md-icon>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
         </div>
     </md-card-content>
 </md-card>

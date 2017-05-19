@@ -9,7 +9,7 @@
             <form (ngSubmit)="onSubmit()"
                 [formGroup]="form">
                 <md-select placeholder="{{'app.retry.applications' | translate}}"
-                    class="item" 
+                    class="item"
                     color="accent"
                     (change)="onSelectApplication($event.value)"
                     [(ngModel)]="selectedApplication"
@@ -18,7 +18,7 @@
                         [value]="application.id">{{ application.name }}</md-option>
                 </md-select>
                 <md-select placeholder="{{'app.retry.services' | translate}}"
-                    class="item" 
+                    class="item"
                     color="accent"
                     formControlName="serviceControl">
                     <md-option *ngFor="let service of services"
@@ -26,14 +26,15 @@
                     </md-option>
                 </md-select>
                 <md-select placeholder="{{'app.retry.consumer' | translate}}"
-                    class="item" 
+                    class="item"
                     color="accent"
                     formControlName="consumer">
                     <md-option *ngFor="let consumer of consumers"
                         [value]="consumer">{{ consumer }}
                     </md-option>
                 </md-select>
-                <md-input-container class="item" color="accent">
+                <md-input-container class="item"
+                    color="accent">
                     <input mdInput
                         type="number"
                         placeholder="{{'app.retry.message' | translate}}"
@@ -46,18 +47,21 @@
             <button md-mini-fab
                 type="button"
                 (click)="onSearch()"
-                [disabled]="false"
+                [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value)"
                 color="primary"
                 mdTooltip="{{'app.common.search' | translate}}">
                 <md-icon>search</md-icon>
             </button>
         </md-card-actions>
     </md-card>
+
     <md-card class="result md_card_app"
-        [style.display]="xmlTransactionSelected ? 'none' : 'block' "
         *ngIf="showTransactions">
         <md-card-content>
-        <md-progress-bar mode="indeterminate"
+            <md-progress-bar mode="indeterminate"
+                color="accent"
+                *ngIf="isSearchingTransactionsTransaction"></md-progress-bar>
+            <md-progress-bar mode="indeterminate"
                 color="accent"
                 *ngIf="isSearching"></md-progress-bar>
             <p-dataTable [value]="transactions"
@@ -86,13 +90,14 @@
                     </ng-template>
                     <ng-template let-transactionTemplate="rowData"
                         pTemplate="body">
-                        <md-icon md-list-icon style=""
+                        <md-icon md-list-icon
+                            style=""
                             class="xml"
                             (click)="showXml(transactionTemplate)"
                             mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
                         <md-icon md-list-icon
                             class="retry"
-                            (click)="showTransactionsTransaction(transactionTemplate)"
+                            (click)="retry(transactionTemplate)"
                             mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
                     </ng-template>
                 </p-column>

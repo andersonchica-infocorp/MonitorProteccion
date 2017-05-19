@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { TransactionService } from '../../services/transaction.service';
 
-import { MaterialModule, MdNativeDateModule } from '@angular/material';
+import { MaterialModule, MdNativeDateModule, ɵs as MD_DATE_FORMATS, ɵv as MdDateFormats } from '@angular/material';
 
 import { AdminRetryComponent } from '../admin-retry/admin-retry.component';
 import { RetryHistoryComponent } from '../retry-history/retry-history.component';
@@ -17,6 +17,19 @@ import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { PaginatorModule } from 'primeng/primeng';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
+
+
+const PUTO_DATE_FORMATS: MdDateFormats = {
+  parse: {
+    dateInput: null,
+  },
+  display: {
+    dateInput: {year: 'numeric', month: 'numeric', day: 'numeric'},
+    monthYearLabel: {year: 'numeric', month: 'long'},
+    dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+    monthYearA11yLabel: {year: 'numeric', month: 'long'},
+  }
+};
 
 @NgModule({
   imports: [
@@ -40,10 +53,12 @@ import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
   ],
   providers: [
     UserService,
-    TransactionService
+    TransactionService,
+    {provide: MD_DATE_FORMATS, useValue: PUTO_DATE_FORMATS}
   ],
   entryComponents: [
     ModalXmlComponent
   ]
 })
-export class RetryModule { }
+export class RetryModule {}
+

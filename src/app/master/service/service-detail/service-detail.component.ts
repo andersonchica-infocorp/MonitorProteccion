@@ -20,6 +20,7 @@ export class ServiceDetailComponent implements OnInit {
 	serviceName: string = null;
 	applicationId: number;
 	emptyVerCode: boolean;
+	isUpdating: boolean;
 
 	form: FormGroup;
 
@@ -40,7 +41,7 @@ export class ServiceDetailComponent implements OnInit {
 					this.form.get('callBackStatus').setValidators([Validators.required]);
 				}
 				else {
-					this.form.get('callBackStatus').setValue('');
+					this.form.get('callBackStatus').setValue(null);
 				}
 			});
 
@@ -53,8 +54,8 @@ export class ServiceDetailComponent implements OnInit {
 					this.emptyVerCode = false;
 				}
 				else {
-					this.form.get('verCodeUrl').setValue('');
-					this.form.get('verCodeTimeut').setValue('');
+					this.form.get('verCodeUrl').setValue(null);
+					this.form.get('verCodeTimeut').setValue(null);
 
 					this.emptyVerCode = true;
 				}
@@ -115,9 +116,12 @@ export class ServiceDetailComponent implements OnInit {
 	}
 
 	onSubmit() {
+		this.isUpdating = true;
 		this.applicationService.updateService(this.form.value as Service, this.applicationId)
 			.subscribe(response => {
 				console.log(response);
+				this.isUpdating = false;
+				this.dialogRef.close();
 			});
 	}
 }

@@ -100,4 +100,20 @@ export class TransactionService {
       return response.text();
     });
   }
+
+  retry(transaction: Transaction){
+    var url = `${AppConfigService.config.webApiUrl}/retry`;
+    var headers = new Headers();
+    var data = "trx=" + transaction.id;
+
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Accept', 'application/json; charset=utf-8');
+
+    return this.http.post(url,
+      data,
+      { headers }
+    ).map(response => {
+      return response.text();
+    });
+  }
 }
