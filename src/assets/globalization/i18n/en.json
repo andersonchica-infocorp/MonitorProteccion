@@ -41,7 +41,10 @@
             "xml": "View Xml",
             "close": "Close",
             "update": "Update",
-            "edit": "Edit"
+            "edit": "Edit",
+            "error": {
+                "required": "This field is required"
+            }
         },
         "user": {
             "title": "Adminis1tradores",

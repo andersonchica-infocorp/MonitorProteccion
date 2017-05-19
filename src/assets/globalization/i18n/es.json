@@ -41,7 +41,10 @@
             "xml": "Ver Xml",
             "close": "Cerrar",
             "update": "Actualizar",
-            "edit": "Editar"
+            "edit": "Editar",
+            "error": {
+                "required": "Este campo es requerido"
+            }
         },
         "user": {
             "title": "Administradores",
