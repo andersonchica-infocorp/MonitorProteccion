@@ -172,6 +172,10 @@ export class AdminRetryComponent implements OnInit {
 		this.xmlTransactionSelected = undefined;
 	}
 
+	onSubmit(){
+		
+	}
+
 	formatXML(input) {
 
 		// PART 1: Add \n where necessary
