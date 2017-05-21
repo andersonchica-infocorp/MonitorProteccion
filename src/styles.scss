@@ -15,6 +15,7 @@ $dark-primary: mat-palette($mat-blue-grey);
 $dark-accent: mat-palette($mat-amber, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+$min-width-controls:300px;
 md-icon.delete:hover {
     color: red;
     cursor: pointer;
@@ -44,14 +45,14 @@ md-icon.proteccion:hover {
     border-radius: 50%;
 }
 
-md-icon.xml:hover{
-  color:#008AD1;
-  cursor: pointer;
+md-icon.xml:hover {
+    color: #008AD1;
+    cursor: pointer;
 }
 
-md-icon.edit:hover{
-  color:green;
-  cursor: pointer;
+md-icon.edit:hover {
+    color: green;
+    cursor: pointer;
 }
 
 span {
@@ -100,16 +101,38 @@ my-app:empty + .loading {
 }
 
 .responsive-container {
-
-  min-height: 100vh;       /* cap container min width */
-  max-height: 100vh;       /* cap container max width */
-  background-color: #E3E829;
-  display: flex;
-  margin:-10px;
-  padding:0;
+    min-height: 100vh;
+    /* cap container min width */
+    max-height: 100vh;
+    /* cap container max width */
+    background-color: #E3E829;
+    display: flex;
+    margin: -10px;
+    padding: 0;
 }
 
 .responsive-container img {
-  margin: auto;           /* center horizontally and vertically */
+    margin: auto;
+    /* center horizontally and vertically */
 }
 
+md-input-container {
+    min-width: $min-width-controls;
+}
+
+md-select,
+md-input-container {
+    margin: 5px;
+}
+
+md-select {
+    min-width: calc(#{$min-width-controls} - 10px);
+}
+
+md-datepicker {
+    margin-right: 5px;
+}
+
+.date_picker {
+    min-width: calc(#{$min-width-controls} - 34px);
+}

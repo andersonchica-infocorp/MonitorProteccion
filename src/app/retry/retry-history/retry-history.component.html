@@ -10,6 +10,7 @@
         <md-card-content>
             <form (ngSubmit)="onSubmit()"
                 [formGroup]="form">
+                <section class="">
                 <md-select placeholder="{{'app.retry.applications' | translate}}"
                     class="item"
                     color="accent"
@@ -44,8 +45,9 @@
                         maxlength="10">
                 </md-input-container>
 
+
                 <md-input-container color="accent"
-                    class="item">
+                    class="date_picker">
                     <input mdInput
                         [mdDatepicker]="resultPickerInitial"
                         formControlName="initialDate"
@@ -63,7 +65,7 @@
                 </md-datepicker>
 
                 <md-input-container color="accent"
-                    class="item">
+                    class="date_picker">
                     <input mdInput
                         [mdDatepicker]="resultPicker"
                         formControlName="finalDate"
@@ -79,6 +81,7 @@
                     [startAt]="startAt"
                     [startView]="yearView ? 'year' : 'month'">
                 </md-datepicker>
+                </section>
             </form>
         </md-card-content>
 

@@ -5,7 +5,7 @@
     <md-card class="search md_card_app">
         <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
         <md-divider></md-divider>
-        <md-card-content>
+        <md-card-content class="flex_container">
             <form (ngSubmit)="onSubmit()"
                 [formGroup]="form">
                 <md-select placeholder="{{'app.retry.applications' | translate}}"
