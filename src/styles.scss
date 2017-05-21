@@ -100,23 +100,16 @@ my-app:empty + .loading {
 }
 
 .responsive-container {
-  margin: -1em ;
-  min-height: 1024px;       /* cap container min width */
-  max-height: 1024px;       /* cap container max width */
-  position: relative;
-  overflow: hidden;       /* crop if image is larger than container */
+
+  min-height: 100vh;       /* cap container min width */
+  max-height: 100vh;       /* cap container max width */
   background-color: #E3E829;
+  display: flex;
+  margin:-10px;
+  padding:0;
 }
-.responsive-container:before {
-  content: "";            /* using pseudo element for 1:1 ratio */
-  display: block;
-  padding-top: 100%;
-}
+
 .responsive-container img {
-  position: absolute;
-  top: -999px;            /* use sufficiently large number */
-  bottom: -600px;
-  left: -999px;
-  right: -999px;
   margin: auto;           /* center horizontally and vertically */
 }
+
