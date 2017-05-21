@@ -11,9 +11,8 @@ import { ReportComponent } from '../report/report.component';
 import { ReportActualComponent } from '../report-actual/report-actual.component';
 import { ReportHistoryComponent } from '../report-history/report-history.component';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
-
+import { ControlsModule } from '../../controls/shared/controls.module';
 import { DashboardService } from '../../services/dashboard.service';
-
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
@@ -25,12 +24,13 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     BrowserAnimationsModule,
     MaterialModule,
     TranslateModule,
-    ChartsModule
+    ChartsModule,
+    ControlsModule
   ],
   declarations: [
     ReportActualComponent,
     ReportHistoryComponent,
-    ReportComponent,
+    ReportComponent
   ],
   providers: [
     DashboardService

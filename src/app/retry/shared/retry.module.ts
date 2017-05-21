@@ -18,7 +18,6 @@ import { PaginatorModule } from 'primeng/primeng';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 
-
 const PUTO_DATE_FORMATS: MdDateFormats = {
   parse: {
     dateInput: null,
@@ -49,7 +48,7 @@ const PUTO_DATE_FORMATS: MdDateFormats = {
   declarations: [
     AdminRetryComponent,
     RetryHistoryComponent,
-    ModalXmlComponent
+    ModalXmlComponent,
   ],
   providers: [
     UserService,

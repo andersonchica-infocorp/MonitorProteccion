@@ -6,6 +6,7 @@
         *ngIf="dashboard">
         <md-card-title>{{'app.report.actual.title' | translate}}</md-card-title>
         <md-divider></md-divider>
+        <!--<app-alert [alertMessage]="messageError" [alertType]="alertType"></app-alert>-->
         <md-card-content>
             <app-report-actual [actual]="dashboard.actual"></app-report-actual>
         </md-card-content>

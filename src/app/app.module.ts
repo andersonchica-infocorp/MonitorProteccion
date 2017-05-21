@@ -18,6 +18,7 @@ import { ChartconceptComponent } from './concept/chartconcept/chartconcept.compo
 import { AuthManager } from './authentication/shared/authentication.manage';
 import { AuthService } from './authentication/shared/authentication.service';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader, TranslateService } from 'ng2-translate/ng2-translate';
+import { ControlsModule } from './controls/shared/controls.module';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/globalization/i18n', '.json');
@@ -26,7 +27,7 @@ export function createTranslateLoader(http: Http) {
 @NgModule({
   declarations: [
     AppComponent,
-    ChartconceptComponent,
+    ChartconceptComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +40,7 @@ export function createTranslateLoader(http: Http) {
     MasterModule,
     ReportModule,
     RetryModule,
+    ControlsModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
@@ -48,6 +50,7 @@ export function createTranslateLoader(http: Http) {
   providers: [AuthManager, AuthService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
   constructor(translate: TranslateService) {
     // this language will be used as a fallback when a translation isn't found in the current language

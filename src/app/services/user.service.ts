@@ -38,7 +38,10 @@ export class UserService {
       headers
     }).map(response => {
       return this.users;
-    });
+    }).catch((err:Response) => {
+            let details = err.json();
+            return Observable.throw(details);
+         });
   }
 
   getUsersSystem(user: string): Observable<User[]> {
@@ -53,7 +56,10 @@ export class UserService {
       headers
     }).map(response => {
       return this.usersInsert;
-    });
+    }).catch((err:Response) => {
+            let details = err.json();
+            return Observable.throw(details);
+         });
   }
 
   addUserAdministrator(user: User): Observable<string> {
@@ -68,7 +74,10 @@ export class UserService {
     }).map(response => {
       this.users.push(user);
       return "success";
-    });
+    }).catch((err:Response) => {
+            let details = err.json();
+            return Observable.throw(details);
+         });
   }
 
   deleteUser(user: User): Observable<boolean> {
@@ -83,6 +92,9 @@ export class UserService {
     }).map(response => {
       this.users = this.users.filter(item => item.name.indexOf(user.name) != 0);
       return true;
-    });
+    }).catch((err:Response) => {
+            let details = err.json();
+            return Observable.throw(details);
+         });
   }
 }

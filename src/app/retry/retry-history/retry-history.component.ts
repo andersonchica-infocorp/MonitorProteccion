@@ -59,7 +59,10 @@ export class RetryHistoryComponent implements OnInit {
 			user => {
 				this.applications = user.applications;
 				this.consumers = user.consumers;
-				this.isChargingInitialData = false;
+				this.isChargingInitialData = false
+			},
+			error => {
+				this.isChargingInitialData = false
 			});
 	}
 

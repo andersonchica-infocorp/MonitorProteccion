@@ -10,6 +10,7 @@ import { TransactionService } from '../../services/transaction.service';
 import { Observable } from 'rxJs';
 import { Consumer } from '../../Model/consumer.model';
 import { MdDialog } from '@angular/material';
+import { TranslateService } from 'ng2-translate';
 
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 
@@ -46,6 +47,8 @@ export class AdminRetryComponent implements OnInit {
 	isSendingRetry: boolean;
 	isShowingXml: boolean;
 	cantidad: number = 0;
+	messageError: string;
+	alertType: string;
 
 	isSearchingTransactionsTransaction: boolean;
 
@@ -53,7 +56,7 @@ export class AdminRetryComponent implements OnInit {
 
 	constructor(private route: ActivatedRoute, public fb: FormBuilder,
 		public router: Router, private applicationService: ApplicationService,
-		private transactionService: TransactionService, public dialog: MdDialog) {
+		private transactionService: TransactionService, public dialog: MdDialog, public translate: TranslateService) {
 		this.form = this.fb.group({
 			consumer: [''],
 			messageId: [''],
@@ -74,6 +77,13 @@ export class AdminRetryComponent implements OnInit {
 				this.applications = user.applications;
 				this.consumers = user.consumers;
 				this.isChargingInitialData = false;
+			}, error => {
+				this.isChargingInitialData = false;
+				this.alertType = 'alert-danger';
+				this.translate.get('app.common.errorService')
+        			.subscribe((res: string) => {
+            			this.messageError = res;
+        		});
 			});
 	}
 
@@ -94,6 +104,15 @@ export class AdminRetryComponent implements OnInit {
 				this.transactions = parentTransaction.transactions;
 				this.isSearching = false;
 				this.resetPaginator = false;
+			},
+			error => {
+				this.isSearching = false;
+				this.resetPaginator = false;
+				this.alertType = 'alert-danger';
+				this.translate.get('app.common.errorService')
+        			.subscribe((res: string) => {
+            			this.messageError = res;
+        		});
 			});
 	}
 

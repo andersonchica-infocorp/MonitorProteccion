@@ -42,6 +42,7 @@
             "close": "Close",
             "update": "Update",
             "edit": "Edit",
+            "errorService": "An error has occurred, try again later",
             "error": {
                 "required": "This field is required"
             }

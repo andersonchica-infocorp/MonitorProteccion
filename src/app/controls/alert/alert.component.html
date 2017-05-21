@@ -1,0 +1,4 @@
+<div class="alert {{ alertType }}"  *ngIf="alertMessage">    
+    <md-icon (click)="alertMessage=''" class="close" mdTooltip="{{'app.common.close' | translate}}" [mdTooltipPosition]="'above'">close</md-icon>
+    {{alertMessage}}
+</div>

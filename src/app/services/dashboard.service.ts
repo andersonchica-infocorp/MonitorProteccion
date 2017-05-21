@@ -25,6 +25,9 @@ export class DashboardService {
       headers
     }).map(response => {
       return response.json() as Dashboard;
-    });
+    }).catch((err:Response) => {
+            let details = err.json();
+            return Observable.throw(details);
+         });
   }
 }

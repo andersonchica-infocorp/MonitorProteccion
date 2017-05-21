@@ -8,7 +8,6 @@ import { User } from '../Model/user.model';
 import { ServicesApplication } from '../Model/services.application.model'
 
 
-
 @Injectable()
 export class ApplicationService {
 
@@ -30,7 +29,10 @@ export class ApplicationService {
     }).map(response => {
       console.log(response.json());
       return response.json() as User;
-    });
+    }).catch((err:Response) => {
+            let details = err.json();
+            return Observable.throw(details);
+         });
   }
 
   addService(serviceName: string): Observable<boolean> {
@@ -44,7 +46,10 @@ export class ApplicationService {
       headers
     }).map(response => {
       return true;
-    });
+    }).catch((err:Response) => {
+            let details = err.json();
+            return Observable.throw(details);
+         });
   }
 
   getServicesApplication(applicationId: number): Observable<ServicesApplication> {
@@ -59,7 +64,10 @@ export class ApplicationService {
       headers
     }).map(response => {
       return response.json() as ServicesApplication;
-    });
+    }).catch((err:Response) => {
+            let details = err.json();
+            return Observable.throw(details);
+         });
   }
 
   updateService(service: Service, applicationId: number) {
@@ -84,7 +92,10 @@ export class ApplicationService {
       { headers }
     ).map(response => {
       return response.text();
-    });
+    }).catch((err:Response) => {
+            let details = err.json();
+            return Observable.throw(details);
+         });
   }
 
   private constructParam(parameter: string, value) {
