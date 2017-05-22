@@ -52,6 +52,7 @@ export class AdminRetryComponent implements OnInit {
 	isDeletingRetry: boolean;
 
 	isSearchingTransactionsTransaction: boolean;
+	selectedTransactions: number[];
 
 	styleCellActions = { "width": "150px", "text-align": "center" }
 

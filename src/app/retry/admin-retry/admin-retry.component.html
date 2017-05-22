@@ -68,14 +68,15 @@
             <p-dataTable [value]="transactions"
                 *ngIf="!isSearching"
                 (onRowExpand)="getTransactionsTransaction($event)"
+                [(selection)]="selectedTransactions"
+                dataKey="id"
                 expandableRows="true">
                 <p-header>{{'app.retry.transactions' | translate}}</p-header>
+                <p-column [style]="{'width':'38px'}"
+                    selectionMode="multiple"></p-column>
                 <p-column expander="true"
                     [style]="{'width':'40px'}"
                     styleClass="col-icon"></p-column>
-                <p-column field="id"
-                    [style]="{'width':'100px'}"
-                    header="{{'app.retry.results.transaction' | translate}}"></p-column>
                 <p-column field="msgId"
                     [style]="{'width':'100px'}"
                     header="{{'app.retry.results.messageId' | translate}}"></p-column>
@@ -83,14 +84,26 @@
                     [style]="{'width':'100px'}"
                     header="{{'app.retry.results.errorType' | translate}}"></p-column>
                 <p-column field="errorMessage"
-                    header="{{'app.retry.results.error' | translate}}"></p-column>
+                    [style]="{'overflow':'visible'}"
+                    header="{{'app.retry.results.error' | translate}}">
+                    <ng-template let-col
+                        let-transaction="rowData"
+                        pTemplate="body">
+                        <textarea mdInput
+                            mdAutosizeMinRows="4"
+                            >{{ transaction[col.field] }}</textarea>
+
+                    </ng-template>
+
+                </p-column>
                 <p-column styleClass="col-button"
                     [style]="styleCellActions">
                     <ng-template pTemplate="header">
                         <span>{{'app.retry.results.actions' | translate}}</span>
                     </ng-template>
                     <ng-template let-transactionTemplate="rowData"
-                        pTemplate="body" style="text-align: center">
+                        pTemplate="body"
+                        style="text-align: center">
                         <md-icon md-list-icon
                             *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
                             class="xml"

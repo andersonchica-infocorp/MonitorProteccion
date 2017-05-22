@@ -137,3 +137,15 @@ md-datepicker {
 .date_picker {
     min-width: calc(#{$min-width-controls} - 34px);
 }
+
+
+.ui-state-highlight {
+    background-color: #F4F6B0 !important;
+    color: #FFFFFF;
+}
+
+.ui-chkbox-box.ui-state-active, .ui-radiobutton-box.ui-state-active {
+    border: 1px solid #156090;
+    background-color: #F4F6B0 !important; 
+    color: #FFFFFF;
+}

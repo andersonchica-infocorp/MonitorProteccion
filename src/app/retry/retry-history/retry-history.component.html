@@ -103,8 +103,6 @@
                 *ngIf="isSearching"></md-progress-bar>
             <p-dataTable [value]="transactions">
                 <p-header>{{'app.retry.transactions' | translate}}</p-header>
-                <p-column field="id"
-                    header="{{'app.retry.results.transaction' | translate}}"></p-column>
                 <p-column field="msgId"
                     header="{{'app.retry.results.messageId' | translate}}"></p-column>
                 <p-column field="errorType"
