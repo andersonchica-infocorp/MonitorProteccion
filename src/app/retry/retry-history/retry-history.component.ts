@@ -11,6 +11,13 @@ import { Observable } from 'rxJs';
 import { Consumer } from '../../Model/consumer.model';
 import { MdDialog, DateAdapter } from '@angular/material';
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 
 import 'brace';
 import 'brace/theme/clouds';
@@ -19,7 +26,16 @@ import 'brace/mode/sql';
 @Component({
 	selector: 'app-retry-history',
 	templateUrl: './retry-history.component.html',
-	styleUrls: ['./retry-history.component.scss']
+	styleUrls: ['./retry-history.component.scss'],
+	animations: [
+    trigger('flyInOut', [
+      state('in', style({transform: 'translateX(0)'})),
+      transition('void => *', [
+        style({transform: 'translateX(+100%)'}),
+        animate(500)
+      ])
+    ])
+  ]
 })
 export class RetryHistoryComponent implements OnInit {
 	options: any = { maxLines: 1000, printMargin: true };

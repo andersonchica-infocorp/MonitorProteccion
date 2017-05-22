@@ -95,7 +95,7 @@
             </button>
         </md-card-actions>
     </md-card>
-    <md-card class="result md_card_app" *ngIf="showTransactions">
+    <md-card class="result md_card_app" *ngIf="showTransactions" [@flyInOut]="'in'">
         <md-card-content>
             <md-progress-bar mode="indeterminate"
                 color="accent"
