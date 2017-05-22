@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { ApplicationService } from '../../../services/application.service';
 import { ApplicationComponentService } from '../../shared/application.component.service';
 
-
 import { Application } from '../../../Model/application.model';
 import 'rxjs/add/operator/pluck';
 

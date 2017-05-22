@@ -49,10 +49,11 @@ export class AdminRetryComponent implements OnInit {
 	cantidad: number = 0;
 	messageError: string;
 	alertType: string;
+	isDeletingRetry: boolean;
 
 	isSearchingTransactionsTransaction: boolean;
 
-	styleCellActions = { "width": "100px", "text-align": "center" }
+	styleCellActions = { "width": "150px", "text-align": "center" }
 
 	constructor(private route: ActivatedRoute, public fb: FormBuilder,
 		public router: Router, private applicationService: ApplicationService,
@@ -81,9 +82,9 @@ export class AdminRetryComponent implements OnInit {
 				this.isChargingInitialData = false;
 				this.alertType = 'alert-danger';
 				this.translate.get('app.common.errorService')
-        			.subscribe((res: string) => {
-            			this.messageError = res;
-        		});
+					.subscribe((res: string) => {
+						this.messageError = res;
+					});
 			});
 	}
 
@@ -110,9 +111,9 @@ export class AdminRetryComponent implements OnInit {
 				this.resetPaginator = false;
 				this.alertType = 'alert-danger';
 				this.translate.get('app.common.errorService')
-        			.subscribe((res: string) => {
-            			this.messageError = res;
-        		});
+					.subscribe((res: string) => {
+						this.messageError = res;
+					});
 			});
 	}
 
@@ -169,9 +170,11 @@ export class AdminRetryComponent implements OnInit {
 	}
 
 	showXml(transactionTemplate) {
+		this.isShowingXml = true;
 		this.selectedTransactionXml = transactionTemplate;
 		this.transactionService.getXmlTransaction(transactionTemplate.id)
 			.subscribe(xml => {
+				this.isShowingXml = false;
 				this.xmlTransactionSelected = this.formatXML(xml);
 
 				let dialogRef = this.dialog.open(ModalXmlComponent, {
@@ -191,8 +194,12 @@ export class AdminRetryComponent implements OnInit {
 		this.xmlTransactionSelected = undefined;
 	}
 
-	onSubmit(){
-		
+	deleteTransaction() {
+		this.isDeletingRetry = true;
+	}
+
+	onSubmit() {
+
 	}
 
 	formatXML(input) {

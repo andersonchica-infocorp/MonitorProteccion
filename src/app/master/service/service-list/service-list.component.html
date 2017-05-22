@@ -16,14 +16,10 @@
             <p-dataTable [value]="services"
                 *ngIf="services !== undefined">
                 <p-header>{{'app.master.service.title' | translate}}</p-header>
+                <p-column field="name"
+                    header="{{'app.master.service.name' | translate}}"></p-column>
                 <p-column field="opration"
                     header="{{'app.master.service.operation' | translate}}"></p-column>
-                <p-column field="msgId"
-                    header="{{'app.master.service.messageId' | translate}}"></p-column>
-                <p-column field="genResponse"
-                    header="{{'app.master.service.genResponse' | translate}}"></p-column>
-                <p-column field="parseResponse"
-                    header="{{'app.master.service.parseResponse' | translate}}"></p-column>
                 <p-column [style]="styleCellActions">
                     <ng-template pTemplate="header">
                         <span>{{'app.master.service.actions' | translate}}</span>

@@ -89,6 +89,7 @@
             <button md-mini-fab
                 type="button"
                 (click)="onSearch()"
+                [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value)"
                 color="primary"
                 mdTooltip="{{'app.common.search' | translate}}">
                 <md-icon>search</md-icon>

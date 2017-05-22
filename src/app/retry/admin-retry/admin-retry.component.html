@@ -5,8 +5,8 @@
     <md-card class="search md_card_app">
         <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
         <md-divider></md-divider>
-        
-        <md-card-content class="flex_container">        
+
+        <md-card-content class="flex_container">
             <form (ngSubmit)="onSubmit()"
                 [formGroup]="form">
                 <md-select placeholder="{{'app.retry.applications' | translate}}"
@@ -90,19 +90,19 @@
                         <span>{{'app.retry.results.actions' | translate}}</span>
                     </ng-template>
                     <ng-template let-transactionTemplate="rowData"
-                        pTemplate="body">
+                        pTemplate="body" style="text-align: center">
                         <md-icon md-list-icon
-                            *ngIf="!isShowingXml"
+                            *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
                             class="xml"
                             (click)="showXml(transactionTemplate)"
                             mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
                         <md-spinner class="example-margin"
-                            *ngIf="isShowingXml"
+                            *ngIf="isShowingXml && ( selectedTransactionXml &&transactionTemplate.id == selectedTransactionXml.id)"
                             color="accent"
                             mode="indeterminate">
                         </md-spinner>
                         <md-icon md-list-icon
-                            *ngIf="!isSendingRetry"
+                            *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
                             class="retry"
                             (click)="retry(transactionTemplate)"
                             mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
@@ -110,7 +110,17 @@
                             *ngIf="isSendingRetry"
                             color="accent"
                             mode="indeterminate">
-                            </md-spinner>
+                        </md-spinner>
+                        <md-icon md-list-icon
+                            *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
+                            class="delete"
+                            (click)="deleteTransaction(transactionTemplate)"
+                            mdTooltip="{{'app.common.delete' | translate}}">delete_forever</md-icon>
+                        <md-spinner class="example-margin"
+                            *ngIf="isDeletingRetry"
+                            color="warn"
+                            mode="indeterminate">
+                        </md-spinner>
                     </ng-template>
                 </p-column>
                 <ng-template let-transactionTemplate

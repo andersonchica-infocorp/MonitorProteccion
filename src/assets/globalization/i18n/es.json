@@ -42,6 +42,7 @@
             "close": "Cerrar",
             "update": "Actualizar",
             "edit": "Editar",
+            "delete": "Eliminar",
             "errorService": "Se ha presentado un error, intentalo mas tarde",
             "error": {
                 "required": "Este campo es requerido"
@@ -82,7 +83,8 @@
                 "callBackStatus": "Callback Status",
                 "verCode": "Ver Code",
                 "verCodeUrl": "Ver Code Url",
-                "verCodeTimeOut": "Ver Code Timeout"
+                "verCodeTimeOut": "Ver Code Timeout",
+                "name": "Nombre"
             }
         },
         "report": {
