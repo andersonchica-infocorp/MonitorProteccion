@@ -4,17 +4,16 @@ md-tab-group {
 
 .card-container {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: wrap;
     justify-content: center;
 }
 
 md-card {
     box-sizing: border-box;
     margin: 12px;
-    max-width: 740px;
-    max-height: 600x;
-    min-width: 740px;
-    min-height: 600x;
+    max-width: 100vh;    
+    min-width: 100vh;
+    
 }
 
 .actual {
