@@ -64,7 +64,7 @@ export class ServiceListComponent implements OnInit {
 						application: this.selectedApplication
 					},
 					disableClose: true,
-					width: '500px',
+					
 				});
 	}
 }

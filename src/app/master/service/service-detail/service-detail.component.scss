@@ -2,11 +2,30 @@
     margin: -20px;
 }
 
-.form_control_container {
-    width: 100%;
-    margin-bottom: 25px;
+[hidden] {
+    display: none !important;
 }
 
-[hidden] {
-  display: none !important;
+.container_actions {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+}
+
+.button {
+    align-self: end;
+}
+
+.container_form {
+    display: flex;
+    flex-direction: column;
+}
+
+.close{
+    float: right;
+    padding-left: 20px;
+    font: bold;
+    &:hover{
+        color:red;
+    }
 }

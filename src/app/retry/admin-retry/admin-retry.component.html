@@ -110,7 +110,7 @@
                                 (click)="showXml(transactionTemplate)"
                                 mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
                             <md-spinner class="example-margin"
-                                *ngIf="isShowingXml && ( selectedTransactionXml &&transactionTemplate.id == selectedTransactionXml.id)"
+                                *ngIf="isShowingXml && ( selectedTransactionAction &&transactionTemplate.id == selectedTransactionAction.id)"
                                 color="accent"
                                 mode="indeterminate">
                             </md-spinner>
@@ -120,7 +120,7 @@
                                 (click)="retry(transactionTemplate)"
                                 mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
                             <md-spinner class="example-margin"
-                                *ngIf="isSendingRetry"
+                                *ngIf="isSendingRetry && ( selectedTransactionAction &&transactionTemplate.id == selectedTransactionAction.id)"
                                 color="accent"
                                 mode="indeterminate">
                             </md-spinner>
@@ -130,7 +130,7 @@
                                 (click)="deleteTransaction(transactionTemplate)"
                                 mdTooltip="{{'app.common.delete' | translate}}">delete_forever</md-icon>
                             <md-spinner class="example-margin"
-                                *ngIf="isDeletingRetry"
+                                *ngIf="isDeletingRetry && ( selectedTransactionAction &&transactionTemplate.id == selectedTransactionAction.id)"
                                 color="warn"
                                 mode="indeterminate">
                             </md-spinner>

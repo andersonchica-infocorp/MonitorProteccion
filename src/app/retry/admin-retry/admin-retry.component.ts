@@ -37,7 +37,7 @@ export class AdminRetryComponent implements OnInit {
 
 	selectedTransaction: Transaction;
 	selectedApplication: Application;
-	selectedTransactionXml: Transaction;
+	selectedTransactionAction: Transaction;
 
 	isChargingInitialData: boolean;
 	resetPaginator: boolean;
@@ -125,12 +125,13 @@ export class AdminRetryComponent implements OnInit {
 	}
 
 	retry(transaction: Transaction) {
-
+		this.selectedTransactionAction = transaction;
 		this.isSendingRetry = true;
 		this.transactionService.retry(transaction)
 			.subscribe(response => {
 				console.log(response);
 				this.isSendingRetry = false;
+				this.selectedTransactionAction = null;
 			});
 	}
 
@@ -172,7 +173,7 @@ export class AdminRetryComponent implements OnInit {
 
 	showXml(transactionTemplate) {
 		this.isShowingXml = true;
-		this.selectedTransactionXml = transactionTemplate;
+		this.selectedTransactionAction = transactionTemplate;
 		this.transactionService.getXmlTransaction(transactionTemplate.id)
 			.subscribe(xml => {
 				this.isShowingXml = false;
@@ -194,8 +195,9 @@ export class AdminRetryComponent implements OnInit {
 		this.xmlTransactionSelected = undefined;
 	}
 
-	deleteTransaction() {
+	deleteTransaction(transaction: Transaction) {
 		this.isDeletingRetry = true;
+		this.selectedTransactionAction = transaction;
 	}
 
 	onSubmit() {
