@@ -44,6 +44,7 @@
             "edit": "Editar",
             "delete": "Eliminar",
             "errorService": "Se ha presentado un error, intentalo mas tarde",
+            "actions":"Acciones",
             "error": {
                 "required": "Este campo es requerido"
             }
@@ -105,6 +106,7 @@
             "finalDate": "Fecha Final",
             "consumer": "Consumidor",
             "transactions": "Transacciones",
+            "selectedTransactions": "Transacciones Seleccionadas",
             "results": {
                 "consumer": "Consumidor",
                 "application": "Aplicación",

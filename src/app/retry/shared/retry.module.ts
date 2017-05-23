@@ -17,6 +17,8 @@ import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { PaginatorModule } from 'primeng/primeng';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
+import { BatchTransactionComponent } from '../batch-transaction/batch-transaction.component';
+
 
 const PUTO_DATE_FORMATS: MdDateFormats = {
   parse: {
@@ -49,6 +51,7 @@ const PUTO_DATE_FORMATS: MdDateFormats = {
     AdminRetryComponent,
     RetryHistoryComponent,
     ModalXmlComponent,
+    BatchTransactionComponent
   ],
   providers: [
     UserService,

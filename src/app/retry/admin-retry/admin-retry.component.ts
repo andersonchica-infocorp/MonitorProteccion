@@ -52,7 +52,7 @@ export class AdminRetryComponent implements OnInit {
 	isDeletingRetry: boolean;
 
 	isSearchingTransactionsTransaction: boolean;
-	selectedTransactions: number[];
+	selectedTransactions: Transaction[];
 
 	styleCellActions = { "width": "150px", "text-align": "center" }
 
@@ -135,6 +135,18 @@ export class AdminRetryComponent implements OnInit {
 			});
 	}
 
+	deleteTransaction(transaction: Transaction) {
+		this.isDeletingRetry = true;
+		this.selectedTransactionAction = transaction;
+		this.transactionService.cancel(transaction)
+			.subscribe(response => {
+				console.log(response);
+				this.isDeletingRetry = false;
+				this.selectedTransactionAction = null;
+			});
+	}
+
+
 	showTransaction(transaction: Transaction) {
 
 	}
@@ -193,11 +205,6 @@ export class AdminRetryComponent implements OnInit {
 
 	backToGrid() {
 		this.xmlTransactionSelected = undefined;
-	}
-
-	deleteTransaction(transaction: Transaction) {
-		this.isDeletingRetry = true;
-		this.selectedTransactionAction = transaction;
 	}
 
 	onSubmit() {

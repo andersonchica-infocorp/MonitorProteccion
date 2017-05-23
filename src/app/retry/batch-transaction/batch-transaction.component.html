@@ -1,0 +1,45 @@
+<md-card class="result md_card_app">
+
+    <md-card-content>
+        <div class="container_actions">
+            <md-select placeholder="{{'app.common.actions' | translate}}"
+                color="accent"
+                class="item"
+                (change)="onActionChange($event.value)">
+                <md-option *ngFor="let item of actions"
+                    [value]="item.id">{{ item.name }}</md-option>
+            </md-select>
+            <button md-mini-fab
+                *ngIf="selectedAction"
+                type="button"
+                (click)="executeAction()"
+                color="primary">
+                <md-icon>{{ selectedAction }}</md-icon>
+            </button>
+        </div>
+        <p-dataTable [value]="transactions"
+            dataKey="id">
+            <p-header>{{'app.retry.selectedTransactions' | translate}}</p-header>
+
+            <p-column field="msgId"
+                [style]="{'width':'100px'}"
+                header="{{'app.retry.results.messageId' | translate}}"></p-column>
+            <p-column field="errorType"
+                [style]="{'width':'100px'}"
+                header="{{'app.retry.results.errorType' | translate}}"></p-column>
+            <p-column field="errorMessage"
+                [style]="{'overflow':'visible'}"
+                header="{{'app.retry.results.error' | translate}}">
+                <ng-template let-col
+                    let-transaction="rowData"
+                    pTemplate="body">
+                    <textarea mdInput
+                        mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+    </md-card-content>
+    <md-card-actions align="end">
+    </md-card-actions>
+</md-card>

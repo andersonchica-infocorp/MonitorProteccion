@@ -27,7 +27,7 @@ export function createTranslateLoader(http: Http) {
 @NgModule({
   declarations: [
     AppComponent,
-    ChartconceptComponent
+    ChartconceptComponent,
   ],
   imports: [
     BrowserModule,
