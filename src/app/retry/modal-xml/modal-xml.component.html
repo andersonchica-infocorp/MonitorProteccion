@@ -1,27 +1,29 @@
-<md-progress-bar mode="indeterminate"
-    color="accent"
-    *ngIf="updatingXml"></md-progress-bar>
-<h2 md-dialog-title>
+<div class="flex_containter">
+    <md-progress-bar mode="indeterminate"
+        color="accent"
+        *ngIf="updatingXml"></md-progress-bar>
+    <h2 md-dialog-title>
      {{ 'app.retry.results.transaction' | translate }} - {{ transactionId }}
-</h2>
-<div md-dialog-content>
-    <div ace-editor
-        [(text)]="xmlSelected"
-        [mode]="'xml'"
-        [theme]="'dawn'"
-        [options]="options"
-        [readOnly]="readOnly"
-        style="min-height: 400px;max-height: 90%; width:100%; overflow: auto;"></div>
-</div>
-<div md-dialog-actions
-    align="end">
-    <button md-raised-button
-        style="margin: 5px"
-        color="primary"
-        [style.display]="readOnly ? 'none' : 'block' "
-        (click)="updateXml()">{{'app.common.update' | translate}}</button>
-    <button md-raised-button
-        style="margin: 5px"
-        color="primary"
-        md-dialog-close>{{'app.common.close' | translate}}</button>
+     <md-icon md-icon
+        class="close"
+        (click)="dialogRef.close()"
+        mdTooltipPosition="above"
+        mdTooltip="{{'app.common.close' | translate}}">close</md-icon>
+    </h2>
+    <div>
+        <div ace-editor
+            [(text)]="xmlSelected"
+            [mode]="'xml'"
+            [theme]="'dawn'"
+            [options]="options"
+            [readOnly]="readOnly"
+            style="min-height: 90%;max-height: 90%; width:100%; overflow: auto;"></div>
+    </div>
+    <div class="footer_modal">
+        <button md-raised-button
+            style="margin: 5px"
+            color="primary"
+            [style.display]="readOnly ? 'none' : 'block' "
+            (click)="updateXml()">{{'app.common.update' | translate}}</button>
+    </div>
 </div>

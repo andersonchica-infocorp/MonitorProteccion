@@ -174,7 +174,6 @@ export class RetryHistoryComponent implements OnInit {
 						transaction: transactionTemplate
 					},
 					disableClose: false,
-					height: '70%',
 					width: '80%',
 				});
 			});

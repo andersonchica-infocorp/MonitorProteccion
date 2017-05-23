@@ -185,7 +185,6 @@ export class AdminRetryComponent implements OnInit {
 						transaction: transactionTemplate
 					},
 					disableClose: true,
-					height: '70%',
 					width: '80%',
 				});
 			});
