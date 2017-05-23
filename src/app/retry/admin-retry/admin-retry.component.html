@@ -90,8 +90,7 @@
                         let-transaction="rowData"
                         pTemplate="body">
                         <textarea mdInput
-                            mdAutosizeMinRows="4"
-                            >{{ transaction[col.field] }}</textarea>
+                            mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
 
                     </ng-template>
 
@@ -104,36 +103,38 @@
                     <ng-template let-transactionTemplate="rowData"
                         pTemplate="body"
                         style="text-align: center">
-                        <md-icon md-list-icon
-                            *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
-                            class="xml"
-                            (click)="showXml(transactionTemplate)"
-                            mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
-                        <md-spinner class="example-margin"
-                            *ngIf="isShowingXml && ( selectedTransactionXml &&transactionTemplate.id == selectedTransactionXml.id)"
-                            color="accent"
-                            mode="indeterminate">
-                        </md-spinner>
-                        <md-icon md-list-icon
-                            *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
-                            class="retry"
-                            (click)="retry(transactionTemplate)"
-                            mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
-                        <md-spinner class="example-margin"
-                            *ngIf="isSendingRetry"
-                            color="accent"
-                            mode="indeterminate">
-                        </md-spinner>
-                        <md-icon md-list-icon
-                            *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
-                            class="delete"
-                            (click)="deleteTransaction(transactionTemplate)"
-                            mdTooltip="{{'app.common.delete' | translate}}">delete_forever</md-icon>
-                        <md-spinner class="example-margin"
-                            *ngIf="isDeletingRetry"
-                            color="warn"
-                            mode="indeterminate">
-                        </md-spinner>
+                        <div class="container_actions">
+                            <md-icon md-list-icon
+                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
+                                class="xml"
+                                (click)="showXml(transactionTemplate)"
+                                mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
+                            <md-spinner class="example-margin"
+                                *ngIf="isShowingXml && ( selectedTransactionXml &&transactionTemplate.id == selectedTransactionXml.id)"
+                                color="accent"
+                                mode="indeterminate">
+                            </md-spinner>
+                            <md-icon md-list-icon
+                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
+                                class="retry"
+                                (click)="retry(transactionTemplate)"
+                                mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
+                            <md-spinner class="example-margin"
+                                *ngIf="isSendingRetry"
+                                color="accent"
+                                mode="indeterminate">
+                            </md-spinner>
+                            <md-icon md-list-icon
+                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
+                                class="delete"
+                                (click)="deleteTransaction(transactionTemplate)"
+                                mdTooltip="{{'app.common.delete' | translate}}">delete_forever</md-icon>
+                            <md-spinner class="example-margin"
+                                *ngIf="isDeletingRetry"
+                                color="warn"
+                                mode="indeterminate">
+                            </md-spinner>
+                        </div>
                     </ng-template>
                 </p-column>
                 <ng-template let-transactionTemplate
