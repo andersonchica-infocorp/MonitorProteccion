@@ -17,10 +17,13 @@
             [theme]="'dawn'"
             [options]="options"
             [readOnly]="readOnly"
+            (textChanged)="change()"
+            
             style="min-height: 90%;max-height: 90%; width:100%; overflow: auto;"></div>
     </div>
     <div class="footer_modal">
         <button md-raised-button
+            [disabled]="!isValidXml"
             style="margin: 5px"
             color="primary"
             [style.display]="readOnly ? 'none' : 'block' "

@@ -14,6 +14,7 @@ import { TranslateService } from 'ng2-translate';
 
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 
+
 import 'brace';
 import 'brace/theme/clouds';
 import 'brace/mode/sql';
