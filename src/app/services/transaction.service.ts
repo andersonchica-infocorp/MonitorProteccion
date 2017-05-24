@@ -140,7 +140,7 @@ export class TransactionService {
   cancel(transaction: Transaction) {
     var url = `${AppConfigService.config.webApiUrl}/cancel`;
     var headers = new Headers();
-    var data = "trx=1111" + transaction.id + "&msg_id=" + transaction.msgId + "&service=1";
+    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=1";
 
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('Accept', 'application/json; charset=utf-8');

@@ -5,6 +5,11 @@
             "spanish": "Español",
             "english": "Inglés"
         },
+        "login": {
+            "user": "Usuario",
+            "password": "Password",
+            "login": "Login"
+        },
         "sideNav": {
             "user": {
                 "title": "Administrar Usuario",
@@ -44,7 +49,7 @@
             "edit": "Editar",
             "delete": "Eliminar",
             "errorService": "Se ha presentado un error, intentalo mas tarde",
-            "actions":"Acciones",
+            "actions": "Acciones",
             "error": {
                 "required": "Este campo es requerido"
             }

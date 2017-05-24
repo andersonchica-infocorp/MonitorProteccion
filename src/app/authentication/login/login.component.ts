@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { TranslateService } from 'ng2-translate';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import {MdSnackBar} from '@angular/material';
+import { AuthManager } from '../shared/authentication.manage';
 
 @Component({
   selector: 'app-login',
@@ -9,23 +14,34 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   localUser = {
-     username: '',
-     password: ''
-   }
-  constructor(private router: ActivatedRoute) {}
+    username: '',
+    password: ''
+  };
+
+  form: FormGroup;
+
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, public fb: FormBuilder, private userService: UserService, public snackBar: MdSnackBar, public authManager: AuthManager) {
+    this.form = this.fb.group({
+      userName: ["", [Validators.required, Validators.maxLength(50)]],
+      password: ["", [Validators.required, Validators.maxLength(50)]],
+    });
+  }
 
   ngOnInit() {
   }
 
   login() {
-    /*let checknow = this.auth.authenticatenow(this.localUser);
-    checknow.then((res) => {
-      if(res) {
-        this.router.navigate(['/second']);
+    this.userService.login(this.form.controls.userName.value, this.form.controls.password.value)
+    .subscribe(response =>{
+      if(!response.error){
+this.router.navigate(['../../report/history'], {relativeTo: this.activatedRoute});
+this
       }
-      else {
-        console.log('Invalid user');
+      else{
+        this.snackBar.open("Vuelva a intentarlo más tarde.", 'Error', {
+      duration: 3000,
+    });
       }
-    })*/
+    });
   }
 }

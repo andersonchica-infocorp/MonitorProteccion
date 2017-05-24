@@ -38,10 +38,10 @@ export class UserService {
       headers
     }).map(response => {
       return this.users;
-    }).catch((err:Response) => {
-            let details = err.json();
-            return Observable.throw(details);
-         });
+    }).catch((err: Response) => {
+      let details = err.json();
+      return Observable.throw(details);
+    });
   }
 
   getUsersSystem(user: string): Observable<User[]> {
@@ -56,10 +56,10 @@ export class UserService {
       headers
     }).map(response => {
       return this.usersInsert;
-    }).catch((err:Response) => {
-            let details = err.json();
-            return Observable.throw(details);
-         });
+    }).catch((err: Response) => {
+      let details = err.json();
+      return Observable.throw(details);
+    });
   }
 
   addUserAdministrator(user: User): Observable<string> {
@@ -74,10 +74,10 @@ export class UserService {
     }).map(response => {
       this.users.push(user);
       return "success";
-    }).catch((err:Response) => {
-            let details = err.json();
-            return Observable.throw(details);
-         });
+    }).catch((err: Response) => {
+      let details = err.json();
+      return Observable.throw(details);
+    });
   }
 
   deleteUser(user: User): Observable<boolean> {
@@ -92,9 +92,31 @@ export class UserService {
     }).map(response => {
       this.users = this.users.filter(item => item.name.indexOf(user.name) != 0);
       return true;
-    }).catch((err:Response) => {
-            let details = err.json();
-            return Observable.throw(details);
-         });
+    }).catch((err: Response) => {
+      let details = err.json();
+      return Observable.throw(details);
+    });
+  }
+
+  login(userName: string, password: string) {
+    var url = `${AppConfigService.config.webApiUrl}/login`;
+    var headers = new Headers();
+    var data = "user=" + userName + "&password=" + password;
+
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Accept', 'application/json; charset=utf-8');
+
+    return this.http.post(url,
+      data,
+      { headers }
+    ).map(response => {
+      return {
+        error: "",
+        status: response.json()
+      };
+    }).catch((err: Response) => Observable.of({
+      error: err.text(),
+      status: "error"
+    }));
   }
 }

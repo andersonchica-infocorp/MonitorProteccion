@@ -14,7 +14,7 @@ export class AppComponent {
 
 
   constructor(private router: Router, private translate: TranslateService, public authManager: AuthManager) {
-console.log(this.authManager.isAdmin)
+console.log(this.authManager.getIsAdmin());
   }
 
 
