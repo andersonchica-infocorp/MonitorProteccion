@@ -162,5 +162,5 @@
         </md-card-actions>
     </md-card>
 
-    <app-batch-transaction [transactions]="selectedTransactions" *ngIf="selectedTransactions && selectedTransactions.length > 0"></app-batch-transaction>
+    <app-batch-transaction [transactions]="selectedTransactions" (clearTransactions)="clearTransactions()" *ngIf="selectedTransactions && selectedTransactions.length > 0"></app-batch-transaction>
 </div>

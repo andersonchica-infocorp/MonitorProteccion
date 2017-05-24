@@ -9,3 +9,12 @@
 	margin: 5px;
 	padding: 10px;
 }
+
+.close{
+    float: right;
+    font: bold;
+    &:hover{
+        color:red;
+        cursor: pointer;
+    }
+}

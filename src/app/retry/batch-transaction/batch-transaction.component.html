@@ -1,15 +1,23 @@
 <md-card class="result md_card_app">
-
+    <md-card-title>
+        <md-icon md-icon
+            class="close"
+            (click)="closeSelectedTransactions()"
+            mdTooltipPosition="above"
+            mdTooltip="{{'app.common.close' | translate}}">close</md-icon>
+    </md-card-title>
     <md-card-content>
         <div class="container_actions">
             <md-select placeholder="{{'app.common.actions' | translate}}"
                 color="accent"
+                [disabled]="isSendingBulk"
                 class="item"
                 (change)="onActionChange($event.value)">
                 <md-option *ngFor="let item of actions"
                     [value]="item.id">{{ item.name }}</md-option>
             </md-select>
             <button md-mini-fab
+                [disabled]="isSendingBulk"
                 *ngIf="selectedAction"
                 type="button"
                 (click)="executeAction()"

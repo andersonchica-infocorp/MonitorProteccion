@@ -1,58 +1,68 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Transaction } from '../../Model/transaction.model';
 import { TransactionService } from '../../services/transaction.service';
 
 
 @Component({
-	selector: 'app-batch-transaction',
-	templateUrl: './batch-transaction.component.html',
-	styleUrls: ['./batch-transaction.component.scss']
+    selector: 'app-batch-transaction',
+    templateUrl: './batch-transaction.component.html',
+    styleUrls: ['./batch-transaction.component.scss']
 })
 export class BatchTransactionComponent implements OnInit {
 
-	@Input()
-	transactions: Transaction[];
+    @Input()
+    transactions: Transaction[];
 
-	selectedAction = null;
+     @Output() clearTransactions = new EventEmitter();
 
-	constructor(public transactionService: TransactionService) { }
+    selectedAction = null;
+    isSendingBulk: boolean;
 
-	actions = [{
-		id: "delete",
-		name: "Eliminar"
-	},
-	{
-		id: "call_missed_outgoing",
-		name: "Reintentar"
-	}];
+    constructor(public transactionService: TransactionService) { }
 
-	ngOnInit() {
-	}
+    actions = [{
+        id: "delete",
+        name: "Eliminar"
+    },
+    {
+        id: "call_missed_outgoing",
+        name: "Reintentar"
+    }];
 
-	onActionChange(value) {
-		this.selectedAction = value;
-		console.log(value);
-	}
+    ngOnInit() {
+    }
 
-	executeAction() {
-		if (this.selectedAction == "delete") {
-			this.cancelTransactions();
-		}
-		else if (this.selectedAction == "call_missed_outgoing") {
-			this.retryTransactions();
-		}
-	}
+    onActionChange(value) {
+        this.selectedAction = value;
+        console.log(value);
+    }
 
-	cancelTransactions() {
-		Observable.from(this.transactions)
-			.mergeMap(transaction => this.transactionService.cancel(transaction))
-			.subscribe(result => console.log(result));
-	}
+    executeAction() {
+        this.isSendingBulk = true;
+        if (this.selectedAction == "delete") {
+            this.cancelTransactions();
+        }
+        else if (this.selectedAction == "call_missed_outgoing") {
+            this.retryTransactions();
+        }
+    }
 
-	retryTransactions() {
-		Observable.from(this.transactions)
-			.mergeMap(transaction => this.transactionService.retry(transaction))
-			.subscribe(result => console.log(result));
-	}
+    cancelTransactions() {
+        Observable.from(this.transactions)
+            .mergeMap(transaction => this.transactionService.cancel(transaction))
+            .subscribe(result => {
+                console.log(result);
+            });
+    }
+
+    retryTransactions() {
+        Observable.from(this.transactions)
+            .mergeMap(transaction => this.transactionService.retry(transaction))
+            .subscribe(result => console.log(result));
+    }
+
+    closeSelectedTransactions() {
+        this.clearTransactions.emit();
+    }
 }
