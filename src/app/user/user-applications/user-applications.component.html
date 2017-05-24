@@ -1,0 +1,23 @@
+<md-card class="app-card-content md_card_app">
+    <md-card-content>
+        <md-input-container class="example-full-width">
+            <input mdInput
+                color="accent"
+                type="search"
+                placeholder="Nombre"
+                maxlength="50">
+        </md-input-container>
+        <md-list>
+            <md-list-item *ngFor="let user of usersResult">
+                <h3 md-line>{{user.Name}}</h3>
+                <md-icon (click)="addUserAdministrator(user)"
+                    class="add"
+                    mdTooltip="{{'app.user.addTooltip' | translate}}"
+                    [mdTooltipPosition]="'above'">add</md-icon>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+    <md-card-actions align="end">
+
+    </md-card-actions>
+</md-card>

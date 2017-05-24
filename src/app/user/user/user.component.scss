@@ -1,0 +1,23 @@
+.admin_container {
+    display: flex;
+}
+
+.users {
+    //border-style: dashed;
+    flex: 1 1 35%;
+    min-width: 350px;
+}
+
+.applications {
+    flex: 1 1 65%;
+    //border-style: dashed;
+}
+
+@media screen and (max-width: 600px) {
+    .admin_container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+

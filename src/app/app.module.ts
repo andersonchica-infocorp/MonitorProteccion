@@ -8,6 +8,7 @@ import { AuthenticationModule } from './authentication/shared/authentication.mod
 import { MasterModule } from './master/shared/master.module';
 import { ReportModule } from './report/shared/report.module';
 import { RetryModule } from './retry/shared/retry.module';
+import { UserModule } from './user/shared/user.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -27,7 +28,7 @@ export function createTranslateLoader(http: Http) {
 @NgModule({
   declarations: [
     AppComponent,
-    ChartconceptComponent,
+    ChartconceptComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +42,7 @@ export function createTranslateLoader(http: Http) {
     ReportModule,
     RetryModule,
     ControlsModule,
+    UserModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
