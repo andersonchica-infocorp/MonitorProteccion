@@ -13,14 +13,16 @@
         <md-card-actions align="end">
         </md-card-actions>
     </md-card>
-    <md-card class="history"
-        *ngIf="dashboard">
-        <md-card-title>{{'app.report.history.title' | translate}}</md-card-title>
-        <md-divider></md-divider>
-        <md-card-content>
-            <app-report-history [history]="dashboard.history"></app-report-history>
-        </md-card-content>
-        <md-card-actions align="end">
-        </md-card-actions>
-    </md-card>
+    <div *ngIf="dashboard">
+        <md-card class="history"
+            *ngFor="let history of dashboard.history">
+            <md-card-title>{{'app.report.history.title' | translate}} - {{ history.application }}</md-card-title>
+            <md-divider></md-divider>
+            <md-card-content>
+                <app-report-history [history]="history"></app-report-history>
+            </md-card-content>
+            <md-card-actions align="end">
+            </md-card-actions>
+        </md-card>
+    </div>
 </div>
