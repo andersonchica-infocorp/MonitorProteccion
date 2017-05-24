@@ -10,77 +10,82 @@
         <md-card-content class="flex_container">
             <form (ngSubmit)="onSubmit()"
                 [formGroup]="form">
-                <section class="">
-                    <md-select placeholder="{{'app.retry.applications' | translate}}"
-                        class="item"
-                        color="accent"
-                        (change)="onSelectApplication($event.value)"
-                        [(ngModel)]="selectedApplication"
-                        formControlName="application">
-                        <md-option *ngFor="let application of applications"
-                            [value]="application.id">{{ application.name }}</md-option>
-                    </md-select>
-                    <md-select placeholder="{{'app.retry.services' | translate}}"
-                        class="item"
-                        color="accent"
-                        formControlName="serviceControl">
-                        <md-option *ngFor="let service of services"
-                            [value]="service.id">{{ service.name }}
-                        </md-option>
-                    </md-select>
-                    <md-select placeholder="{{'app.retry.consumer' | translate}}"
-                        class="item"
-                        color="accent"
-                        formControlName="consumer">
-                        <md-option *ngFor="let consumer of consumers"
-                            [value]="consumer">{{ consumer }}
-                        </md-option>
-                    </md-select>
-                    <md-input-container class="item"
-                        color="accent">
-                        <input mdInput
-                            type="number"
-                            placeholder="{{'app.retry.message' | translate}}"
-                            formControlName="messageId"
-                            maxlength="10">
-                    </md-input-container>
+                <md-select placeholder="{{'app.retry.applications' | translate}}"
+                    class="item"
+                    color="accent"
+                    (change)="onSelectApplication($event.value)"
+                    formControlName="application">
+                    <md-option *ngFor="let application of applications"
+                        [value]="application.id">{{ application.name }}</md-option>
+                </md-select>
+                <md-select placeholder="{{'app.retry.services' | translate}}"
+                    class="item"
+                    color="accent"
+                    (change)="onSelectService($event.value)"
+                    formControlName="serviceControl">
+                    <md-option *ngFor="let service of servicesOut"
+                        [value]="service.id">{{ service.name }}
+                    </md-option>
+                </md-select>
+                <md-select placeholder="{{'app.retry.operations' | translate}}"
+                    class="item"
+                    color="accent"
+                    formControlName="operation">
+                    <md-option *ngFor="let operation of operations"
+                        [value]="operation.id">{{ operation.opration }}</md-option>
+                </md-select>
+                <md-select placeholder="{{'app.retry.consumer' | translate}}"
+                    class="item"
+                    color="accent"
+                    formControlName="consumer">
+                    <md-option *ngFor="let consumer of consumers"
+                        [value]="consumer">{{ consumer }}
+                    </md-option>
+                </md-select>
+                <md-input-container class="item"
+                    color="accent">
+                    <input mdInput
+                        type="number"
+                        placeholder="{{'app.retry.message' | translate}}"
+                        formControlName="messageId"
+                        maxlength="10">
+                </md-input-container>
 
-                    <md-input-container color="accent"
-                        class="date_picker">
-                        <input mdInput
-                            [mdDatepicker]="resultPickerInitial"
-                            formControlName="initialDate"
-                            [min]="minDate"
-                            [max]="maxDate"
-                            placeholder="{{'app.retry.initialDate' | translate}}">
+                <md-input-container color="accent"
+                    class="date_picker">
+                    <input mdInput
+                        [mdDatepicker]="resultPickerInitial"
+                        formControlName="initialDate"
+                        [min]="minDate"
+                        [max]="maxDate"
+                        placeholder="{{'app.retry.initialDate' | translate}}">
 
-                    </md-input-container>
-                    <button type="button"
-                        [mdDatepickerToggle]="resultPickerInitial"></button>
-                    <md-datepicker #resultPickerInitial
-                        [touchUi]="touch"
-                        [startAt]="startAt"
-                        [startView]="yearView ? 'year' : 'month'">
-                    </md-datepicker>
+                </md-input-container>
+                <button type="button"
+                    [mdDatepickerToggle]="resultPickerInitial"></button>
+                <md-datepicker #resultPickerInitial
+                    [touchUi]="touch"
+                    [startAt]="startAt"
+                    [startView]="yearView ? 'year' : 'month'">
+                </md-datepicker>
 
-                    <md-input-container color="accent"
-                        class="date_picker">
-                        <input mdInput
-                            [mdDatepicker]="resultPicker"
-                            formControlName="finalDate"
-                            [min]="minDate"
-                            [max]="maxDate"
-                            placeholder="{{'app.retry.finalDate' | translate}}">
+                <md-input-container color="accent"
+                    class="date_picker">
+                    <input mdInput
+                        [mdDatepicker]="resultPicker"
+                        formControlName="finalDate"
+                        [min]="minDate"
+                        [max]="maxDate"
+                        placeholder="{{'app.retry.finalDate' | translate}}">
 
-                    </md-input-container>
-                    <button type="button"
-                        [mdDatepickerToggle]="resultPicker"></button>
-                    <md-datepicker #resultPicker
-                        [touchUi]="touch"
-                        [startAt]="startAt"
-                        [startView]="yearView ? 'year' : 'month'">
-                    </md-datepicker>
-                </section>
+                </md-input-container>
+                <button type="button"
+                    [mdDatepickerToggle]="resultPicker"></button>
+                <md-datepicker #resultPicker
+                    [touchUi]="touch"
+                    [startAt]="startAt"
+                    [startView]="yearView ? 'year' : 'month'">
+                </md-datepicker>
             </form>
         </md-card-content>
 
@@ -88,7 +93,7 @@
             <button md-mini-fab
                 type="button"
                 (click)="onSearch()"
-                [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value)"
+                [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value || !form.controls.operation.value)"
                 color="primary"
                 mdTooltip="{{'app.common.search' | translate}}">
                 <md-icon>search</md-icon>

@@ -6,6 +6,7 @@ export class User {
 	constructor(
 		public id: number,
 		public name: string,
+		public opration: string,
 		public consumers?: string[],
 		public applications?: Application[]
 	) { }

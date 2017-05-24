@@ -7,21 +7,6 @@ import { AppConfigService } from './app-config.service';
 @Injectable()
 export class UserService {
 
-  private users: User[] = [
-    { id: 1, name: 'User 1' },
-    { id: 2, name: 'User 2' },
-    { id: 3, name: 'User 3' },
-    { id: 4, name: 'User 4' }
-  ];
-
-  private usersInsert: User[] = [
-    { id: 5, name: 'userInsert 1', },
-    { id: 6, name: 'userInsert 2', },
-    { id: 7, name: 'userInsert 3', },
-    { id: 8, name: 'userInsert 4', }
-  ];
-
-
   constructor(private http: Http) {
 
   }
@@ -37,7 +22,7 @@ export class UserService {
     return this.http.get(url, {
       headers
     }).map(response => {
-      return this.users;
+      return [];
     }).catch((err: Response) => {
       let details = err.json();
       return Observable.throw(details);
@@ -55,7 +40,7 @@ export class UserService {
     return this.http.get(url, {
       headers
     }).map(response => {
-      return this.usersInsert;
+      return [];
     }).catch((err: Response) => {
       let details = err.json();
       return Observable.throw(details);
@@ -72,7 +57,7 @@ export class UserService {
     return this.http.get(url, {
       headers
     }).map(response => {
-      this.users.push(user);
+      [];
       return "success";
     }).catch((err: Response) => {
       let details = err.json();
@@ -90,7 +75,7 @@ export class UserService {
     return this.http.get(url, {
       headers
     }).map(response => {
-      this.users = this.users.filter(item => item.name.indexOf(user.name) != 0);
+      []
       return true;
     }).catch((err: Response) => {
       let details = err.json();

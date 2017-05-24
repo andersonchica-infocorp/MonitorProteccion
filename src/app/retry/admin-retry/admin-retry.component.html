@@ -12,7 +12,6 @@
                     class="item"
                     color="accent"
                     (change)="onSelectApplication($event.value)"
-                    [(ngModel)]="selectedApplication"
                     formControlName="application">
                     <md-option *ngFor="let application of applications"
                         [value]="application.id">{{ application.name }}</md-option>
@@ -20,10 +19,18 @@
                 <md-select placeholder="{{'app.retry.services' | translate}}"
                     class="item"
                     color="accent"
+                    (change)="onSelectService($event.value)"
                     formControlName="serviceControl">
-                    <md-option *ngFor="let service of services"
+                    <md-option *ngFor="let service of servicesOut"
                         [value]="service.id">{{ service.name }}
                     </md-option>
+                </md-select>
+                <md-select placeholder="{{'app.retry.operations' | translate}}"
+                    class="item"
+                    color="accent"
+                    formControlName="operation">
+                    <md-option *ngFor="let operation of operations"
+                        [value]="operation.id">{{ operation.opration }}</md-option>
                 </md-select>
                 <md-select placeholder="{{'app.retry.consumer' | translate}}"
                     class="item"
@@ -47,7 +54,7 @@
             <button md-mini-fab
                 type="button"
                 (click)="onSearch()"
-                [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value)"
+                [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value || !form.controls.operation.value)"
                 color="primary"
                 mdTooltip="{{'app.common.search' | translate}}">
                 <md-icon>search</md-icon>

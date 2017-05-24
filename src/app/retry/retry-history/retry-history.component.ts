@@ -13,11 +13,11 @@ import { MdDialog, DateAdapter } from '@angular/material';
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 import { ServiceDetailComponent } from '../../master/service/service-detail/service-detail.component';
 import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
+	trigger,
+	state,
+	style,
+	animate,
+	transition
 } from '@angular/animations';
 
 import 'brace';
@@ -29,14 +29,14 @@ import 'brace/mode/sql';
 	templateUrl: './retry-history.component.html',
 	styleUrls: ['./retry-history.component.scss'],
 	animations: [
-    trigger('flyInOut', [
-      state('in', style({transform: 'translateX(0)'})),
-      transition('void => *', [
-        style({transform: 'translateX(+100%)'}),
-        animate(500)
-      ])
-    ])
-  ]
+		trigger('flyInOut', [
+			state('in', style({ transform: 'translateX(0)' })),
+			transition('void => *', [
+				style({ transform: 'translateX(+100%)' }),
+				animate(500)
+			])
+		])
+	]
 })
 export class RetryHistoryComponent implements OnInit {
 	options: any = { maxLines: 1000, printMargin: true };
@@ -53,6 +53,8 @@ export class RetryHistoryComponent implements OnInit {
 	selectedTransaction: Transaction;
 	selectedApplication: Application;
 	selectedTransactionXml: Transaction;
+	selectedService: Service;
+
 	totalRows: number;
 	cantidad: number = 0;
 	isSearching: boolean;
@@ -68,6 +70,8 @@ export class RetryHistoryComponent implements OnInit {
 	startAt: Date;
 	date: Date;
 	isShowingXml: boolean;
+	operations = [];
+	servicesOut = [];
 
 	ngOnInit() {
 		this.isChargingInitialData = true;
@@ -96,6 +100,7 @@ export class RetryHistoryComponent implements OnInit {
 			finalDate: [''],
 			application: ['', Validators.required],
 			serviceControl: ['', Validators.required],
+			operation: ['']
 		});
 	}
 
@@ -105,7 +110,7 @@ export class RetryHistoryComponent implements OnInit {
 		var initialDate = this.form.get('initialDate').value;
 		var finalDate = this.form.get('finalDate').value;
 		var applicationId = this.form.get('application').value;
-		var serviceId = this.form.get('serviceControl').value;
+		var serviceId = this.form.get('operation').value;
 
 		this.showTransactions = true;
 		this.isSearching = true;
@@ -136,15 +141,32 @@ export class RetryHistoryComponent implements OnInit {
 	}
 
 	onSelectApplication(value) {
+		this.servicesOut = [];
+		this.operations = [];
 		this.selectedApplication = value;
 		this.form.get('serviceControl').setValue('');
 
 		this.services = this.applications
 			.filter(c => c.id === value)[0].services
+
+		this.getServicesDistinct(this.services);
 	}
 
 	onValueChanged(data?: any) {
 		if (!this.form) { return; }
+	}
+
+	getServicesDistinct(services) {
+		services.forEach(service => {
+			if (!this.servicesOut.find(c => c.id == service.name)) {
+				this.servicesOut.push({ id: service.name, name: service.name });
+			}
+		})
+	}
+
+	onSelectService(value) {
+		this.selectedService = value;
+		this.operations = this.services.filter(service => service.name == value);
 	}
 
 	getTransactionsTransaction(transactionTemplate) {
@@ -180,29 +202,28 @@ export class RetryHistoryComponent implements OnInit {
 			});
 	}
 
-	viewDetailService(){
-this.applicationService.getServicesApplication(this.form.controls.application.value)
-.subscribe(servicesApplication =>
-    {
-var service = servicesApplication.services.filter(c => c.id == this.form.controls.serviceControl.value)[0];
-let dialogRef = this.dialog.open(ServiceDetailComponent, {
-                    data: {
-                        serviceSelected: service,
-                        readOnly: true,
-                        application: this.form.controls.application.value
-                    },
-                    disableClose: true,
-                    
-                });
-    });
-}
+	viewDetailService() {
+		this.applicationService.getServicesApplication(this.form.controls.application.value)
+			.subscribe(servicesApplication => {
+				var service = servicesApplication.services.filter(c => c.id == this.form.controls.operation.value)[0];
+				let dialogRef = this.dialog.open(ServiceDetailComponent, {
+					data: {
+						serviceSelected: service,
+						readOnly: true,
+						application: this.form.controls.application.value
+					},
+					disableClose: true,
+
+				});
+			});
+	}
 
 	backToGrid() {
 		this.xmlTransactionSelected = undefined;
 	}
 
-	onSubmit(){
-		
+	onSubmit() {
+
 	}
 
 	formatXML(input) {

@@ -36,10 +36,13 @@ export class AdminRetryComponent implements OnInit {
     form: FormGroup;
     transactions: Transaction[];
     consumers: string[];
+    operations = [];
+    servicesOut = [];
     xmlTransactionSelected: string;
 
     selectedTransaction: Transaction;
     selectedApplication: Application;
+    selectedService: Service;
     selectedTransactionAction: Transaction;
 
     isChargingInitialData: boolean;
@@ -69,6 +72,7 @@ export class AdminRetryComponent implements OnInit {
             finalDate: [''],
             application: ['', Validators.required],
             serviceControl: ['', Validators.required],
+            operation: ['']
         });
     }
 
@@ -98,7 +102,7 @@ export class AdminRetryComponent implements OnInit {
         var initialDate = this.form.get('initialDate').value;
         var finalDate = this.form.get('finalDate').value;
         var applicationId = this.form.get('application').value;
-        var serviceId = this.form.get('serviceControl').value;
+        var serviceId = this.form.get('operation').value;
 
         this.isSearching = true;
         this.cantidad = 0;
@@ -139,6 +143,7 @@ export class AdminRetryComponent implements OnInit {
     }
 
     deleteTransaction(transaction: Transaction) {
+        console.log(transaction);
         this.isDeletingRetry = true;
         this.selectedTransactionAction = transaction;
         this.transactionService.cancel(transaction)
@@ -160,11 +165,29 @@ export class AdminRetryComponent implements OnInit {
     }
 
     onSelectApplication(value) {
+        this.servicesOut = [];
+        this.operations = [];
         this.selectedApplication = value;
         this.form.get('serviceControl').setValue('');
 
         this.services = this.applications
             .filter(c => c.id === value)[0].services
+
+        this.getServicesDistinct(this.services);
+
+    }
+
+    getServicesDistinct(services) {
+        services.forEach(service => {
+            if (!this.servicesOut.find(c => c.id == service.name)) {
+                this.servicesOut.push({ id: service.name, name: service.name });
+            }
+        })
+    }
+
+    onSelectService(value) {
+        this.selectedService = value;
+        this.operations = this.services.filter(service => service.name == value);
     }
 
     onValueChanged(data?: any) {
@@ -182,7 +205,6 @@ export class AdminRetryComponent implements OnInit {
                         transaction.transactions = transactions.transactions;
                     }
                 });
-
             });
     }
 
@@ -214,22 +236,21 @@ export class AdminRetryComponent implements OnInit {
         this.selectedTransactions = null;
     }
 
-viewDetailService(){
-this.applicationService.getServicesApplication(this.form.controls.application.value)
-.subscribe(servicesApplication =>
-    {
-var service = servicesApplication.services.filter(c => c.id == this.form.controls.serviceControl.value)[0];
-let dialogRef = this.dialog.open(ServiceDetailComponent, {
+    viewDetailService() {
+        this.applicationService.getServicesApplication(this.form.controls.application.value)
+            .subscribe(servicesApplication => {
+                var service = servicesApplication.services.filter(c => c.id == this.form.controls.operation.value)[0];
+                let dialogRef = this.dialog.open(ServiceDetailComponent, {
                     data: {
                         serviceSelected: service,
                         readOnly: true,
                         application: this.form.controls.application.value
                     },
                     disableClose: true,
-                    
+
                 });
-    });
-}
+            });
+    }
 
     onSubmit() {
 

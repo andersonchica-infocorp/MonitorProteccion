@@ -38,8 +38,7 @@ export class ModalXmlComponent implements OnInit {
         this.xmlSelected = data.xml;
         this.readOnly = data.readOnly;
         this.transactionId = data.transaction.id;
-
-
+        this.change();
     }
 
     change() {

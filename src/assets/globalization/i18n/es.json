@@ -113,6 +113,7 @@
             "transactions": "Transacciones",
             "selectedTransactions": "Transacciones Seleccionadas",
             "viewDetailService": "Ver Detalle Servicio",
+            "operations":"Operaciones",
             "results": {
                 "consumer": "Consumidor",
                 "application": "Aplicación",
