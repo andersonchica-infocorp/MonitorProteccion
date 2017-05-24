@@ -18,6 +18,8 @@ import { PaginatorModule } from 'primeng/primeng';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 import { BatchTransactionComponent } from '../batch-transaction/batch-transaction.component';
+import { ServiceDetailComponent } from '../../master/service/service-detail/service-detail.component';
+
 
 
 const PUTO_DATE_FORMATS: MdDateFormats = {
@@ -59,8 +61,8 @@ const PUTO_DATE_FORMATS: MdDateFormats = {
     {provide: MD_DATE_FORMATS, useValue: PUTO_DATE_FORMATS}
   ],
   entryComponents: [
-    ModalXmlComponent
+    ModalXmlComponent,
+    ServiceDetailComponent
   ]
 })
 export class RetryModule {}
-

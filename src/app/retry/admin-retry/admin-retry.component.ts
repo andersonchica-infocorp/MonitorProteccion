@@ -11,6 +11,8 @@ import { Observable } from 'rxJs';
 import { Consumer } from '../../Model/consumer.model';
 import { MdDialog } from '@angular/material';
 import { TranslateService } from 'ng2-translate';
+import { ServiceDetailComponent } from '../../master/service/service-detail/service-detail.component';
+
 
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 
@@ -211,6 +213,23 @@ export class AdminRetryComponent implements OnInit {
     clearTransactions() {
         this.selectedTransactions = null;
     }
+
+viewDetailService(){
+this.applicationService.getServicesApplication(this.form.controls.application.value)
+.subscribe(servicesApplication =>
+    {
+var service = servicesApplication.services.filter(c => c.id == this.form.controls.serviceControl.value)[0];
+let dialogRef = this.dialog.open(ServiceDetailComponent, {
+                    data: {
+                        serviceSelected: service,
+                        readOnly: true,
+                        application: this.form.controls.application.value
+                    },
+                    disableClose: true,
+                    
+                });
+    });
+}
 
     onSubmit() {
 

@@ -21,6 +21,7 @@ export class ServiceDetailComponent implements OnInit {
 	applicationId: number;
 	emptyVerCode: boolean;
 	isUpdating: boolean;
+	readOnly: boolean;
 
 	form: FormGroup;
 
@@ -30,6 +31,7 @@ export class ServiceDetailComponent implements OnInit {
 		public dialogRef: MdDialogRef<any>) {
 
 		this.initialdata = data.serviceSelected;
+		this.readOnly = data.readOnly;
 		this.applicationId = data.application;
 		this.setInitialData();
 	}

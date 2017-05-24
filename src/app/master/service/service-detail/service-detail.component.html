@@ -12,13 +12,15 @@
 <form (ngSubmit)="onSubmit()"
     [formGroup]="form">
     <div class="container_form">
-        <md-checkbox formControlName="reqCallback">{{'app.master.service.reqCallBack' | translate}}</md-checkbox>
+        <md-checkbox [disabled]="readOnly"
+            formControlName="reqCallback">{{'app.master.service.reqCallBack' | translate}}</md-checkbox>
 
         <md-input-container class="form_control_container"
             color="accent"
             [hidden]="!form.get('reqCallback').value">
             <input mdInput
                 type="text"
+                [readonly]="readOnly"
                 placeholder="{{'app.master.service.callBackStatus' | translate}}"
                 formControlName="callBackStatus"
                 maxlength="500">
@@ -31,6 +33,7 @@
             color="accent">
             <textarea mdInput
                 mdTextareaAutosize
+                [readonly]="readOnly"
                 placeholder="{{'app.master.service.url' | translate}}"
                 formControlName="invokeUrl"
                 maxlength="500"></textarea>
@@ -43,6 +46,7 @@
             color="accent">
             <input mdInput
                 type="number"
+                [readonly]="readOnly"
                 placeholder="{{'app.master.service.timeOut' | translate}}"
                 formControlName="invokeTimeout"
                 maxlength="10">
@@ -55,6 +59,7 @@
             color="accent">
             <input mdInput
                 type="number"
+                [readonly]="readOnly"
                 placeholder="{{'app.master.service.retryCount' | translate}}"
                 formControlName="retryCount"
                 maxlength="10">
@@ -66,6 +71,7 @@
         <md-input-container class="form_control_container"
             color="accent">
             <input mdInput
+                [readonly]="readOnly"
                 type="number"
                 placeholder="{{'app.master.service.retryDelay' | translate}}"
                 formControlName="retryDelay"
@@ -80,6 +86,7 @@
             [hidden]="!form.get('verCode').value">
             <input mdInput
                 type="text"
+                [readonly]="readOnly"
                 placeholder="{{'app.master.service.verCode' | translate}}"
                 formControlName="verCode"
                 maxlength="500"
@@ -89,10 +96,11 @@
             </md-error>
         </md-input-container>
 
-        <md-input-container class="form_control_container"
-            color="accent"
-            [hidden]="emptyVerCode">
+        <md-input-container 
+            class="form_control_container"
+            color="accent">
             <textarea mdInput
+                [readonly]="readOnly"
                 mdTextareaAutosize
                 placeholder="{{'app.master.service.verCodeUrl' | translate}}"
                 formControlName="verCodeUrl"
@@ -106,6 +114,7 @@
             color="accent"
             [hidden]="emptyVerCode">
             <input mdInput
+                [readonly]="readOnly"
                 type="number"
                 placeholder="{{'app.master.service.verCodeTimeOut' | translate}}"
                 formControlName="verCodeTimeut"
@@ -116,7 +125,7 @@
         </md-input-container>
     </div>
 </form>
-<div class="container_actions">
+<div class="container_actions" *ngIf="!readOnly">
     <button md-raised-button
         color="primary"
         class="button"

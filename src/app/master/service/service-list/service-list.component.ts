@@ -57,7 +57,6 @@ export class ServiceListComponent implements OnInit {
 	}
 
 	editService(service: Service) {
-		console.log(service);
 		let dialogRef = this.dialog.open(ServiceDetailComponent, {
 					data: {
 						serviceSelected: service,

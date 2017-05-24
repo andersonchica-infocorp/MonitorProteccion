@@ -11,6 +11,7 @@ import { Observable } from 'rxJs';
 import { Consumer } from '../../Model/consumer.model';
 import { MdDialog, DateAdapter } from '@angular/material';
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
+import { ServiceDetailComponent } from '../../master/service/service-detail/service-detail.component';
 import {
   trigger,
   state,
@@ -178,6 +179,23 @@ export class RetryHistoryComponent implements OnInit {
 				});
 			});
 	}
+
+	viewDetailService(){
+this.applicationService.getServicesApplication(this.form.controls.application.value)
+.subscribe(servicesApplication =>
+    {
+var service = servicesApplication.services.filter(c => c.id == this.form.controls.serviceControl.value)[0];
+let dialogRef = this.dialog.open(ServiceDetailComponent, {
+                    data: {
+                        serviceSelected: service,
+                        readOnly: true,
+                        application: this.form.controls.application.value
+                    },
+                    disableClose: true,
+                    
+                });
+    });
+}
 
 	backToGrid() {
 		this.xmlTransactionSelected = undefined;
