@@ -1,12 +1,13 @@
 <md-card class="app-card-content md_card_app">
     <md-card-content>
 
-        <md-input-container class="example-full-width">
+        <md-input-container class="example-full-width"
+            color="accent">
             <input mdInput
                 color="accent"
-                type="search"
-                placeholder="Nombre"
-                maxlength="50">
+                placeholder="Usuario"
+                maxlength="50"
+                (keyup)="onKey($event.target.value)">
         </md-input-container>
         <md-list>
             <md-list-item *ngFor="let user of usersResult">

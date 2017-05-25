@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Application } from '../../Model/application.model';
+
 
 @Component({
-  selector: 'app-user-applications',
-  templateUrl: './user-applications.component.html',
-  styleUrls: ['./user-applications.component.scss']
+    selector: 'app-user-applications',
+    templateUrl: './user-applications.component.html',
+    styleUrls: ['./user-applications.component.scss']
 })
 export class UserApplicationsComponent implements OnInit {
 
-  constructor() { }
+    @Output()
+    onPressedApplication = new EventEmitter<Application>();
 
-  ngOnInit() {
-  }
+    @Input()
+    userApplications: Application[];
 
+    constructor() { }
+
+    ngOnInit() {
+    }
+
+    pressedApplication(application: Application) {
+        this.onPressedApplication.emit(application);
+    }
+
+    onKey(value) {
+        this.userApplications = this.userApplications.filter(application => application.name.indexOf(value) >= 0);
+    }
 }

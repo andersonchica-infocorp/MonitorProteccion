@@ -14,7 +14,8 @@ export class BatchTransactionComponent implements OnInit {
     @Input()
     transactions: Transaction[];
 
-     @Output() clearTransactions = new EventEmitter();
+    @Output()
+    clearTransactions = new EventEmitter();
 
     selectedAction = null;
     isSendingBulk: boolean;

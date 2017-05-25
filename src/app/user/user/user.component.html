@@ -3,9 +3,10 @@
 </md-toolbar>
 <div class="admin_container">
     <div class="users">
-        <app-user-list></app-user-list>
+        <app-user-list [usersResult]="usersResult"></app-user-list>
     </div>
     <div class="applications">
-        <app-user-applications></app-user-applications>
+        <app-user-applications (userSelected)="userSelected($event)"
+            [userApplications]="userApplications" ></app-user-applications>
     </div>
 </div>
