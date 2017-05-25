@@ -168,7 +168,8 @@ export class AdminRetryComponent implements OnInit {
         this.servicesOut = [];
         this.operations = [];
         this.selectedApplication = value;
-        this.form.get('serviceControl').setValue('');
+        this.form.controls.serviceControl.setValue('');
+        this.form.controls.operation.setValue('');
 
         this.services = this.applications
             .filter(c => c.id === value)[0].services
@@ -187,6 +188,8 @@ export class AdminRetryComponent implements OnInit {
 
     onSelectService(value) {
         this.selectedService = value;
+        this.form.controls.operation.setValue('');
+        this.form.controls.operation.setValue('');
         this.operations = this.services.filter(service => service.name == value);
     }
 

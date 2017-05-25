@@ -144,7 +144,8 @@ export class RetryHistoryComponent implements OnInit {
 		this.servicesOut = [];
 		this.operations = [];
 		this.selectedApplication = value;
-		this.form.get('serviceControl').setValue('');
+		this.form.controls.serviceControl.setValue('');
+        this.form.controls.operation.setValue('');
 
 		this.services = this.applications
 			.filter(c => c.id === value)[0].services
