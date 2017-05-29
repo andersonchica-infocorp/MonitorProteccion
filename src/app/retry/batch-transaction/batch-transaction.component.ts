@@ -19,6 +19,8 @@ export class BatchTransactionComponent implements OnInit {
 
     selectedAction = null;
     isSendingBulk: boolean;
+    transactionsSent: number[];
+    transactionsCompleted: number[];
 
     constructor(public transactionService: TransactionService) { }
 
@@ -50,10 +52,17 @@ export class BatchTransactionComponent implements OnInit {
     }
 
     cancelTransactions() {
+        this.transactionsSent = [];
+        this.transactionsCompleted = [];
         Observable.from(this.transactions)
-            .mergeMap(transaction => this.transactionService.cancel(transaction))
+            .mergeMap(transaction => {
+                this.transactionsSent.push(transaction.id);
+                return this.transactionService.cancel(transaction)
+            })
             .subscribe(result => {
-                console.log(result);
+                this.transactionsCompleted.push(result.transactionId);
+                console.log(this.transactionsCompleted);
+                console.log(this.transactionsSent);
             });
     }
 

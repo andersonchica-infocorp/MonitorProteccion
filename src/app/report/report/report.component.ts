@@ -20,8 +20,7 @@ export class ReportComponent implements OnInit {
 		this.dashboardService.getDashboard().subscribe(
 			dashboard => {
 				this.dashboard = dashboard;
-				let history = this.dashboard.history[0];
-				this.dashboard.history.push(history);
+				
 				this.isChargingInitialData = false;
 			},
 			error => {

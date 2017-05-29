@@ -1,21 +1,22 @@
 <md-card class="app-card-content md_card_app">
+<md-card-title>{{'app.user.users' | translate}}</md-card-title>
     <md-card-content>
 
-        <md-input-container class="example-full-width"
+        <!--<md-input-container class="example-full-width"
             color="accent">
             <input mdInput
                 color="accent"
                 placeholder="Usuario"
                 maxlength="50"
                 (keyup)="onKey($event.target.value)">
-        </md-input-container>
+        </md-input-container>-->
         <md-list>
             <md-list-item *ngFor="let user of usersResult">
-                <h3 md-line>{{user.Name}}</h3>
-                <md-icon (click)="addUserAdministrator(user)"
-                    class="add"
-                    mdTooltip="{{'app.user.addTooltip' | translate}}"
-                    [mdTooltipPosition]="'above'">add</md-icon>
+                <h3 md-line>{{user.name}}</h3>
+                <md-icon (click)="userSelected(user)"
+                    class="edit"
+                    mdTooltip="{{'app.user.editTooltip' | translate}}"
+                    [mdTooltipPosition]="'above'">edit</md-icon>
             </md-list-item>
         </md-list>
     </md-card-content>

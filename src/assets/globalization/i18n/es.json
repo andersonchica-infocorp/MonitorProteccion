@@ -58,7 +58,10 @@
             "title": "Administradores",
             "new": "Nuevo Administrador",
             "addTooltip": "Agregar administrador",
-            "deleteTooltip": "Eliminar Administrador"
+            "deleteTooltip": "Eliminar Administrador",
+            "userApplication": "Aplicaciones",
+            "editTooltip": "Editar Aplicaciones del usuario",
+            "users": "Usuarios"
         },
         "master": {
             "application": {
@@ -71,6 +74,7 @@
                 "services": "Servicios",
                 "nameService": "Nombre Servicio",
                 "addService": "Agregar Servicio"
+
             },
             "service": {
                 "deleteTooltip": "Eliminar Servicio",

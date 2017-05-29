@@ -9,12 +9,15 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 
 export class AuthManager implements CanActivate {
 
-	 private isAdmin: boolean;
-	 private isLogin: boolean;
+	private isAdmin: boolean;
+	private isLogin: boolean;
+
+	private userName: string = "gdutta";
+	private password: string;
 
 	constructor(private router: Router, private http: Http) {
-this.isAdmin = true;
-this.isLogin = true;
+		this.isAdmin = true;
+		this.isLogin = true;
 	}
 
 
@@ -23,12 +26,19 @@ this.isLogin = true;
 		return true;
 	}
 
-	getIsAdmin(){
+	getIsAdmin() {
 		return this.isAdmin;
 	}
 
-	getIsLogin(){
+	getIsLogin() {
 		return this.isLogin;
+	}
+
+	getCredentials() {
+		return {
+			login: this.userName,
+			password: this.password
+		};
 	}
 
 	login(userName: string, password: string) {
@@ -36,6 +46,9 @@ this.isLogin = true;
 		var headers = new Headers();
 		var data = "user=" + userName + "&password=" + password;
 
+		this.userName = userName;
+		this.password = password;
+		console.log(this.getCredentials());
 		headers.append('Content-Type', 'application/x-www-form-urlencoded');
 		headers.append('Accept', 'application/json; charset=utf-8');
 

@@ -6,11 +6,12 @@ import { AppConfigService } from './app-config.service';
 import { ParentTransaction } from '../Model/parentTransaction.model';
 import { TransactionChild } from '../Model/transactionChildResponse.model';
 import { Service } from '../Model/service.model';
+import { AuthManager } from '../authentication/shared/authentication.manage';
 
 @Injectable()
 export class TransactionService {
 
-  constructor(private http: Http) {
+  constructor(private http: Http, public authManager: AuthManager) {
 
   }
 
@@ -22,7 +23,9 @@ export class TransactionService {
 
     var url = `${AppConfigService.config.webApiUrl}/parentTransactions?app=` + applicationId + "&service=" + serviceId + "&page=" + page + "&rows=" + rows;
     var headers = new Headers();
+    var data = this.authManager.getCredentials();
 
+    headers.append('authorization', JSON.stringify(data));
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Accept', 'application/json; charset=utf-8');
 
@@ -39,7 +42,9 @@ export class TransactionService {
   getTransactionsTransaction(idTransaction: number): Observable<TransactionChild> {
     var url = `${AppConfigService.config.webApiUrl}/childTransactions?trx=` + idTransaction;
     var headers = new Headers();
+    var data = this.authManager.getCredentials();
 
+    headers.append('authorization', JSON.stringify(data));
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Accept', 'application/json; charset=utf-8');
 
@@ -56,7 +61,9 @@ export class TransactionService {
   getXmlTransaction(idTransaction: number) {
     var url = `${AppConfigService.config.webApiUrl}/transactiondata?trx=` + idTransaction;
     var headers = new Headers();
+    var data = this.authManager.getCredentials();
 
+    headers.append('authorization', JSON.stringify(data));
     headers.append('Content-Type', 'application/xml; charset=utf-8');
     headers.append('Accept', 'application/json, text/plain, */*');
 
@@ -82,7 +89,9 @@ export class TransactionService {
       + this.constructParam("page", startPage)
       + this.constructParam("rows", totalRows);
     var headers = new Headers();
+    var data = this.authManager.getCredentials();
 
+    headers.append('authorization', JSON.stringify(data));
     headers.append('Content-Type', 'application/xml; charset=utf-8');
     headers.append('Accept', 'application/json, text/plain, */*');
 
@@ -100,7 +109,9 @@ export class TransactionService {
     var url = `${AppConfigService.config.webApiUrl}/transactiondatamodified`;
     var headers = new Headers();
     var data = "trx=" + transactionId + "&data=" + xml;
+    var user = this.authManager.getCredentials();
 
+    headers.append('authorization', JSON.stringify(user));
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('Accept', 'application/json; charset=utf-8');
 
@@ -118,8 +129,10 @@ export class TransactionService {
   retry(transaction: Transaction) {
     var url = `${AppConfigService.config.webApiUrl}/retry`;
     var headers = new Headers();
-    var data = "trx=1111" + transaction.id + "&msg_id=" + transaction.msgId + "&service=1";
+    var data = "trx=1111" + transaction.id + "&msg_id=1111" + transaction.msgId + "&service=1";
+    var user = this.authManager.getCredentials();
 
+    headers.append('authorization', JSON.stringify(user));
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('Accept', 'application/json; charset=utf-8');
 
@@ -140,8 +153,10 @@ export class TransactionService {
   cancel(transaction: Transaction) {
     var url = `${AppConfigService.config.webApiUrl}/cancel`;
     var headers = new Headers();
-    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=1";
+    var data = "trx=" + transaction.id + "&msg_id=1111" + transaction.msgId + "&service=1";
+    var user = this.authManager.getCredentials();
 
+    headers.append('authorization', JSON.stringify(user));
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('Accept', 'application/json; charset=utf-8');
 
