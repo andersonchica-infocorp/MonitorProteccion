@@ -12,7 +12,7 @@
         },
         "sideNav": {
             "user": {
-                "title": "Gestionar Administradores",
+                "title": "Administra Usuarios",
                 "description": ""
             },
             "application": {
@@ -50,6 +50,9 @@
             "delete": "Eliminar",
             "errorService": "Se ha presentado un error, intentalo mas tarde",
             "actions": "Acciones",
+            "clearFilters": "Limpiar Filtros",
+            "deleteAll": "Eliminar Transacciones y Transacción",
+            "select": "Seleccione...",
             "error": {
                 "required": "Este campo es requerido"
             }
@@ -103,7 +106,8 @@
             },
             "history": {
                 "title": "Histórico"
-            }
+            },
+            "title": "Dashboard"
         },
         "retry": {
             "filter": "Filtros",
@@ -118,6 +122,7 @@
             "selectedTransactions": "Transacciones Seleccionadas",
             "viewDetailService": "Ver Detalle Servicio",
             "operations":"Operaciones",
+            "title": "Reintentos",
             "results": {
                 "iib": "IIB",
                 "uuid": "UUID",
@@ -136,7 +141,8 @@
                 "receiveDate": "Fecha Recepción"
             },
             "history": {
-                "back": "View Grid"
+                "back": "View Grid",
+                "title": "Histórico Reintentos"
             }
         }
     }

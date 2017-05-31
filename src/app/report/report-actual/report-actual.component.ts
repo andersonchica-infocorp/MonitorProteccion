@@ -35,6 +35,8 @@ export class ReportActualComponent implements OnInit {
         this.barChartLabels[count] = element.application;
         this.barChartData[0].data[count] = element.nok;
         this.barChartData[1].data[count] = element.ok;
+
+        count ++;
       });
     }
   }

@@ -36,15 +36,15 @@ export class LoginComponent implements OnInit {
     this.authManager.login(this.form.controls.userName.value, this.form.controls.password.value)
       .subscribe(response => {
         this.isLogging = false;
-        if (!response.error) {
+       /* if (!response.error) {
           this.router.navigate(['../../report/history'], { relativeTo: this.activatedRoute });
-          this
         }
         else {
           this.snackBar.open("Vuelva a intentarlo más tarde.", 'Error', {
             duration: 3000,
           });
-        }
+        }*/
+        this.router.navigate(['../../report/history'], { relativeTo: this.activatedRoute });
       });
   }
 }

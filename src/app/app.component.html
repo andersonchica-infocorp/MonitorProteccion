@@ -77,6 +77,12 @@
             [mdMenuTriggerFor]="menu">
             <md-icon>language</md-icon>
         </button>-->
+
+        <button md-icon-button
+            (click)="exitApp()">
+            <md-icon>exit_to_app</md-icon>
+        </button>
+
         <md-menu #menu="mdMenu">
             <button md-menu-item
                 (click)="changeLanguage('es')">

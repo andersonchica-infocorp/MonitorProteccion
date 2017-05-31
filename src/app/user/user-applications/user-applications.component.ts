@@ -26,13 +26,18 @@ export class UserApplicationsComponent implements OnInit {
     @Input()
     login: string;
 
+private initialData: Application[];
+
     canSave: boolean;
 
     isUpdating: boolean;
 
-    constructor(private userService: UserService, public snackBar: MdSnackBar) { }
+    constructor(private userService: UserService, public snackBar: MdSnackBar) { 
+        
+    }
 
     ngOnInit() {
+        this.initialData = [...this.userApplications];
     }
 
     saveUserApplications() {
@@ -44,6 +49,8 @@ export class UserApplicationsComponent implements OnInit {
                     this.snackBar.open("Se han actualizado las aplicaciones del usuario.", '' , {
                         duration: 5000,
                     });
+
+                    this.initialData = this.userApplications;
                 } else {
                     this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
                         duration: 5000,
@@ -81,6 +88,10 @@ export class UserApplicationsComponent implements OnInit {
             application => applicationsString = applicationsString + application.id + "#");
 
         return applicationsString.substring(0, applicationsString.length - 1);
+    }
+
+    reset(){
+        this.userApplications = [...this.initialData];
     }
 }
 

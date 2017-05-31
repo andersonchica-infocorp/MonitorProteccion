@@ -12,7 +12,7 @@ export class AuthManager implements CanActivate {
 	private isAdmin: boolean;
 	private isLogin: boolean;
 
-	private userName: string = "gdutta";
+	private userName: string;
 	private password: string;
 
 	constructor(private router: Router, private http: Http) {
@@ -31,7 +31,7 @@ export class AuthManager implements CanActivate {
 	}
 
 	getIsLogin() {
-		return this.isLogin;
+		return this.userName ;
 	}
 
 	getCredentials() {

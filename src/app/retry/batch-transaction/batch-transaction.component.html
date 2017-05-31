@@ -24,7 +24,7 @@
                 (click)="executeAction()"
                 color="primary">
                 <md-icon>{{ selectedAction }}</md-icon>
-            </button>
+            </button>            
         </div>
         <md-progress-bar mode="indeterminate"
             color="accent"
@@ -35,7 +35,15 @@
 
             <p-column field="idIIB"
                 [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                header="{{'app.retry.results.iib' | translate}}"></p-column>
+                header="{{'app.retry.results.iib' | translate}}">
+                <ng-template let-col
+                    let-transaction="rowData"
+                    pTemplate="body">
+                    <textarea mdInput
+                        mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+
+                </ng-template>
+            </p-column>
             <p-column field="UUID"
                 [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
                 header="{{'app.retry.results.uuid' | translate}}"></p-column>
@@ -44,7 +52,16 @@
                 header="{{'app.retry.results.consumer' | translate}}"></p-column>
             <p-column field="msgId"
                 [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                header="{{'app.retry.results.messageId' | translate}}"></p-column>
+                header="{{'app.retry.results.messageId' | translate}}">
+                <ng-template let-col
+                    let-transaction="rowData"
+                    pTemplate="body">
+                   <textarea mdInput
+                            class="textAreaScroll"
+                            mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+
+                </ng-template>
+            </p-column>
             <p-column field="recieveDate"
                 [style]="{'width':'100px'}"
                 header="{{'app.retry.results.receiveDate' | translate}}"></p-column>

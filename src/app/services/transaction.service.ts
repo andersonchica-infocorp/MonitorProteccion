@@ -21,10 +21,18 @@ export class TransactionService {
 
   getTransactions(applicationId: number, serviceId: number, consumer: string, messageId: number, initialDate: Date, finalDate: Date, page: number, rows: number): Observable<ParentTransaction> {
 
-    var url = `${AppConfigService.config.webApiUrl}/parentTransactions?app=` + applicationId + "&service=" + serviceId + "&page=" + page + "&rows=" + rows;
+    var url = `${AppConfigService.config.webApiUrl}/parentTransactions?`
+    + this.constructParam("app", applicationId)
+      + this.constructParam("service", serviceId)
+      + this.constructParam("consumer", consumer)
+      + this.constructParam("msgID", messageId)
+      + this.constructParam("start", initialDate)
+      + this.constructParam("end", finalDate)
+      + this.constructParam("page", page)
+      + this.constructParam("rows", rows);
     var headers = new Headers();
     var data = this.authManager.getCredentials();
-
+    console.log(serviceId);
     headers.append('authorization', JSON.stringify(data));
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Accept', 'application/json; charset=utf-8');
@@ -84,10 +92,18 @@ export class TransactionService {
       + this.constructParam("service", serviceId)
       + this.constructParam("consumer", consumerId)
       + this.constructParam("msgID", messageId)
-      + this.constructParam("start", initialDate)
-      + this.constructParam("end", finalDate)
       + this.constructParam("page", startPage)
       + this.constructParam("rows", totalRows);
+if (initialDate) {
+  url = url + this.constructParam("start", initialDate);
+}
+
+if (finalDate) {
+  url = url + this.constructParam("end", finalDate);
+}
+
+      
+
     var headers = new Headers();
     var data = this.authManager.getCredentials();
 
@@ -131,7 +147,7 @@ export class TransactionService {
   retry(transaction: Transaction, serviceId: number) {
     var url = `${AppConfigService.config.webApiUrl}/retry`;
     var headers = new Headers();
-    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" +  serviceId;
+    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" + serviceId;
     var user = this.authManager.getCredentials();
 
     headers.append('authorization', JSON.stringify(user));
@@ -149,14 +165,15 @@ export class TransactionService {
       }
     }).catch((err: Response) => Observable.of({
       transactionId: transaction.id,
+      status: "",
       error: err.text()
     }));
   }
 
-  cancel(transaction: Transaction) {
+  cancel(transaction: Transaction,serviceId: number) {
     var url = `${AppConfigService.config.webApiUrl}/cancel`;
     var headers = new Headers();
-    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=";
+    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" + serviceId;
     var user = this.authManager.getCredentials();
 
     headers.append('authorization', JSON.stringify(user));
@@ -174,7 +191,34 @@ export class TransactionService {
       }
     }).catch((err: Response) => Observable.of({
       transactionId: transaction.id,
-      error: err.text()
+      error: err.text(),
+      status: ""
+    }));
+  }
+
+  cancelAll(transaction: Transaction,serviceId: number) {
+    var url = `${AppConfigService.config.webApiUrl}/cancelall`;
+    var headers = new Headers();
+    var data = "trx=111111" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" + serviceId;
+    var user = this.authManager.getCredentials();
+
+    headers.append('authorization', JSON.stringify(user));
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Accept', 'application/json; charset=utf-8');
+
+    return this.http.post(url,
+      data,
+      { headers }
+    ).map(response => {
+      return {
+        transactionId: transaction.id,
+        status: response.text(),
+        error: ""
+      }
+    }).catch((err: Response) => Observable.of({
+      transactionId: transaction.id,
+      error: err.text(),
+      status: ""
     }));
   }
 }

@@ -24,9 +24,15 @@
     </md-card-content>
     <md-card-actions align="end">
         <button md-raised-button
+            [disabled]="!canSave"
+            style="margin: 5px"
+            color="primary"
+            (click)="reset()">{{'app.common.cancel' | translate}}</button>
+        <button md-raised-button
             [disabled]="!canSave || isUpdating"
             style="margin: 5px"
             color="primary"
             (click)="saveUserApplications()">{{'app.common.save' | translate}}</button>
+
     </md-card-actions>
 </md-card>

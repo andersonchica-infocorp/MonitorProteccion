@@ -29,6 +29,8 @@ md-card {
 .item {
     flex: 1;
     margin-top: 10px;
+
+
 }
 
 .cell_grid {
@@ -52,4 +54,24 @@ md-spinner {
 .top_action_container {
     display: flex;
     justify-content: flex-end;
+}
+
+.buttonClear {
+    margin: 5px;
+}
+
+.textAreaScroll {
+    height: 60px;
+}
+
+.spanwrap {
+    display: block;
+    width: 90px;
+    word-wrap: break-word;
+}
+
+
+.divItem{
+    width:400px;
+    max-width:400px;
 }

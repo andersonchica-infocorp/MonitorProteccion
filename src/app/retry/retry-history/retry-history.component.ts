@@ -23,6 +23,7 @@ import {
 import 'brace';
 import 'brace/theme/clouds';
 import 'brace/mode/sql';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'app-retry-history',
@@ -73,6 +74,8 @@ export class RetryHistoryComponent implements OnInit {
 	operations = [];
 	servicesOut = [];
 
+	searchData: any;
+
 	ngOnInit() {
 		this.isChargingInitialData = true;
 		this.applicationService.getUserData()
@@ -107,14 +110,22 @@ export class RetryHistoryComponent implements OnInit {
 	search() {
 		var consumer = this.form.get('consumer').value;
 		var messageId = this.form.get('messageId').value;
-		var initialDate = this.form.get('initialDate').value;
-		var finalDate = this.form.get('finalDate').value;
+		var initialDate; 
+		var finalDate;
 		var applicationId = this.form.get('application').value;
 		var serviceId = this.form.get('operation').value;
 
 		this.showTransactions = true;
 		this.isSearching = true;
 		this.cantidad = 0;
+
+if (moment(this.form.controls.initialDate.value, 'YYYY-MM-DD').isValid()) {
+	initialDate = moment(this.form.controls.initialDate.value).format('YYYY-MM-DD');
+}
+
+if (moment(this.form.controls.finalDate.value, 'YYYY-MM-DD').isValid()) {
+	finalDate = moment(this.form.controls.finalDate.value).format('YYYY-MM-DD');
+}
 
 		this.transactionService.getGlobalSearchTransaction(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
 			.subscribe(parentTransaction => {
@@ -130,6 +141,7 @@ export class RetryHistoryComponent implements OnInit {
 	}
 
 	onSearch() {
+		this.searchData = this.form.value;
 		this.resetPaginator = true;
 		this.page = 0;
 		this.search();
@@ -144,6 +156,9 @@ export class RetryHistoryComponent implements OnInit {
 		this.servicesOut = [];
 		this.operations = [];
 		this.selectedApplication = value;
+
+if (value != -1) {
+
 		this.form.controls.serviceControl.setValue('');
         this.form.controls.operation.setValue('');
 
@@ -151,6 +166,7 @@ export class RetryHistoryComponent implements OnInit {
 			.filter(c => c.id === value)[0].services
 
 		this.getServicesDistinct(this.services);
+	}
 	}
 
 	onValueChanged(data?: any) {
@@ -166,8 +182,14 @@ export class RetryHistoryComponent implements OnInit {
 	}
 
 	onSelectService(value) {
-		this.selectedService = value;
-		this.operations = this.services.filter(service => service.name == value);
+		this.operations = [];
+
+               this.selectedService = value;
+               if (value != -1) {
+                   this.form.controls.operation.setValue('');
+        this.form.controls.operation.setValue('');
+        this.operations = this.services.filter(service => service.name == value);
+               }
 	}
 
 	getTransactionsTransaction(transactionTemplate) {
@@ -204,24 +226,39 @@ export class RetryHistoryComponent implements OnInit {
 	}
 
 	viewDetailService() {
-		this.applicationService.getServicesApplication(this.form.controls.application.value)
-			.subscribe(servicesApplication => {
-				var service = servicesApplication.services.filter(c => c.id == this.form.controls.operation.value)[0];
-				let dialogRef = this.dialog.open(ServiceDetailComponent, {
-					data: {
-						serviceSelected: service,
-						readOnly: true,
-						application: this.form.controls.application.value
-					},
-					disableClose: true,
+		this.applicationService.getServicesApplication(this.searchData.application)
+            .subscribe(servicesApplication => {
+                var service = servicesApplication.services.filter(c => c.id == this.searchData.operation)[0];
+                let dialogRef = this.dialog.open(ServiceDetailComponent, {
+                    data: {
+                        serviceSelected: service,
+                        readOnly: true,
+                        application: this.form.controls.application.value
+                    },
+                    disableClose: true,
 
-				});
-			});
+                });
+            });
 	}
 
 	backToGrid() {
 		this.xmlTransactionSelected = undefined;
 	}
+
+	clearFilter(){
+    this.form = this.fb.group({
+            consumer: [''],
+            messageId: [''],
+            initialDate: [''],
+            finalDate: [''],
+            application: ['', Validators.required],
+            serviceControl: ['', Validators.required],
+            operation: ['']
+        });
+
+     this.servicesOut = [];
+        this.operations = [];
+}
 
 	onSubmit() {
 

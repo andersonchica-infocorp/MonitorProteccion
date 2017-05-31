@@ -56,6 +56,7 @@ export class AdminRetryComponent implements OnInit {
     messageError: string;
     alertType: string;
     isDeletingRetry: boolean;
+    isDeletingAll: boolean;
 
     isSearchingTransactionsTransaction: boolean;
     selectedTransactions: Transaction[];
@@ -105,7 +106,6 @@ export class AdminRetryComponent implements OnInit {
         this.isSearching = true;
         this.cantidad = 0;
         this.showTransactions = true;
-
         this.transactionService.getTransactions(
             input.application,
             input.operation,
@@ -144,7 +144,7 @@ export class AdminRetryComponent implements OnInit {
         this.isSendingRetry = true;
         this.transactionService.retry(transaction, this.searchData.operation)
             .subscribe(response => {
-                if (response.error == "") {
+                if (response.error == "" && response.status == "OK") {
 
                     this.selectedTransactionAction = null;
                     if (this.selectedTransactions) {
@@ -165,19 +165,34 @@ export class AdminRetryComponent implements OnInit {
             });
     }
 
+clearFilter(){
+    this.form = this.fb.group({
+            consumer: [''],
+            messageId: [''],
+            initialDate: [''],
+            finalDate: [''],
+            application: ['', Validators.required],
+            serviceControl: ['', Validators.required],
+            operation: ['']
+        });
+
+     this.servicesOut = [];
+        this.operations = [];
+}
+
     deleteTransaction(transaction: Transaction) {
-        console.log(transaction);
+        
         this.isDeletingRetry = true;
         this.selectedTransactionAction = transaction;
-        this.transactionService.cancel(transaction)
+        this.transactionService.cancel(transaction, this.searchData.operation)
             .subscribe(response => {
 
-                if (response.error == "") {
+                if (response.error == "" && response.status == "OK") {
 
                     if (this.selectedTransactions) {
                         this.selectedTransactions = this.selectedTransactions.filter(transactionFilter => transactionFilter.id != transaction.id);
                     }
-                    
+
                     this.selectedTransactionAction = null;
                     this.search(this.searchData);
                     this.snackBar.open("Se ha cancelado la transacción satisfactoriamente.", '', {
@@ -193,6 +208,33 @@ export class AdminRetryComponent implements OnInit {
             });
     }
 
+deleteAllTransactionsTransaction(transaction: Transaction){
+    this.isDeletingAll = true;
+        this.selectedTransactionAction = transaction;
+        this.transactionService.cancelAll(transaction, this.searchData.operation)
+            .subscribe(response => {
+
+                if (response.error == "" && response.status == "OK") {
+
+                    if (this.selectedTransactions) {
+                        this.selectedTransactions = this.selectedTransactions.filter(transactionFilter => transactionFilter.id != transaction.id);
+                    }
+
+                    this.selectedTransactionAction = null;
+                    this.search(this.searchData);
+                    this.snackBar.open("Se han cancelado la transacciones satisfactoriamente.", '', {
+                        duration: 5000,
+                    });
+                } else {
+                    this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
+                        duration: 5000,
+                    });
+                }
+
+                this.isDeletingAll = false;
+            });
+}
+
 
     showTransaction(transaction: Transaction) {
 
@@ -207,6 +249,9 @@ export class AdminRetryComponent implements OnInit {
         this.servicesOut = [];
         this.operations = [];
         this.selectedApplication = value;
+
+        if (value != -1) {
+            
         this.form.controls.serviceControl.setValue('');
         this.form.controls.operation.setValue('');
         this.form.controls.consumer.setValue('');
@@ -215,6 +260,8 @@ export class AdminRetryComponent implements OnInit {
             .filter(c => c.id === value)[0].services
 
         this.getServicesDistinct(this.services);
+        }
+        
 
     }
 
@@ -227,10 +274,15 @@ export class AdminRetryComponent implements OnInit {
     }
 
     onSelectService(value) {
-        this.selectedService = value;
-        this.form.controls.operation.setValue('');
+        this.operations = [];
+
+               this.selectedService = value;
+               if (value != -1) {
+                   this.form.controls.operation.setValue('');
         this.form.controls.operation.setValue('');
         this.operations = this.services.filter(service => service.name == value);
+               }
+        
     }
 
     onValueChanged(data?: any) {
@@ -280,9 +332,9 @@ export class AdminRetryComponent implements OnInit {
     }
 
     viewDetailService() {
-        this.applicationService.getServicesApplication(this.form.controls.application.value)
+        this.applicationService.getServicesApplication(this.searchData.application)
             .subscribe(servicesApplication => {
-                var service = servicesApplication.services.filter(c => c.id == this.form.controls.operation.value)[0];
+                var service = servicesApplication.services.filter(c => c.id == this.searchData.operation)[0];
                 let dialogRef = this.dialog.open(ServiceDetailComponent, {
                     data: {
                         serviceSelected: service,
@@ -296,6 +348,7 @@ export class AdminRetryComponent implements OnInit {
     }
 
     searchTransaction() {
+        this.clearTransactions();
         this.search(this.form.value);
     }
 

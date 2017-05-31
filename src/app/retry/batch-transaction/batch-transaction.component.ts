@@ -37,6 +37,10 @@ export class BatchTransactionComponent implements OnInit {
     {
         id: "call_missed_outgoing",
         name: "Reintentar"
+    },
+    {
+        id: "clear",
+        name: "Cancelar Transacciones y Transacción"
     }];
 
     ngOnInit() {
@@ -55,6 +59,9 @@ export class BatchTransactionComponent implements OnInit {
         else if (this.selectedAction == "call_missed_outgoing") {
             this.retryTransactions();
         }
+        else if (this.selectedAction == "clear") {
+            this.cancelAllTransactions();
+        }
     }
 
     cancelTransactions() {
@@ -63,7 +70,25 @@ export class BatchTransactionComponent implements OnInit {
         Observable.from(this.transactions)
             .mergeMap(transaction => {
                 this.transactionsSent.push(transaction.id);
-                return this.transactionService.cancel(transaction)
+                return this.transactionService.cancel(transaction, this.serviceId)
+            })
+            .subscribe(result => {
+                this.transactionsCompleted.push(result.transactionId);
+
+                if (this.finishedTransactions()) {
+                    this.finished();
+                }
+
+            });
+    }
+
+    cancelAllTransactions() {
+        this.transactionsSent = [];
+        this.transactionsCompleted = [];
+        Observable.from(this.transactions)
+            .mergeMap(transaction => {
+                this.transactionsSent.push(transaction.id);
+                return this.transactionService.cancelAll(transaction, this.serviceId)
             })
             .subscribe(result => {
                 this.transactionsCompleted.push(result.transactionId);
@@ -78,6 +103,7 @@ export class BatchTransactionComponent implements OnInit {
     retryTransactions() {
         this.transactionsSent = [];
         this.transactionsCompleted = [];
+
         Observable.from(this.transactions)
             .mergeMap(transaction => {
                 this.transactionsSent.push(transaction.id);
@@ -114,7 +140,7 @@ export class BatchTransactionComponent implements OnInit {
 
     finished() {
         this.isSendingBulk = false;
-        this.closeSelectedTransactions();
+        this.onSearchTransaction();
         this.snackBar.open("Se han enviado las transacciones satisfactoriamente.", '', {
             duration: 5000,
         });

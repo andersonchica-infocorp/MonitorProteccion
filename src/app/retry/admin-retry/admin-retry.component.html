@@ -1,3 +1,6 @@
+<md-toolbar class="toolbar_header">
+    <font color="white">{{'app.retry.title'|translate}}</font>
+</md-toolbar>
 <md-progress-bar mode="indeterminate"
     color="accent"
     *ngIf="isChargingInitialData"></md-progress-bar>
@@ -8,27 +11,33 @@
         <md-card-content class="flex_container">
             <form (ngSubmit)="onSubmit()"
                 [formGroup]="form">
+                <span style="color:red">*</span>
                 <md-select placeholder="{{'app.retry.applications' | translate}}"
                     class="item"
                     color="accent"
                     (change)="onSelectApplication($event.value)"
                     formControlName="application">
+                    <md-option [value]="-1">{{'app.common.select' | translate}}</md-option>
                     <md-option *ngFor="let application of applications"
                         [value]="application.id">{{ application.name }}</md-option>
                 </md-select>
+                <span style="color:red">*</span>
                 <md-select placeholder="{{'app.retry.services' | translate}}"
                     class="item"
                     color="accent"
                     (change)="onSelectService($event.value)"
                     formControlName="serviceControl">
+                    <md-option [value]="-1">{{'app.common.select' | translate}}</md-option>
                     <md-option *ngFor="let service of servicesOut"
                         [value]="service.id">{{ service.name }}
                     </md-option>
                 </md-select>
+                <span style="color:red">*</span>
                 <md-select placeholder="{{'app.retry.operations' | translate}}"
-                    class="item"
+                    class="item button"
                     color="accent"
                     formControlName="operation">
+                    <md-option [value]="">{{'app.common.select' | translate}}</md-option>
                     <md-option *ngFor="let operation of operations"
                         [value]="operation.id">{{ operation.opration }}</md-option>
                 </md-select>
@@ -36,6 +45,7 @@
                     class="item"
                     color="accent"
                     formControlName="consumer">
+                    <md-option [value]="''">{{'app.common.select' | translate}}</md-option>
                     <md-option *ngFor="let consumer of consumers"
                         [value]="consumer">{{ consumer }}
                     </md-option>
@@ -43,16 +53,25 @@
                 <md-input-container class="item"
                     color="accent">
                     <input mdInput
-                        type="number"
+                        type="text"
                         placeholder="{{'app.retry.message' | translate}}"
-                        formControlName="messageId"
-                        maxlength="10">
+                        formControlName="messageId">
                 </md-input-container>
             </form>
         </md-card-content>
         <md-card-actions align="end">
             <button md-mini-fab
                 type="button"
+                class="buttonClear"
+                (click)="clearFilter()"
+                [disabled]="!form.dirty"
+                color="primary"
+                mdTooltip="{{'app.common.clearFilters' | translate}}">
+                <md-icon class="">delete_sweep</md-icon>
+            </button>
+            <button md-mini-fab
+                type="button"
+                class="buttonClear"
                 (click)="onSearch()"
                 [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value || !form.controls.operation.value)"
                 color="primary"
@@ -91,7 +110,15 @@
                     styleClass="col-icon"></p-column>
                 <p-column field="idIIB"
                     [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                    header="{{'app.retry.results.iib' | translate}}"></p-column>
+                    header="{{'app.retry.results.iib' | translate}}">
+                    <ng-template let-col
+                        let-transaction="rowData"
+                        pTemplate="body">
+                        <div>
+                            <span class="spanwrap">{{ transaction[col.field] }}</span>
+                        </div>
+                    </ng-template>
+                </p-column>
                 <p-column field="UUID"
                     [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
                     header="{{'app.retry.results.uuid' | translate}}"></p-column>
@@ -100,7 +127,15 @@
                     header="{{'app.retry.results.consumer' | translate}}"></p-column>
                 <p-column field="msgId"
                     [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                    header="{{'app.retry.results.messageId' | translate}}"></p-column>
+                    header="{{'app.retry.results.messageId' | translate}}">
+                    <ng-template let-col
+                        let-transaction="rowData"
+                        pTemplate="body">
+                        <div>
+                            <span class="spanwrap">{{ transaction[col.field] }}</span>
+                        </div>
+                    </ng-template>
+                </p-column>
                 <p-column field="recieveDate"
                     [style]="{'width':'100px'}"
                     header="{{'app.retry.results.receiveDate' | translate}}"></p-column>
@@ -120,6 +155,7 @@
                         let-transaction="rowData"
                         pTemplate="body">
                         <textarea mdInput
+                            class="textAreaScroll"
                             mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
 
                     </ng-template>
@@ -135,7 +171,7 @@
                         style="text-align: center">
                         <div class="container_actions">
                             <md-icon md-list-icon
-                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
+                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml && !isDeletingAll"
                                 class="xml"
                                 (click)="showXml(transactionTemplate)"
                                 mdTooltip="{{'app.common.xml' | translate}}">settings_ethernet</md-icon>
@@ -145,7 +181,7 @@
                                 mode="indeterminate">
                             </md-spinner>
                             <md-icon md-list-icon
-                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
+                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml && !isDeletingAll"
                                 class="retry"
                                 (click)="retry(transactionTemplate)"
                                 mdTooltip="{{'app.common.retry' | translate}}">call_missed_outgoing</md-icon>
@@ -155,12 +191,22 @@
                                 mode="indeterminate">
                             </md-spinner>
                             <md-icon md-list-icon
-                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml"
+                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml && !isDeletingAll"
                                 class="delete"
                                 (click)="deleteTransaction(transactionTemplate)"
                                 mdTooltip="{{'app.common.delete' | translate}}">delete_forever</md-icon>
                             <md-spinner class="example-margin"
                                 *ngIf="isDeletingRetry && ( selectedTransactionAction &&transactionTemplate.id == selectedTransactionAction.id)"
+                                color="warn"
+                                mode="indeterminate">
+                            </md-spinner>
+                            <md-icon md-list-icon
+                                *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml && !isDeletingAll"
+                                class="delete"
+                                (click)="deleteAllTransactionsTransaction(transactionTemplate)"
+                                mdTooltip="{{'app.common.deleteAll' | translate}}">clear</md-icon>
+                            <md-spinner class="example-margin"
+                                *ngIf="isDeletingAll && ( selectedTransactionAction &&transactionTemplate.id == selectedTransactionAction.id)"
                                 color="warn"
                                 mode="indeterminate">
                             </md-spinner>

@@ -47,4 +47,8 @@ console.log(this.authManager.getIsAdmin());
   changeLanguage(language: string) {
     this.translate.use(language);
   }
+
+  exitApp(){
+    this.router.navigate(['/authentication/login/']);
+  }
 }
