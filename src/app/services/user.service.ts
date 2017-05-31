@@ -157,6 +157,7 @@ export class UserService {
     }
 
     saveUserApplications(applications: string, userName: string) {
+        console.log(applications);
         var url = `${AppConfigService.config.webApiUrl}/updateuserapps`;
         var headers = new Headers();
         var data = "login=" + userName + "&applications=" + applications;
@@ -171,7 +172,7 @@ export class UserService {
             { headers }
         ).map(response => {
             return {
-                
+                error: "",
                 status: response.text()
             }
         }).catch((err: Response) => Observable.of({
@@ -180,4 +181,4 @@ export class UserService {
         }));
     }
 }
-}
+

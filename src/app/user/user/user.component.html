@@ -1,4 +1,3 @@
-
 <md-toolbar class="toolbar_header">
     <font color="white">{{'app.user.title'|translate}}</font>
 </md-toolbar>
@@ -7,10 +6,15 @@
     *ngIf="isSearching"></md-progress-bar>
 <div class="admin_container">
     <div class="users">
-        <app-user-list [usersResult]="usersResult" (onUserSelected)="onUserSelected($event)"></app-user-list>
+        <app-user-list [usersResult]="usersResult"
+            (onUserSelected)="onUserSelected($event)"></app-user-list>
     </div>
-    <div class="applications" *ngIf="!isSearching">
-        <app-user-applications  *ngIf="userApplications"
-            [userApplications]="userApplications" [applications]="applications" [userName]="userName"></app-user-applications>
+    <div class="applications"
+        *ngIf="!isSearching">
+        <app-user-applications *ngIf="userApplications"
+            [userApplications]="userApplications"
+            [applications]="applications"
+            [userName]="userName"
+            (onSaveUserApplications)="onSaveUserApplications($event)" [login]="login"></app-user-applications>
     </div>
 </div>

@@ -119,17 +119,19 @@ export class TransactionService {
       data,
       { headers }
     ).map(response => {
-      return response.text();
-    }).catch((err: Response) => {
-      let details = err.json();
-      return Observable.throw(details);
-    });
+      return {
+        error: "",
+        status: response.text()
+      }
+    }).catch((err: Response) => Observable.of({
+      error: err.text()
+    }));
   }
 
-  retry(transaction: Transaction) {
+  retry(transaction: Transaction, serviceId: number) {
     var url = `${AppConfigService.config.webApiUrl}/retry`;
     var headers = new Headers();
-    var data = "trx=1111" + transaction.id + "&msg_id=1111" + transaction.msgId + "&service=1";
+    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" +  serviceId;
     var user = this.authManager.getCredentials();
 
     headers.append('authorization', JSON.stringify(user));
@@ -142,7 +144,8 @@ export class TransactionService {
     ).map(response => {
       return {
         transactionId: transaction.id,
-        status: response.text()
+        status: response.text(),
+        error: ""
       }
     }).catch((err: Response) => Observable.of({
       transactionId: transaction.id,
@@ -153,7 +156,7 @@ export class TransactionService {
   cancel(transaction: Transaction) {
     var url = `${AppConfigService.config.webApiUrl}/cancel`;
     var headers = new Headers();
-    var data = "trx=" + transaction.id + "&msg_id=1111" + transaction.msgId + "&service=1";
+    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=";
     var user = this.authManager.getCredentials();
 
     headers.append('authorization', JSON.stringify(user));
@@ -166,7 +169,8 @@ export class TransactionService {
     ).map(response => {
       return {
         transactionId: transaction.id,
-        status: response.text()
+        status: response.text(),
+        error: ""
       }
     }).catch((err: Response) => Observable.of({
       transactionId: transaction.id,

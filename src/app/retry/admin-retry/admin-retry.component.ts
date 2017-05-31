@@ -15,7 +15,7 @@ import { ServiceDetailComponent } from '../../master/service/service-detail/serv
 
 
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
-
+import { MdSnackBar } from '@angular/material';
 
 import 'brace';
 import 'brace/theme/clouds';
@@ -60,11 +60,14 @@ export class AdminRetryComponent implements OnInit {
     isSearchingTransactionsTransaction: boolean;
     selectedTransactions: Transaction[];
 
+    searchData: any;
+
     styleCellActions = { "width": "150px", "text-align": "center" }
 
     constructor(private route: ActivatedRoute, public fb: FormBuilder,
         public router: Router, private applicationService: ApplicationService,
-        private transactionService: TransactionService, public dialog: MdDialog, public translate: TranslateService) {
+        private transactionService: TransactionService, public dialog: MdDialog, public translate: TranslateService
+        , public snackBar: MdSnackBar) {
         this.form = this.fb.group({
             consumer: [''],
             messageId: [''],
@@ -96,19 +99,20 @@ export class AdminRetryComponent implements OnInit {
             });
     }
 
-    search() {
-        var consumer = this.form.get('consumer').value;
-        var messageId = this.form.get('messageId').value;
-        var initialDate = this.form.get('initialDate').value;
-        var finalDate = this.form.get('finalDate').value;
-        var applicationId = this.form.get('application').value;
-        var serviceId = this.form.get('operation').value;
+    search(input) {
+
 
         this.isSearching = true;
         this.cantidad = 0;
         this.showTransactions = true;
 
-        this.transactionService.getTransactions(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
+        this.transactionService.getTransactions(
+            input.application,
+            input.operation,
+            input.consumer,
+            input.messageId,
+            input.initialDate,
+            input.finalDate, this.page, 10)
             .subscribe(parentTransaction => {
                 this.transactions = parentTransaction.transactions;
                 this.isSearching = false;
@@ -126,19 +130,38 @@ export class AdminRetryComponent implements OnInit {
     }
 
     onSearch() {
+        this.searchData = this.form.value;
+        this.selectedTransactions = null;
         this.resetPaginator = true;
         this.page = 0;
-        this.search();
+
+        this.search(this.form.value);
     }
 
     retry(transaction: Transaction) {
+        console.log(transaction);
         this.selectedTransactionAction = transaction;
         this.isSendingRetry = true;
-        this.transactionService.retry(transaction)
+        this.transactionService.retry(transaction, this.searchData.operation)
             .subscribe(response => {
-                console.log(response);
+                if (response.error == "") {
+
+                    this.selectedTransactionAction = null;
+                    if (this.selectedTransactions) {
+                        this.selectedTransactions = this.selectedTransactions.filter(transactionFilter => transactionFilter.id != transaction.id);
+                    }
+
+                    this.search(this.searchData);
+                    this.snackBar.open("Se ha enviado el reintento satisfactoriamente.", '', {
+                        duration: 5000,
+                    });
+                } else {
+                    this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
+                        duration: 5000,
+                    });
+                }
+
                 this.isSendingRetry = false;
-                this.selectedTransactionAction = null;
             });
     }
 
@@ -148,9 +171,25 @@ export class AdminRetryComponent implements OnInit {
         this.selectedTransactionAction = transaction;
         this.transactionService.cancel(transaction)
             .subscribe(response => {
-                console.log(response);
+
+                if (response.error == "") {
+
+                    if (this.selectedTransactions) {
+                        this.selectedTransactions = this.selectedTransactions.filter(transactionFilter => transactionFilter.id != transaction.id);
+                    }
+                    
+                    this.selectedTransactionAction = null;
+                    this.search(this.searchData);
+                    this.snackBar.open("Se ha cancelado la transacción satisfactoriamente.", '', {
+                        duration: 5000,
+                    });
+                } else {
+                    this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
+                        duration: 5000,
+                    });
+                }
+
                 this.isDeletingRetry = false;
-                this.selectedTransactionAction = null;
             });
     }
 
@@ -161,7 +200,7 @@ export class AdminRetryComponent implements OnInit {
 
     paginate(event) {
         this.page = event.page;
-        this.search();
+        this.search(this.searchData);
     }
 
     onSelectApplication(value) {
@@ -170,6 +209,7 @@ export class AdminRetryComponent implements OnInit {
         this.selectedApplication = value;
         this.form.controls.serviceControl.setValue('');
         this.form.controls.operation.setValue('');
+        this.form.controls.consumer.setValue('');
 
         this.services = this.applications
             .filter(c => c.id === value)[0].services
@@ -253,6 +293,10 @@ export class AdminRetryComponent implements OnInit {
 
                 });
             });
+    }
+
+    searchTransaction() {
+        this.search(this.form.value);
     }
 
     onSubmit() {

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Transaction } from '../../Model/transaction.model';
 import { TransactionService } from '../../services/transaction.service';
-
+import { MdSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-batch-transaction',
@@ -17,12 +17,18 @@ export class BatchTransactionComponent implements OnInit {
     @Output()
     clearTransactions = new EventEmitter();
 
+    @Output()
+    searchTransaction = new EventEmitter();
+
+    @Input()
+    serviceId: number;
+
     selectedAction = null;
     isSendingBulk: boolean;
     transactionsSent: number[];
     transactionsCompleted: number[];
 
-    constructor(public transactionService: TransactionService) { }
+    constructor(public transactionService: TransactionService, public snackBar: MdSnackBar) { }
 
     actions = [{
         id: "delete",
@@ -61,18 +67,56 @@ export class BatchTransactionComponent implements OnInit {
             })
             .subscribe(result => {
                 this.transactionsCompleted.push(result.transactionId);
-                console.log(this.transactionsCompleted);
-                console.log(this.transactionsSent);
+
+                if (this.finishedTransactions()) {
+                    this.finished();
+                }
+
             });
     }
 
     retryTransactions() {
+        this.transactionsSent = [];
+        this.transactionsCompleted = [];
         Observable.from(this.transactions)
-            .mergeMap(transaction => this.transactionService.retry(transaction))
-            .subscribe(result => console.log(result));
+            .mergeMap(transaction => {
+                this.transactionsSent.push(transaction.id);
+                return this.transactionService.retry(transaction, this.serviceId)
+            })
+            .subscribe(result => {
+                this.transactionsCompleted.push(result.transactionId);
+
+                if (this.finishedTransactions()) {
+                    this.finished();
+                }
+            });
     }
 
     closeSelectedTransactions() {
         this.clearTransactions.emit();
+    }
+
+    onSearchTransaction() {
+        this.searchTransaction.emit();
+    }
+
+    finishedTransactions() {
+        let completed: boolean = true;
+        this.transactionsSent.forEach(transactionSent => {
+
+            if (this.transactionsCompleted.indexOf(transactionSent) == -1) {
+                return false;
+            }
+        })
+
+        return completed;
+    }
+
+    finished() {
+        this.isSendingBulk = false;
+        this.closeSelectedTransactions();
+        this.snackBar.open("Se han enviado las transacciones satisfactoriamente.", '', {
+            duration: 5000,
+        });
     }
 }

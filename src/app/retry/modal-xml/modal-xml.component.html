@@ -1,7 +1,4 @@
-<div class="flex_containter">
-    <md-progress-bar mode="indeterminate"
-        color="accent"
-        *ngIf="updatingXml"></md-progress-bar>
+<div class="flex_containter">    
     <h2 md-dialog-title>
      {{ 'app.retry.results.transaction' | translate }} - {{ transactionId }}
      <md-icon md-icon
@@ -11,6 +8,9 @@
         mdTooltip="{{'app.common.close' | translate}}">close</md-icon>
     </h2>
     <div>
+    <md-progress-bar mode="indeterminate"
+        color="accent"
+        *ngIf="updatingXml"></md-progress-bar>
         <div ace-editor
             [(text)]="xmlSelected"
             [mode]="'xml'"

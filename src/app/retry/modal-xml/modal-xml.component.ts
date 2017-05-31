@@ -5,7 +5,7 @@ import { TransactionService } from '../../services/transaction.service';
 import { Observable } from 'rxjs';
 
 import xmlChecker from 'fast-xml-parser';
-
+import { MdSnackBar } from '@angular/material';
 
 import 'brace';
 import 'brace/theme/dawn';
@@ -34,7 +34,7 @@ export class ModalXmlComponent implements OnInit {
         ignoreNameSpace: true
     };
 
-    constructor( @Inject(MD_DIALOG_DATA) public data: any, public transactionService: TransactionService, public dialogRef: MdDialogRef<any>) {
+    constructor( @Inject(MD_DIALOG_DATA) public data: any, public transactionService: TransactionService, public dialogRef: MdDialogRef<any>, public snackBar: MdSnackBar) {
         this.xmlSelected = data.xml;
         this.readOnly = data.readOnly;
         this.transactionId = data.transaction.id;
@@ -53,7 +53,19 @@ export class ModalXmlComponent implements OnInit {
         this.transactionService.updateXml(this.transactionId, this.xmlSelected)
             .subscribe(
             response => {
-                this.dialogRef.close();
+
+                if (!response.error) {
+                    this.dialogRef.close();  
+                    this.snackBar.open("Se ha actualizado el xml satisfactoriamente.", '', {
+                        duration: 5000,
+                    });                  
+                }
+                else{
+                    this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
+                        duration: 5000,
+                    });
+                }
+
                 this.updatingXml = false;
             });
     }

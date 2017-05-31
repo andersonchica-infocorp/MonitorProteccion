@@ -2,7 +2,7 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { DashboardService } from '../../services/dashboard.service';
 import { Dashboard } from '../../Model/dashboard.model';
 import { TranslateService } from 'ng2-translate';
-import {MdSnackBar} from '@angular/material';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
 	selector: 'app-report',
@@ -20,19 +20,19 @@ export class ReportComponent implements OnInit {
 		this.dashboardService.getDashboard().subscribe(
 			dashboard => {
 				this.dashboard = dashboard;
-				
+
 				this.isChargingInitialData = false;
 			},
 			error => {
-				this.isChargingInitialData = false;	
+				this.isChargingInitialData = false;
 				this.alertType = 'alert-danger';
 				this.translate.get('app.common.errorService')
-        			.subscribe((res: string) => {
-            			this.messageError = res;
-            			this.snackBar.open(res, 'Error', {
-      duration: 5000,
-    });
-        		});
+					.subscribe((res: string) => {
+						this.messageError = res;
+						this.snackBar.open(res, 'Error', {
+							duration: 5000,
+						});
+					});
 			}
 		);
 	}

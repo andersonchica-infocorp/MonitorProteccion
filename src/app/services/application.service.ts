@@ -24,12 +24,12 @@ export class ApplicationService {
 
     headers.append('authorization', JSON.stringify(data));
     headers.append('Content-Type', 'application/json; charset=utf-8');
-    headers.append('Accept', 'application/json; charset=utf-8');    
+    headers.append('Accept', 'application/json; charset=utf-8');
 
     return this.http.get(url, {
       headers
     }).map(response => {
-      
+
       console.log(this.authManager.getCredentials());
       return response.json() as User;
     }).catch((err: Response) => {
@@ -100,11 +100,14 @@ export class ApplicationService {
       data,
       { headers }
     ).map(response => {
-      return response.text();
-    }).catch((err: Response) => {
-      let details = err.json();
-      return Observable.throw(details);
-    });
+      return {
+        error: "",
+        status: response.text()
+      }
+    }).catch((err: Response) => Observable.of({
+
+      error: err.text()
+    }));
   }
 
   private constructParam(parameter: string, value) {

@@ -1,6 +1,10 @@
 <md-card class="app-card-content md_card_app">
+
     <md-card-title *ngIf="userName">{{'app.user.userApplication' | translate}} - {{ userName }}</md-card-title>
     <md-card-content>
+        <md-progress-bar mode="indeterminate"
+            color="accent"
+            *ngIf="isUpdating"></md-progress-bar>
         <!--<md-input-container class="example-full-width"
             color="accent">
             <input mdInput
@@ -19,6 +23,10 @@
         </md-list>
     </md-card-content>
     <md-card-actions align="end">
-
+        <button md-raised-button
+            [disabled]="!canSave || isUpdating"
+            style="margin: 5px"
+            color="primary"
+            (click)="saveUserApplications()">{{'app.common.save' | translate}}</button>
     </md-card-actions>
 </md-card>

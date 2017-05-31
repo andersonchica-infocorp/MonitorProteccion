@@ -6,7 +6,7 @@ import { Service } from '../../../Model/service.model';
 import { Application } from '../../../Model/application.model';
 import { ServiceComponentService } from '../../shared/service.component.service';
 import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
-
+import { MdSnackBar } from '@angular/material';
 
 @Component({
 	selector: 'app-service-detail',
@@ -28,7 +28,7 @@ export class ServiceDetailComponent implements OnInit {
 	constructor(private route: ActivatedRoute, public fb: FormBuilder,
 		private applicationService: ApplicationService,
 		private serviceComponentService: ServiceComponentService, @Inject(MD_DIALOG_DATA) public data: any,
-		public dialogRef: MdDialogRef<any>) {
+		public dialogRef: MdDialogRef<any>, public snackBar: MdSnackBar) {
 
 		this.initialdata = data.serviceSelected;
 		this.readOnly = data.readOnly;
@@ -121,9 +121,21 @@ export class ServiceDetailComponent implements OnInit {
 		this.isUpdating = true;
 		this.applicationService.updateService(this.form.value as Service, this.applicationId)
 			.subscribe(response => {
-				console.log(response);
+
+				if (response.error == "") {					
+					this.dialogRef.close();
+
+					this.snackBar.open("Se ha guardado el servicio satisfactoriamente.", '', {
+						duration: 5000,
+					});
+				} else {
+					this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
+						duration: 5000,
+					});
+				}
+
 				this.isUpdating = false;
-				this.dialogRef.close();
+
 			});
 	}
 }

@@ -115,12 +115,42 @@
             </div>
             <p-dataTable [value]="transactions">
                 <p-header>{{'app.retry.transactions' | translate}}</p-header>
+                <p-column field="idIIB"
+                    [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+                    header="{{'app.retry.results.iib' | translate}}"></p-column>
+                <p-column field="UUID"
+                    [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+                    header="{{'app.retry.results.uuid' | translate}}"></p-column>
+                <p-column field="consumer"
+                    [style]="{'width':'100px'}"
+                    header="{{'app.retry.results.consumer' | translate}}"></p-column>
                 <p-column field="msgId"
+                    [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
                     header="{{'app.retry.results.messageId' | translate}}"></p-column>
+                <p-column field="recieveDate"
+                    [style]="{'width':'100px'}"
+                    header="{{'app.retry.results.receiveDate' | translate}}"></p-column>
+                <p-column field="start"
+                    [style]="{'width':'100px'}"
+                    header="{{'app.retry.results.initialDate' | translate}}"></p-column>
+                <p-column field="end"
+                    [style]="{'width':'100px'}"
+                    header="{{'app.retry.results.finalDate' | translate}}"></p-column>
                 <p-column field="errorType"
+                    [style]="{'width':'100px'}"
                     header="{{'app.retry.results.errorType' | translate}}"></p-column>
                 <p-column field="errorMessage"
-                    header="{{'app.retry.results.error' | translate}}"></p-column>
+                    [style]="{'overflow':'visible'}"
+                    header="{{'app.retry.results.error' | translate}}">
+                    <ng-template let-col
+                        let-transaction="rowData"
+                        pTemplate="body">
+                        <textarea mdInput
+                            mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+
+                    </ng-template>
+
+                </p-column>
                 <p-column styleClass="col-button"
                     [style]="{'width':'40px'}">
                     <ng-template pTemplate="header">

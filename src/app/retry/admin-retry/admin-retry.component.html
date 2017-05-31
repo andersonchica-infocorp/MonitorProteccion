@@ -71,7 +71,8 @@
             <md-progress-bar mode="indeterminate"
                 color="accent"
                 *ngIf="isSearching"></md-progress-bar>
-            <div class="top_action_container" *ngIf="!isSearching">
+            <div class="top_action_container"
+                *ngIf="!isSearching">
                 <button md-raised-button
                     (click)="viewDetailService()"
                     color="primary">{{'app.retry.viewDetailService' | translate}}</button>
@@ -88,9 +89,27 @@
                 <p-column expander="true"
                     [style]="{'width':'40px'}"
                     styleClass="col-icon"></p-column>
-                <p-column field="msgId"
+                <p-column field="idIIB"
+                    [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+                    header="{{'app.retry.results.iib' | translate}}"></p-column>
+                <p-column field="UUID"
+                    [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+                    header="{{'app.retry.results.uuid' | translate}}"></p-column>
+                <p-column field="consumer"
                     [style]="{'width':'100px'}"
+                    header="{{'app.retry.results.consumer' | translate}}"></p-column>
+                <p-column field="msgId"
+                    [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
                     header="{{'app.retry.results.messageId' | translate}}"></p-column>
+                <p-column field="recieveDate"
+                    [style]="{'width':'100px'}"
+                    header="{{'app.retry.results.receiveDate' | translate}}"></p-column>
+                <p-column field="start"
+                    [style]="{'width':'100px'}"
+                    header="{{'app.retry.results.initialDate' | translate}}"></p-column>
+                <p-column field="end"
+                    [style]="{'width':'100px'}"
+                    header="{{'app.retry.results.finalDate' | translate}}"></p-column>
                 <p-column field="errorType"
                     [style]="{'width':'100px'}"
                     header="{{'app.retry.results.errorType' | translate}}"></p-column>
@@ -175,5 +194,7 @@
 
     <app-batch-transaction [transactions]="selectedTransactions"
         (clearTransactions)="clearTransactions()"
+        [serviceId]="searchData.operation"
+        (searchTransaction)="searchTransaction()"
         *ngIf="selectedTransactions && selectedTransactions.length > 0"></app-batch-transaction>
 </div>

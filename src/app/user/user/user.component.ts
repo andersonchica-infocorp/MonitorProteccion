@@ -15,8 +15,10 @@ export class UserComponent implements OnInit {
     usersResult: User[];
     userApplications: Application[];
     applications: Application[];
-    userName:string;
+    userName: string;
     isSearching: boolean;
+    isUpdating: boolean;
+    login: string;
 
     constructor(private userService: UserService) {
         this.userService.getUsers()
@@ -29,29 +31,23 @@ export class UserComponent implements OnInit {
     ngOnInit() {
     }
 
-    onUserSelected(user){
+    onUserSelected(user) {
         this.isSearching = true;
         this.userService.getApplicationsUser(user)
-            .subscribe( response =>
-            {
+            .subscribe(response => {
                 this.userApplications = response.applications;
-                this.userName= user.name
+                this.userName = user.name
+                this.login = user.login;
                 this.isSearching = false;
             });
     }
 
-    pressedApplication(application: Application, isApplicationUser: boolean){
+    pressedApplication(application: Application, isApplicationUser: boolean) {
         if (isApplicationUser) {
             this.userApplications.push(application);
         }
-        else{
+        else {
             this.userApplications = this.userApplications.filter(userApplication => application.id != userApplication.id);
         }
-    }
-
-    onSaveUserApplications(userApplications: Application[])
-    {this.isSearching = true;
-this.userService.saveUserApplications()
-.subscribe(response => this.isSearching = false);
-    }
+    }       
 }
