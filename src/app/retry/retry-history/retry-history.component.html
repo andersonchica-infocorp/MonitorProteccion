@@ -63,8 +63,9 @@
 
                 <md-input-container color="accent"
                     class="date_picker">
-                    <input mdInput
-                    [readonly]="true"
+                    <input mdInput #initial
+                        (change)="validateInitial(initial.value, final.value)"
+                        [readonly]="false"
                         [mdDatepicker]="resultPickerInitial"
                         formControlName="initialDate"
                         [min]="minDate"
@@ -77,14 +78,15 @@
                 <md-datepicker #resultPickerInitial
                     [touchUi]="touch"
                     [startAt]="startAt"
+
                     [startView]="yearView ? 'year' : 'month'">
                 </md-datepicker>
 
                 <md-input-container color="accent"
-                    class="date_picker"
-                    >
-                    <input mdInput
-                    [readonly]="true"
+                    class="date_picker">
+                    <input mdInput #final
+                        (change)="validateFinal(initial.value, final.value)"
+                        [readonly]="false"
                         [mdDatepicker]="resultPicker"
                         formControlName="finalDate"
                         [min]="minDate"
@@ -95,8 +97,8 @@
                 <button type="button"
                     [mdDatepickerToggle]="resultPicker"></button>
                 <md-datepicker #resultPicker
-                (change)="changeDates()"
                     [touchUi]="touch"
+
                     [startAt]="startAt"
                     [startView]="yearView ? 'year' : 'month'">
                 </md-datepicker>
@@ -116,7 +118,7 @@
             <button md-mini-fab
                 type="button"
                 class="buttonClear"
-                (click)="onSearch()"
+                (click)="onSearch(initial.value, final.value)"
                 [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value || !form.controls.operation.value)"
                 color="primary"
                 mdTooltip="{{'app.common.search' | translate}}">

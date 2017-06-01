@@ -22,17 +22,7 @@ import { ServiceDetailComponent } from '../../master/service/service-detail/serv
 
 
 
-const PUTO_DATE_FORMATS: MdDateFormats = {
-  parse: {
-    dateInput: null,
-  },
-  display: {
-    dateInput: {year: 'numeric', month: 'numeric', day: 'numeric'},
-    monthYearLabel: {year: 'numeric', month: 'long'},
-    dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-    monthYearA11yLabel: {year: 'numeric', month: 'long'},
-  }
-};
+
 
 @NgModule({
   imports: [
@@ -58,7 +48,7 @@ const PUTO_DATE_FORMATS: MdDateFormats = {
   providers: [
     UserService,
     TransactionService,
-    {provide: MD_DATE_FORMATS, useValue: PUTO_DATE_FORMATS}
+    
   ],
   entryComponents: [
     ModalXmlComponent,

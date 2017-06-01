@@ -32,7 +32,8 @@ export class TransactionService {
       + this.constructParam("rows", rows);
     var headers = new Headers();
     var data = this.authManager.getCredentials();
-    console.log(serviceId);
+    console.log(initialDate);
+    console.log(finalDate);
     headers.append('authorization', JSON.stringify(data));
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Accept', 'application/json; charset=utf-8');

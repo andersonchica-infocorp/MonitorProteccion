@@ -12,6 +12,7 @@ import { Consumer } from '../../Model/consumer.model';
 import { MdDialog, DateAdapter } from '@angular/material';
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 import { ServiceDetailComponent } from '../../master/service/service-detail/service-detail.component';
+import { MdSnackBar } from '@angular/material';
 import {
     trigger,
     state,
@@ -43,6 +44,7 @@ export class RetryHistoryComponent implements OnInit {
     options: any = { maxLines: 1000, printMargin: true };
     config = { lineNumbers: true };
     page: number = 0;
+    
 
     applications: Application[];
     services: Service[];
@@ -92,9 +94,9 @@ export class RetryHistoryComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, public fb: FormBuilder,
         public router: Router, private applicationService: ApplicationService,
-        private transactionService: TransactionService, public dialog: MdDialog, private dateAdapter: DateAdapter<Date>) {
+        private transactionService: TransactionService, public dialog: MdDialog, private dateAdapter: DateAdapter<Date>, public snackBar: MdSnackBar) {
 
-        dateAdapter.setLocale('es-co');
+        //dateAdapter.setLocale('es-co');
 
         this.form = this.fb.group({
             consumer: [''],
@@ -105,6 +107,20 @@ export class RetryHistoryComponent implements OnInit {
             serviceControl: ['', Validators.required],
             operation: ['', Validators.required]
         });
+
+        this.form.get('initialDate').valueChanges.subscribe(
+            (initialDate) => {
+                if (initialDate && moment(initialDate).isValid() && this.form.controls.finalDate.value && moment(this.form.controls.finalDate.value).isValid()) {
+                    this.validateDates(initialDate, this.form.controls.finalDate.value)
+                }
+            });
+
+        this.form.get('finalDate').valueChanges.subscribe(
+            (finalDate) => {
+                if (finalDate && moment(finalDate).isValid() && this.form.controls.initialDate.value && moment(this.form.controls.initialDate.value).isValid()) {
+                    this.validateDates(this.form.controls.initialDate.value, finalDate)
+                }
+            });
     }
 
     search() {
@@ -140,11 +156,22 @@ export class RetryHistoryComponent implements OnInit {
 
     }
 
-    onSearch() {
-        this.searchData = this.form.value;
-        this.resetPaginator = true;
-        this.page = 0;
-        this.search();
+    onSearch(initial, final) {
+        if (initial && initial.trim() != '' || final && final.trim() != '') {
+            if(this.validateDates(this.form.controls.initialDate.value, this.form.controls.finalDate.value) && this.validateInitial(initial, final) && this.validateFinal(initial, final)){
+            	this.searchData = this.form.value;
+            this.resetPaginator = true;
+            this.page = 0;
+            this.search();
+            }
+        }
+        else{
+        	this.searchData = this.form.value;
+            this.resetPaginator = true;
+            this.page = 0;
+            this.search();
+        }
+        
     }
 
     paginate(event) {
@@ -262,6 +289,55 @@ export class RetryHistoryComponent implements OnInit {
 
     onSubmit() {
 
+    }
+
+    validateInitial(initial, final) {
+        if (initial && initial.trim() != '') {
+            if (moment(initial).isValid()) {
+                //this.validateDates(initial, final);
+            }
+            else {
+
+                this.snackBar.open("La fecha inicial no es válida.", 'Error', {
+                    duration: 3000,
+                });
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    validateFinal(initial, final) {
+        if (final && final.trim() != '') {
+            if (moment(final).isValid()) {
+                //this.validateDates(initial, final);
+            }
+            else {
+                this.snackBar.open("La fecha final no es válida.", 'Error', {
+                    duration: 3000,
+                });
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    validateDates(initial, final) {
+        let mInitial = moment(initial);
+        let mFinal = moment(final);
+
+        if (mFinal.isSameOrBefore(mInitial, 'day')) {
+            this.snackBar.open("La fecha inicial debe ser menor a la fecha final.", 'Error', {
+                duration: 3000,
+            });
+
+            return false;
+        }
+
+        return true;
     }
 
     formatXML(input) {
