@@ -10,7 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class ReportHistoryComponent implements OnInit {
 
-  @Input() history: History;
+  @Input() history: any;
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -20,13 +20,16 @@ export class ReportHistoryComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    if (this.history != null) {
+
+if (this.history != null) {
       let count = 0;
-      
-        this.barChartLabels[count] = this.history.category;
-        this.barChartData[0].data[count] = this.history.nok;
-        this.barChartData[1].data[count] = this.history.ok;
-      ;
+      this.history.categories.forEach(element => {
+        this.barChartLabels[count] = element.category;
+        this.barChartData[0].data[count] = element.nok;
+        this.barChartData[1].data[count] = element.ok;
+
+        count ++;
+      });
     }
   }
 

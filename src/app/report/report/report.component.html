@@ -5,8 +5,9 @@
     color="accent"
     *ngIf="isChargingInitialData"></md-progress-bar>
 <div class="card-container">
+<div *ngIf="dashboard">
     <md-card class="actual"
-        *ngIf="dashboard">
+        >
         <md-card-title>{{'app.report.actual.title' | translate}}</md-card-title>
         <md-divider></md-divider>
         <!--<app-alert [alertMessage]="messageError" [alertType]="alertType"></app-alert>-->
@@ -16,9 +17,10 @@
         <md-card-actions align="end">
         </md-card-actions>
     </md-card>
+    </div>
     <div *ngIf="dashboard">
         <md-card class="history"
-            *ngFor="let history of dashboard.history">
+            *ngFor="let history of applicationsFiltered">
             <md-card-title>{{'app.report.history.title' | translate}} - {{ history.application }}</md-card-title>
             <md-divider></md-divider>
             <md-card-content>

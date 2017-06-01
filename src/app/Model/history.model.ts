@@ -5,6 +5,7 @@ export class History {
 		public total: number,
 		public ok: number,
 		public nok: number,
-		public retry:number
+		public retry:number,
+        public application?:string,
 	){}
 }
