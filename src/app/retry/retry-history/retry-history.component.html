@@ -95,6 +95,7 @@
                 <button type="button"
                     [mdDatepickerToggle]="resultPicker"></button>
                 <md-datepicker #resultPicker
+                (change)="changeDates()"
                     [touchUi]="touch"
                     [startAt]="startAt"
                     [startView]="yearView ? 'year' : 'month'">

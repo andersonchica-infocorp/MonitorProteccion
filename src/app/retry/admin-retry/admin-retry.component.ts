@@ -76,7 +76,7 @@ export class AdminRetryComponent implements OnInit {
             finalDate: [''],
             application: ['', Validators.required],
             serviceControl: ['', Validators.required],
-            operation: ['']
+            operation: ['', Validators.required]
         });
     }
 
@@ -165,23 +165,23 @@ export class AdminRetryComponent implements OnInit {
             });
     }
 
-clearFilter(){
-    this.form = this.fb.group({
+    clearFilter() {
+        this.form = this.fb.group({
             consumer: [''],
             messageId: [''],
             initialDate: [''],
             finalDate: [''],
             application: ['', Validators.required],
             serviceControl: ['', Validators.required],
-            operation: ['']
+            operation: ['', Validators.required]
         });
 
-     this.servicesOut = [];
+        this.servicesOut = [];
         this.operations = [];
-}
+    }
 
     deleteTransaction(transaction: Transaction) {
-        
+
         this.isDeletingRetry = true;
         this.selectedTransactionAction = transaction;
         this.transactionService.cancel(transaction, this.searchData.operation)
@@ -208,8 +208,8 @@ clearFilter(){
             });
     }
 
-deleteAllTransactionsTransaction(transaction: Transaction){
-    this.isDeletingAll = true;
+    deleteAllTransactionsTransaction(transaction: Transaction) {
+        this.isDeletingAll = true;
         this.selectedTransactionAction = transaction;
         this.transactionService.cancelAll(transaction, this.searchData.operation)
             .subscribe(response => {
@@ -233,7 +233,7 @@ deleteAllTransactionsTransaction(transaction: Transaction){
 
                 this.isDeletingAll = false;
             });
-}
+    }
 
 
     showTransaction(transaction: Transaction) {
@@ -251,17 +251,17 @@ deleteAllTransactionsTransaction(transaction: Transaction){
         this.selectedApplication = value;
 
         if (value != -1) {
-            
-        this.form.controls.serviceControl.setValue('');
-        this.form.controls.operation.setValue('');
-        this.form.controls.consumer.setValue('');
 
-        this.services = this.applications
-            .filter(c => c.id === value)[0].services
+            this.form.controls.serviceControl.setValue('');
+            this.form.controls.operation.setValue('');
+            this.form.controls.consumer.setValue('');
 
-        this.getServicesDistinct(this.services);
+            this.services = this.applications
+                .filter(c => c.id === value)[0].services
+
+            this.getServicesDistinct(this.services);
         }
-        
+
 
     }
 
@@ -276,13 +276,13 @@ deleteAllTransactionsTransaction(transaction: Transaction){
     onSelectService(value) {
         this.operations = [];
 
-               this.selectedService = value;
-               if (value != -1) {
-                   this.form.controls.operation.setValue('');
-        this.form.controls.operation.setValue('');
-        this.operations = this.services.filter(service => service.name == value);
-               }
-        
+        this.selectedService = value;
+        if (value != -1) {
+            this.form.controls.operation.setValue('');
+            this.form.controls.operation.setValue('');
+            this.operations = this.services.filter(service => service.name == value);
+        }
+
     }
 
     onValueChanged(data?: any) {
