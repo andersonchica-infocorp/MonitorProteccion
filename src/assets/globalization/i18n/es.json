@@ -53,6 +53,8 @@
             "clearFilters": "Limpiar Filtros",
             "deleteAll": "Eliminar Transacciones y Transacción",
             "select": "Seleccione...",
+            "xmlRequest":"Xml Request",
+            "xmlResponse":"Xml Response",
             "error": {
                 "required": "Este campo es requerido"
             }
@@ -123,9 +125,11 @@
             "viewDetailService": "Ver Detalle Servicio",
             "operations":"Operaciones",
             "title": "Reintentos",
+            "application": "Aplicación",
+            "service": "Servicio",
             "results": {
-                "iib": "IIB",
-                "uuid": "UUID",
+                "iib": "Txn Id de IIB",
+                "uuid": "UUID de IIB",
                 "consumer": "Consumidor",
                 "application": "Aplicación",
                 "service": "Servicio",

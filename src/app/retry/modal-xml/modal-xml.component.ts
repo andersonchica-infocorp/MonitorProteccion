@@ -25,6 +25,7 @@ export class ModalXmlComponent implements OnInit {
 
     updatingXml: boolean;
     isValidXml: boolean;
+    type: string;
 
     optionsXml = {
         attrPrefix: "@_",
@@ -38,6 +39,7 @@ export class ModalXmlComponent implements OnInit {
         this.xmlSelected = data.xml;
         this.readOnly = data.readOnly;
         this.transactionId = data.transaction.id;
+        this.type = data.type;
         this.change();
     }
 

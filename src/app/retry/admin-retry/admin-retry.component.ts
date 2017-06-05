@@ -61,6 +61,9 @@ export class AdminRetryComponent implements OnInit {
     isSearchingTransactionsTransaction: boolean;
     selectedTransactions: Transaction[];
 
+    applicationName: string;
+    serviceName: string;
+
     searchData: any;
 
     styleCellActions = { "width": "150px", "text-align": "center" }
@@ -134,6 +137,14 @@ export class AdminRetryComponent implements OnInit {
         this.selectedTransactions = null;
         this.resetPaginator = true;
         this.page = 0;
+
+        let applicationSelected = this.applications
+            .filter(c => c.id === this.searchData.application)[0];
+
+        let operations = this.services.filter(service => service.name == this.searchData.serviceControl);
+
+        this.applicationName = applicationSelected.name;
+        this.serviceName = operations.find(operation => operation.id == this.searchData.operation).opration;
 
         this.search(this.form.value);
     }
@@ -256,8 +267,10 @@ export class AdminRetryComponent implements OnInit {
             this.form.controls.operation.setValue('');
             this.form.controls.consumer.setValue('');
 
-            this.services = this.applications
-                .filter(c => c.id === value)[0].services
+            let applicationSelected = this.applications
+                .filter(c => c.id === value)[0];
+
+            this.services = applicationSelected.services;
 
             this.getServicesDistinct(this.services);
         }
@@ -306,20 +319,29 @@ export class AdminRetryComponent implements OnInit {
     showXml(transactionTemplate) {
         this.isShowingXml = true;
         this.selectedTransactionAction = transactionTemplate;
-        this.transactionService.getXmlTransaction(transactionTemplate.id)
+        this.transactionService.getXmlTransaction(transactionTemplate.id, "REQ")
             .subscribe(xml => {
                 this.isShowingXml = false;
-                this.xmlTransactionSelected = this.formatXML(xml);
+                if (xml.error == '') {
 
-                let dialogRef = this.dialog.open(ModalXmlComponent, {
-                    data: {
-                        xml: this.xmlTransactionSelected,
-                        readOnly: false,
-                        transaction: transactionTemplate
-                    },
-                    disableClose: true,
-                    width: '80%',
-                });
+                    this.xmlTransactionSelected = this.formatXML(xml.xml);
+
+                    let dialogRef = this.dialog.open(ModalXmlComponent, {
+                        data: {
+                            xml: this.xmlTransactionSelected,
+                            readOnly: false,
+                            transaction: transactionTemplate,
+                            type: ""
+                        },
+                        disableClose: true,
+                        width: '80%',
+                    });
+                }
+                else {
+                    this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
+                        duration: 5000,
+                    });
+                }
             });
     }
 

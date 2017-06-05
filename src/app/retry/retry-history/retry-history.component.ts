@@ -14,11 +14,11 @@ import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 import { ServiceDetailComponent } from '../../master/service/service-detail/service-detail.component';
 import { MdSnackBar } from '@angular/material';
 import {
-    trigger,
-    state,
-    style,
-    animate,
-    transition
+	trigger,
+	state,
+	style,
+	animate,
+	transition
 } from '@angular/animations';
 
 import 'brace';
@@ -27,359 +27,412 @@ import 'brace/mode/sql';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'app-retry-history',
-    templateUrl: './retry-history.component.html',
-    styleUrls: ['./retry-history.component.scss'],
-    animations: [
-        trigger('flyInOut', [
-            state('in', style({ transform: 'translateX(0)' })),
-            transition('void => *', [
-                style({ transform: 'translateX(+100%)' }),
-                animate(500)
-            ])
-        ])
-    ]
+	selector: 'app-retry-history',
+	templateUrl: './retry-history.component.html',
+	styleUrls: ['./retry-history.component.scss'],
+	animations: [
+		trigger('flyInOut', [
+			state('in', style({ transform: 'translateX(0)' })),
+			transition('void => *', [
+				style({ transform: 'translateX(+100%)' }),
+				animate(500)
+			])
+		])
+	]
 })
 export class RetryHistoryComponent implements OnInit {
-    options: any = { maxLines: 1000, printMargin: true };
-    config = { lineNumbers: true };
-    page: number = 0;
-    
+	options: any = { maxLines: 1000, printMargin: true };
+	config = { lineNumbers: true };
+	page: number = 0;
 
-    applications: Application[];
-    services: Service[];
-    form: FormGroup;
-    transactions: Transaction[];
-    consumers: string[];
-    xmlTransactionSelected: string;
 
-    selectedTransaction: Transaction;
-    selectedApplication: Application;
-    selectedTransactionXml: Transaction;
-    selectedService: Service;
+	applications: Application[];
+	services: Service[];
+	form: FormGroup;
+	transactions: Transaction[];
+	consumers: string[];
+	xmlTransactionSelected: string;
 
-    totalRows: number;
-    cantidad: number = 0;
-    isSearching: boolean;
-    showTransactions: boolean;
-    isChargingInitialData: boolean;
-    resetPaginator: boolean;
+	selectedTransaction: Transaction;
+	selectedApplication: Application;
+	selectedTransactionXml: Transaction;
+	selectedService: Service;
 
-    touch: boolean;
-    filterOdd: boolean;
-    yearView: boolean;
-    minDate: Date;
-    maxDate: Date;
-    startAt: Date;
-    date: Date;
-    isShowingXml: boolean;
-    operations = [];
-    servicesOut = [];
+	totalRows: number;
+	cantidad: number = 0;
+	isSearching: boolean;
+	showTransactions: boolean;
+	isChargingInitialData: boolean;
+	resetPaginator: boolean;
 
-    searchData: any;
+	touch: boolean;
+	filterOdd: boolean;
+	yearView: boolean;
+	minDate: Date;
+	maxDate: Date;
+	startAt: Date;
+	date: Date;
+	isShowingXmlRequest: boolean;
+	isShowingXmlResponse: boolean;
+	operations = [];
+	servicesOut = [];
 
-    ngOnInit() {
-        this.isChargingInitialData = true;
-        this.applicationService.getUserData()
-            .subscribe(
-            user => {
-                this.applications = user.applications;
-                this.consumers = user.consumers;
-                this.isChargingInitialData = false
-            },
-            error => {
-                this.isChargingInitialData = false
-            });
-    }
+	searchData: any;
+	applicationName: string;
+	serviceName: string;
 
-    constructor(private route: ActivatedRoute, public fb: FormBuilder,
-        public router: Router, private applicationService: ApplicationService,
-        private transactionService: TransactionService, public dialog: MdDialog, private dateAdapter: DateAdapter<Date>, public snackBar: MdSnackBar) {
+	styleCellActions = { "width": "75px", "text-align": "center" }
 
-        //dateAdapter.setLocale('es-co');
+	ngOnInit() {
+		this.isChargingInitialData = true;
+		this.applicationService.getUserData()
+			.subscribe(
+			user => {
+				this.applications = user.applications;
+				this.consumers = user.consumers;
+				this.isChargingInitialData = false
+			},
+			error => {
+				this.isChargingInitialData = false
+			});
+	}
 
-        this.form = this.fb.group({
-            consumer: [''],
-            messageId: [''],
-            initialDate: [''],
-            finalDate: [''],
-            application: ['', Validators.required],
-            serviceControl: ['', Validators.required],
-            operation: ['', Validators.required]
-        });
+	constructor(private route: ActivatedRoute, public fb: FormBuilder,
+		public router: Router, private applicationService: ApplicationService,
+		private transactionService: TransactionService, public dialog: MdDialog, private dateAdapter: DateAdapter<Date>, public snackBar: MdSnackBar) {
 
-        this.form.get('initialDate').valueChanges.subscribe(
-            (initialDate) => {
-                if (initialDate && moment(initialDate).isValid() && this.form.controls.finalDate.value && moment(this.form.controls.finalDate.value).isValid()) {
-                    this.validateDates(initialDate, this.form.controls.finalDate.value)
-                }
-            });
+		//dateAdapter.setLocale('es-co');
 
-        this.form.get('finalDate').valueChanges.subscribe(
-            (finalDate) => {
-                if (finalDate && moment(finalDate).isValid() && this.form.controls.initialDate.value && moment(this.form.controls.initialDate.value).isValid()) {
-                    this.validateDates(this.form.controls.initialDate.value, finalDate)
-                }
-            });
-    }
+		this.form = this.fb.group({
+			consumer: [''],
+			messageId: [''],
+			initialDate: [''],
+			finalDate: [''],
+			application: ['', Validators.required],
+			serviceControl: ['', Validators.required],
+			operation: ['', Validators.required]
+		});
 
-    search() {
-        var consumer = this.form.get('consumer').value;
-        var messageId = this.form.get('messageId').value;
-        var initialDate;
-        var finalDate;
-        var applicationId = this.form.get('application').value;
-        var serviceId = this.form.get('operation').value;
+		this.form.get('initialDate').valueChanges.subscribe(
+			(initialDate) => {
+				if (initialDate && moment(initialDate).isValid() && this.form.controls.finalDate.value && moment(this.form.controls.finalDate.value).isValid()) {
+					this.validateDates(initialDate, this.form.controls.finalDate.value)
+				}
+			});
 
-        this.showTransactions = true;
-        this.isSearching = true;
-        this.cantidad = 0;
+		this.form.get('finalDate').valueChanges.subscribe(
+			(finalDate) => {
+				if (finalDate && moment(finalDate).isValid() && this.form.controls.initialDate.value && moment(this.form.controls.initialDate.value).isValid()) {
+					this.validateDates(this.form.controls.initialDate.value, finalDate)
+				}
+			});
+	}
 
-        if (moment(this.form.controls.initialDate.value, 'YYYY-MM-DD').isValid()) {
-            initialDate = moment(this.form.controls.initialDate.value).format('YYYY-MM-DD');
-        }
+	search() {
+		var consumer = this.form.get('consumer').value;
+		var messageId = this.form.get('messageId').value;
+		var initialDate;
+		var finalDate;
+		var applicationId = this.form.get('application').value;
+		var serviceId = this.form.get('operation').value;
 
-        if (moment(this.form.controls.finalDate.value, 'YYYY-MM-DD').isValid()) {
-            finalDate = moment(this.form.controls.finalDate.value).format('YYYY-MM-DD');
-        }
+		this.showTransactions = true;
+		this.isSearching = true;
+		this.cantidad = 0;
 
-        this.transactionService.getGlobalSearchTransaction(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
-            .subscribe(parentTransaction => {
-                this.transactions = parentTransaction.transactions;
-                this.cantidad = parentTransaction.records;
-                this.isSearching = false;
-                this.resetPaginator = false;
-            });
-    }
+		if (moment.utc(this.form.controls.initialDate.value, 'YYYY-MM-DD').isValid()) {
+			initialDate = moment.utc(this.form.controls.initialDate.value).format('YYYY-MM-DD');
+		}
 
-    showTransaction(transaction: Transaction) {
+		if (moment.utc(this.form.controls.finalDate.value, 'YYYY-MM-DD').isValid()) {
+			finalDate = moment.utc(this.form.controls.finalDate.value).format('YYYY-MM-DD');
+		}
 
-    }
+		this.transactionService.getGlobalSearchTransaction(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
+			.subscribe(parentTransaction => {
+				this.transactions = parentTransaction.transactions;
+				this.cantidad = parentTransaction.records;
+				this.isSearching = false;
+				this.resetPaginator = false;
+			});
+	}
 
-    onSearch(initial, final) {
-        if (initial && initial.trim() != '' || final && final.trim() != '') {
-            if(this.validateDates(this.form.controls.initialDate.value, this.form.controls.finalDate.value) && this.validateInitial(initial, final) && this.validateFinal(initial, final)){
-            	this.searchData = this.form.value;
-            this.resetPaginator = true;
-            this.page = 0;
-            this.search();
-            }
-        }
-        else{
-        	this.searchData = this.form.value;
-            this.resetPaginator = true;
-            this.page = 0;
-            this.search();
-        }
-        
-    }
+	showTransaction(transaction: Transaction) {
 
-    paginate(event) {
-        this.page = event.page;
-        this.search();
-    }
+	}
 
-    onSelectApplication(value) {
-        this.servicesOut = [];
-        this.operations = [];
-        this.selectedApplication = value;
+	onSearch(initial, final) {
+		if (initial && initial.trim() != '' || final && final.trim() != '') {
+			if (this.validateDates(this.form.controls.initialDate.value, this.form.controls.finalDate.value) && this.validateInitial(initial, final) && this.validateFinal(initial, final)) {
+				this.callSearch();
+			}
+		}
+		else {
+			this.callSearch();
+		}
 
-        if (value != -1) {
+	}
 
-            this.form.controls.serviceControl.setValue('');
-            this.form.controls.operation.setValue('');
+	callSearch() {
+		this.searchData = this.form.value;
+		this.resetPaginator = true;
+		this.page = 0;
 
-            this.services = this.applications
-                .filter(c => c.id === value)[0].services
+		let applicationSelected = this.applications
+			.filter(c => c.id === this.searchData.application)[0];
 
-            this.getServicesDistinct(this.services);
-        }
-    }
+		let operations = this.services.filter(service => service.name == this.searchData.serviceControl);
 
-    onValueChanged(data?: any) {
-        if (!this.form) { return; }
-    }
+		this.applicationName = applicationSelected.name;
+		this.serviceName = operations.find(operation => operation.id == this.searchData.operation).opration;
+		this.search();
+	}
 
-    getServicesDistinct(services) {
-        services.forEach(service => {
-            if (!this.servicesOut.find(c => c.id == service.name)) {
-                this.servicesOut.push({ id: service.name, name: service.name });
-            }
-        })
-    }
+	paginate(event) {
+		this.page = event.page;
+		this.search();
+	}
 
-    onSelectService(value) {
-        this.operations = [];
+	onSelectApplication(value) {
+		this.servicesOut = [];
+		this.operations = [];
+		this.selectedApplication = value;
 
-        this.selectedService = value;
-        if (value != -1) {
-            this.form.controls.operation.setValue('');
-            this.form.controls.operation.setValue('');
-            this.operations = this.services.filter(service => service.name == value);
-        }
-    }
+		if (value != -1) {
 
-    getTransactionsTransaction(transactionTemplate) {
-        let idTransaction = transactionTemplate.data.id;
-        this.transactionService.getTransactionsTransaction(idTransaction).subscribe(
-            transactions => {
-                this.transactions.map(transaction => {
-                    if (transaction.id == idTransaction) {
-                        transaction.transactions = transactions.transactions;
-                    }
-                });
+			this.form.controls.serviceControl.setValue('');
+			this.form.controls.operation.setValue('');
 
-            });
-    }
+			this.services = this.applications
+				.filter(c => c.id === value)[0].services
 
-    showXml(transactionTemplate) {
-        this.isShowingXml = true;
-        this.selectedTransactionXml = transactionTemplate;
-        this.transactionService.getXmlTransaction(transactionTemplate.id)
-            .subscribe(xml => {
-                this.isShowingXml = false;
-                this.xmlTransactionSelected = this.formatXML(xml);;
+			this.getServicesDistinct(this.services);
+		}
+	}
 
-                let dialogRef = this.dialog.open(ModalXmlComponent, {
-                    data: {
-                        xml: this.xmlTransactionSelected,
-                        readOnly: true,
-                        transaction: transactionTemplate
-                    },
-                    disableClose: false,
-                    width: '80%',
-                });
-            });
-    }
+	onValueChanged(data?: any) {
+		if (!this.form) { return; }
+	}
 
-    viewDetailService() {
-        this.applicationService.getServicesApplication(this.searchData.application)
-            .subscribe(servicesApplication => {
-                var service = servicesApplication.services.filter(c => c.id == this.searchData.operation)[0];
-                let dialogRef = this.dialog.open(ServiceDetailComponent, {
-                    data: {
-                        serviceSelected: service,
-                        readOnly: true,
-                        application: this.form.controls.application.value
-                    },
-                    disableClose: true,
+	getServicesDistinct(services) {
+		services.forEach(service => {
+			if (!this.servicesOut.find(c => c.id == service.name)) {
+				this.servicesOut.push({ id: service.name, name: service.name });
+			}
+		})
+	}
 
-                });
-            });
-    }
+	onSelectService(value) {
+		this.operations = [];
 
-    backToGrid() {
-        this.xmlTransactionSelected = undefined;
-    }
+		this.selectedService = value;
+		if (value != -1) {
+			this.form.controls.operation.setValue('');
+			this.form.controls.operation.setValue('');
+			this.operations = this.services.filter(service => service.name == value);
+		}
+	}
 
-    clearFilter() {
-        this.form = this.fb.group({
-            consumer: [''],
-            messageId: [''],
-            initialDate: [''],
-            finalDate: [''],
-            application: ['', Validators.required],
-            serviceControl: ['', Validators.required],
-            operation: ['', Validators.required]
-        });
+	getTransactionsTransaction(transactionTemplate) {
+		let idTransaction = transactionTemplate.data.id;
+		this.transactionService.getTransactionsTransaction(idTransaction).subscribe(
+			transactions => {
+				this.transactions.map(transaction => {
+					if (transaction.id == idTransaction) {
+						transaction.transactions = transactions.transactions;
+					}
+				});
 
-        this.servicesOut = [];
-        this.operations = [];
-    }
+			});
+	}
 
-    onSubmit() {
+	showXmlResponse(transactionTemplate) {
+		this.isShowingXmlResponse = true;
+		this.selectedTransactionXml = transactionTemplate;
+		this.transactionService.getXmlTransaction(transactionTemplate.id, 'RESP')
+			.subscribe(xml => {
+				this.isShowingXmlResponse = false;
 
-    }
+				if (xml.error == '') {
+					this.xmlTransactionSelected = this.formatXML(xml.xml);
 
-    validateInitial(initial, final) {
-        if (initial && initial.trim() != '') {
-            if (moment(initial).isValid()) {
-                //this.validateDates(initial, final);
-            }
-            else {
+					let dialogRef = this.dialog.open(ModalXmlComponent, {
+						data: {
+							xml: this.xmlTransactionSelected,
+							readOnly: true,
+							transaction: transactionTemplate,
+							type: " - Response "
+						},
+						disableClose: false,
+						width: '80%',
+					});
+				}
+				else {
+					this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
+						duration: 5000,
+					});
+				}
 
-                this.snackBar.open("La fecha inicial no es válida.", 'Error', {
-                    duration: 3000,
-                });
-                return false;
-            }
-        }
+			});
+	}
 
-        return true;
-    }
+	showXmlRequest(transactionTemplate) {
+		this.isShowingXmlRequest = true;
+		this.selectedTransactionXml = transactionTemplate;
+		this.transactionService.getXmlTransaction(transactionTemplate.id, 'REQ')
+			.subscribe(xml => {
 
-    validateFinal(initial, final) {
-        if (final && final.trim() != '') {
-            if (moment(final).isValid()) {
-                //this.validateDates(initial, final);
-            }
-            else {
-                this.snackBar.open("La fecha final no es válida.", 'Error', {
-                    duration: 3000,
-                });
+				this.isShowingXmlRequest = false;
+				if (xml.error == '') {					
+					this.xmlTransactionSelected = this.formatXML(xml.xml);;
 
-                return false;
-            }
-        }
+					let dialogRef = this.dialog.open(ModalXmlComponent, {
+						data: {
+							xml: this.xmlTransactionSelected,
+							readOnly: true,
+							transaction: transactionTemplate,
+							type: " - Request "
+						},
+						disableClose: false,
+						width: '80%',
+					});
+				}
+				else {
+					this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
+						duration: 5000,
+					});
+				}
+			});
+	}
 
-        return true;
-    }
+	viewDetailService() {
+		this.applicationService.getServicesApplication(this.searchData.application)
+			.subscribe(servicesApplication => {
+				var service = servicesApplication.services.filter(c => c.id == this.searchData.operation)[0];
+				let dialogRef = this.dialog.open(ServiceDetailComponent, {
+					data: {
+						serviceSelected: service,
+						readOnly: true,
+						application: this.form.controls.application.value
+					},
+					disableClose: true,
 
-    validateDates(initial, final) {
-        let mInitial = moment(initial);
-        let mFinal = moment(final);
+				});
+			});
+	}
 
-        if (mFinal.isSameOrBefore(mInitial, 'day')) {
-            this.snackBar.open("La fecha inicial debe ser menor a la fecha final.", 'Error', {
-                duration: 3000,
-            });
+	backToGrid() {
+		this.xmlTransactionSelected = undefined;
+	}
 
-            return false;
-        }
+	clearFilter() {
+		this.form = this.fb.group({
+			consumer: [''],
+			messageId: [''],
+			initialDate: [''],
+			finalDate: [''],
+			application: ['', Validators.required],
+			serviceControl: ['', Validators.required],
+			operation: ['', Validators.required]
+		});
 
-        return true;
-    }
+		this.servicesOut = [];
+		this.operations = [];
+	}
 
-    formatXML(input) {
+	onSubmit() {
 
-        // PART 1: Add \n where necessary
-        // A) add \n between sets of angled brackets without content between them
-        // B) remove \n between opening and closing tags of the same node if no content is between them
-        // C) add \n between a self-closing set of angled brackets and the next set
-        // D) split it into an array
+	}
 
-        let xmlString = input.trim()
-            .replace(/>\s*</g, '>\n<')
-            .replace(/(<[^\/>].*>)\n(<[\/])/g, '$1$2')
-            .replace(/(<\/[^>]+>|<[^>]+\/>)(<[^>]+>)/g, '$1\n$2');
-        let xmlArr = xmlString.split('\n');
+	validateInitial(initial, final) {
+		if (initial && initial.trim() != '') {
+			if (moment(initial).isValid()) {
+				//this.validateDates(initial, final);
+			}
+			else {
 
-        // PART 2: indent each line appropriately
+				this.snackBar.open("La fecha inicial no es válida.", 'Error', {
+					duration: 3000,
+				});
+				return false;
+			}
+		}
 
-        var tabs = '';          //store the current indentation
-        var start = 0;          //starting line
-        if (/^<[?]xml/.test(xmlArr[0])) start++;    //if the first line is a header, ignore it
+		return true;
+	}
 
-        for (var i = start; i < xmlArr.length; i++) { //for each line
-            var line = xmlArr[i].trim();    //trim it just in case
-            if (/^<[/]/.test(line)) { // if the line is a closing tag
-                // remove one tab from the store
-                // add the tabs at the beginning of the line
-                tabs = tabs.replace(/.$/, '');
-                xmlArr[i] = tabs + line;
-            } else if (/<.*>.*<\/.*>|<.*[^>]\/>/.test(line)) { // if the line contains an entire node
-                // leave the store as is
-                // add the tabs at the beginning of the line
-                xmlArr[i] = tabs + line;
-            } else { // if the line starts with an opening tag and does not contain an entire node
-                // add the tabs at the beginning of the line
-                // and add one tab to the store
-                xmlArr[i] = tabs + line;
-                tabs += '\t';
-            }
-        }
+	validateFinal(initial, final) {
+		if (final && final.trim() != '') {
+			if (moment(final).isValid()) {
+				//this.validateDates(initial, final);
+			}
+			else {
+				this.snackBar.open("La fecha final no es válida.", 'Error', {
+					duration: 3000,
+				});
 
-        //rejoin the array to a string and return it
-        return xmlArr.join('\n');
-    }
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	validateDates(initial, final) {
+		let mInitial = moment(initial);
+		let mFinal = moment(final);
+
+		if (mFinal.isSameOrBefore(mInitial, 'day')) {
+			this.snackBar.open("La fecha inicial debe ser menor a la fecha final.", 'Error', {
+				duration: 3000,
+			});
+
+			return false;
+		}
+
+		return true;
+	}
+
+	formatXML(input) {
+
+		// PART 1: Add \n where necessary
+		// A) add \n between sets of angled brackets without content between them
+		// B) remove \n between opening and closing tags of the same node if no content is between them
+		// C) add \n between a self-closing set of angled brackets and the next set
+		// D) split it into an array
+
+		let xmlString = input.trim()
+			.replace(/>\s*</g, '>\n<')
+			.replace(/(<[^\/>].*>)\n(<[\/])/g, '$1$2')
+			.replace(/(<\/[^>]+>|<[^>]+\/>)(<[^>]+>)/g, '$1\n$2');
+		let xmlArr = xmlString.split('\n');
+
+		// PART 2: indent each line appropriately
+
+		var tabs = '';          //store the current indentation
+		var start = 0;          //starting line
+		if (/^<[?]xml/.test(xmlArr[0])) start++;    //if the first line is a header, ignore it
+
+		for (var i = start; i < xmlArr.length; i++) { //for each line
+			var line = xmlArr[i].trim();    //trim it just in case
+			if (/^<[/]/.test(line)) { // if the line is a closing tag
+				// remove one tab from the store
+				// add the tabs at the beginning of the line
+				tabs = tabs.replace(/.$/, '');
+				xmlArr[i] = tabs + line;
+			} else if (/<.*>.*<\/.*>|<.*[^>]\/>/.test(line)) { // if the line contains an entire node
+				// leave the store as is
+				// add the tabs at the beginning of the line
+				xmlArr[i] = tabs + line;
+			} else { // if the line starts with an opening tag and does not contain an entire node
+				// add the tabs at the beginning of the line
+				// and add one tab to the store
+				xmlArr[i] = tabs + line;
+				tabs += '\t';
+			}
+		}
+
+		//rejoin the array to a string and return it
+		return xmlArr.join('\n');
+	}
 }

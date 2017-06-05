@@ -51,7 +51,8 @@ md-spinner {
 
 .top_action_container {
     display: flex;
-    justify-content: flex-end;
+     //justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .buttonClear {
@@ -72,4 +73,14 @@ md-spinner {
 .divItem{
     width:400px;
     max-width:400px;
+}
+
+
+.fontClass{
+    font-weight: bold;
+}
+
+.container_actions {
+    display: flex;
+    justify-content: center;
 }

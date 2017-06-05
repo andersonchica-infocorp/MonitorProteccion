@@ -22,7 +22,7 @@ export class TransactionService {
   getTransactions(applicationId: number, serviceId: number, consumer: string, messageId: number, initialDate: Date, finalDate: Date, page: number, rows: number): Observable<ParentTransaction> {
 
     var url = `${AppConfigService.config.webApiUrl}/parentTransactions?`
-    + this.constructParam("app", applicationId)
+      + this.constructParam("app", applicationId)
       + this.constructParam("service", serviceId)
       + this.constructParam("consumer", consumer)
       + this.constructParam("msgID", messageId)
@@ -67,8 +67,8 @@ export class TransactionService {
     });
   }
 
-  getXmlTransaction(idTransaction: number) {
-    var url = `${AppConfigService.config.webApiUrl}/transactiondata?trx=` + idTransaction;
+  getXmlTransaction(idTransaction: number, type: string) {
+    var url = `${AppConfigService.config.webApiUrl}/transactiondata?trx=` + idTransaction + "&type=" + type;
     var headers = new Headers();
     var data = this.authManager.getCredentials();
 
@@ -80,11 +80,11 @@ export class TransactionService {
       headers
     }).map(response => {
       var xml = '<out5:crearDobleAsesoria xmlns:out5="http://tempuri.org/" xmlns:out7="http://schemas.datacontract.org/2004/07/CRM_Proteccion_Services"><out5:nuevaAsesoria><out7:ApruebaHistoria>true</out7:ApruebaHistoria><out7:Asunto>Doble Asesoria</out7:Asunto><out7:ClienteContactado>true</out7:ClienteContactado><out7:Consecutivo>DA1234567</out7:Consecutivo><out7:Descripcion>Se le explica la diferencia de r�gimen.</out7:Descripcion><out7:ElAfiliadoDecide>2</out7:ElAfiliadoDecide><out7:EstadoHistoriaLaboral>1</out7:EstadoHistoriaLaboral><out7:FechaInicio>2017-02-02T12:09:23.299-05:00</out7:FechaInicio><out7:LeConvieneQuedarse>1</out7:LeConvieneQuedarse><out7:ListaDocumentos/><out7:MasAnosRAI>true</out7:MasAnosRAI><out7:MedioUtilizado>2</out7:MedioUtilizado><out7:NumeroIdentificacion>1</out7:NumeroIdentificacion><out7:Propietario>JMGIL</out7:Propietario><out7:SegundaAsesoria>false</out7:SegundaAsesoria><out7:TipoAsesoria>2</out7:TipoAsesoria><out7:TipoIdentificacion>CC</out7:TipoIdentificacion></out5:nuevaAsesoria></out5:crearDobleAsesoria>';
-      return response.text();
-    }).catch((err: Response) => {
-      let details = err.json();
-      return Observable.throw(details);
-    });
+      return { xml: response.text(), error: "" }
+    }).catch((err: Response) => Observable.of({
+      xml: "",
+      error: err.text()
+    }));
   }
 
   getGlobalSearchTransaction(applicationId: number, serviceId: number, consumerId: number, messageId: number, initialDate: Date, finalDate: Date, startPage: number, totalRows: number) {
@@ -95,15 +95,15 @@ export class TransactionService {
       + this.constructParam("msgID", messageId)
       + this.constructParam("page", startPage)
       + this.constructParam("rows", totalRows);
-if (initialDate) {
-  url = url + this.constructParam("start", initialDate);
-}
+    if (initialDate) {
+      url = url + this.constructParam("start", initialDate);
+    }
 
-if (finalDate) {
-  url = url + this.constructParam("end", finalDate);
-}
+    if (finalDate) {
+      url = url + this.constructParam("end", finalDate);
+    }
 
-      
+
 
     var headers = new Headers();
     var data = this.authManager.getCredentials();
@@ -171,7 +171,7 @@ if (finalDate) {
     }));
   }
 
-  cancel(transaction: Transaction,serviceId: number) {
+  cancel(transaction: Transaction, serviceId: number) {
     var url = `${AppConfigService.config.webApiUrl}/cancel`;
     var headers = new Headers();
     var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" + serviceId;
@@ -197,7 +197,7 @@ if (finalDate) {
     }));
   }
 
-  cancelAll(transaction: Transaction,serviceId: number) {
+  cancelAll(transaction: Transaction, serviceId: number) {
     var url = `${AppConfigService.config.webApiUrl}/cancelall`;
     var headers = new Headers();
     var data = "trx=111111" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" + serviceId;

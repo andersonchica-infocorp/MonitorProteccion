@@ -49,6 +49,7 @@ console.log(this.authManager.getIsAdmin());
   }
 
   exitApp(){
+    this.authManager.logOut();
     this.router.navigate(['/authentication/login/']);
   }
 }

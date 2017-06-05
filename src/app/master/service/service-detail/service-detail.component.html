@@ -96,9 +96,9 @@
             </md-error>
         </md-input-container>
 
-        <md-input-container 
-            class="form_control_container"
-            color="accent">
+        <md-input-container class="form_control_container"
+            color="accent"
+            [hidden]="emptyVerCode">
             <textarea mdInput
                 [readonly]="readOnly"
                 mdTextareaAutosize
@@ -125,7 +125,8 @@
         </md-input-container>
     </div>
 </form>
-<div class="container_actions" *ngIf="!readOnly">
+<div class="container_actions"
+    *ngIf="!readOnly">
     <button md-raised-button
         color="primary"
         class="button"

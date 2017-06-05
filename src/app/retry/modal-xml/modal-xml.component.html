@@ -1,6 +1,6 @@
-<div class="flex_containter">    
+<div class="flex_containter">
     <h2 md-dialog-title>
-     {{ 'app.retry.results.transaction' | translate }} - {{ transactionId }}
+     {{ 'app.retry.results.transaction' | translate }} {{type}} - {{ transactionId }}
      <md-icon md-icon
         class="close"
         (click)="dialogRef.close()"
@@ -8,9 +8,9 @@
         mdTooltip="{{'app.common.close' | translate}}">close</md-icon>
     </h2>
     <div>
-    <md-progress-bar mode="indeterminate"
-        color="accent"
-        *ngIf="updatingXml"></md-progress-bar>
+        <md-progress-bar mode="indeterminate"
+            color="accent"
+            *ngIf="updatingXml"></md-progress-bar>
         <div ace-editor
             [(text)]="xmlSelected"
             [mode]="'xml'"
@@ -18,7 +18,6 @@
             [options]="options"
             [readOnly]="readOnly"
             (textChanged)="change()"
-            
             style="min-height: 90%;max-height: 90%; width:100%; overflow: auto;"></div>
     </div>
     <div class="footer_modal">

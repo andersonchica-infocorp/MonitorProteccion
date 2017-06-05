@@ -22,6 +22,7 @@ export class ApplicationService {
     var headers = new Headers();
     var data = this.authManager.getCredentials();
 
+
     headers.append('authorization', JSON.stringify(data));
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Accept', 'application/json; charset=utf-8');

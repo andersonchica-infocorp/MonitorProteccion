@@ -84,6 +84,7 @@
     <md-card class="result md_card_app"
         *ngIf="showTransactions">
         <md-card-content>
+
             <md-progress-bar mode="indeterminate"
                 color="accent"
                 *ngIf="isSearchingTransactionsTransaction"></md-progress-bar>
@@ -92,6 +93,13 @@
                 *ngIf="isSearching"></md-progress-bar>
             <div class="top_action_container"
                 *ngIf="!isSearching">
+                <div>
+                    <span class="fontClass">{{ 'app.retry.application' | translate}}: </span>
+                    <span>{{ applicationName }}</span>
+                    <br/>
+                    <span class="fontClass">{{ 'app.retry.service' | translate}}: </span>
+                    <span>{{ serviceName }}</span>
+                </div>
                 <button md-raised-button
                     (click)="viewDetailService()"
                     color="primary">{{'app.retry.viewDetailService' | translate}}</button>
@@ -216,14 +224,54 @@
                 <ng-template let-transactionTemplate
                     pTemplate="rowexpansion">
                     <p-dataTable [value]="transactionTemplate.transactions">
-                        <p-column field="id"
-                            header="{{'app.retry.results.transaction' | translate}}"></p-column>
+                        <p-column field="idIIB"
+                            [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+                            header="{{'app.retry.results.iib' | translate}}">
+                            <ng-template let-col
+                                let-transaction="rowData"
+                                pTemplate="body">
+                                <div>
+                                    <span class="spanwrapDetail">{{ transaction[col.field] }}</span>
+                                </div>
+                            </ng-template>
+                        </p-column>
+                        <p-column field="UUID"
+                            [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+                            header="{{'app.retry.results.uuid' | translate}}">
+                            <ng-template let-col
+                                let-transaction="rowData"
+                                pTemplate="body">
+                                <div>
+                                    <span class="spanwrapDetail">{{ transaction[col.field] }}</span>
+                                </div>
+                            </ng-template>
+                        </p-column>
+                        <p-column field="consumer"
+                            [style]="{'width':'100px'}"
+                            header="{{'app.retry.results.consumer' | translate}}">
+                            <ng-template let-col
+                                let-transaction="rowData"
+                                pTemplate="body">
+                                <div>
+                                    <span class="spanwrapDetail">{{ transaction[col.field] }}</span>
+                                </div>
+                            </ng-template>
+                        </p-column>
                         <p-column field="msgId"
-                            header="{{'app.retry.results.messageId' | translate}}"></p-column>
-                        <p-column field="start"
-                            header="{{'app.retry.results.initialDate' | translate}}"></p-column>
-                        <p-column field="end"
-                            header="{{'app.retry.results.finalDate' | translate}}"></p-column>
+                            [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+                            header="{{'app.retry.results.messageId' | translate}}">
+                            <ng-template let-col
+                                let-transaction="rowData"
+                                pTemplate="body">
+                                <div>
+                                    <span class="spanwrapDetail">{{ transaction[col.field] }}</span>
+                                </div>
+                            </ng-template>
+                        </p-column>
+                        <p-column field="recieveDate"
+                            [style]="{'width':'100px'}"
+                            header="{{'app.retry.results.receiveDate' | translate}}"></p-column>
+
                     </p-dataTable>
                 </ng-template>
             </p-dataTable>

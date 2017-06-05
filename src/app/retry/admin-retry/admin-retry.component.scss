@@ -1,6 +1,4 @@
-.card-container {
-    
-}
+.card-container {}
 
 md-card {
     box-sizing: border-box;
@@ -65,24 +63,37 @@ md-spinner.retry {
 
 .top_action_container {
     display: flex;
-    justify-content: flex-end;
+    //justify-content: flex-end;
+    justify-content: space-between;
 }
 
-
-td span{
-    color:black;
+td span {
+    color: black;
 }
 
-.spanwrap{
-    display:block;
-    width:90px;
-    word-wrap:break-word;
+.spanwrap {
+    display: block;
+    min-width: 90px;
+    max-width: 90px;
+    word-wrap: break-word;
 }
 
-.textAreaScroll{
+.textAreaScroll {
     height: 60px;
 }
 
-.buttonClear{
+.buttonClear {
     margin: 5px;
+}
+
+.spanwrapDetail {
+    display: block;
+    min-width: 90%;
+    max-width: 90%;
+    word-wrap: break-word;
+}
+
+
+.fontClass{
+    font-weight: bold;
 }

@@ -5,6 +5,7 @@
         <md-nav-list class="demo-navigation mdl-navigation mdl-color--blue-grey-800"
             color="primary">
             <a md-list-item
+                *ngIf="authManager.isAdmin"
                 (click)="sidenav.close(); goTo('user/admin')">
                 <md-icon md-list-icon
                     class="proteccion"
@@ -53,6 +54,7 @@
                     class="secondary">{{'app.sideNav.retry.description' | translate}}</span>
             </a>
             <a md-list-item
+                *ngIf="authManager.isAdmin"
                 (click)="sidenav.close(); goTo('master/service')">
                 <md-icon md-list-icon
                     class="proteccion"
@@ -79,6 +81,7 @@
         </button>-->
 
         <button md-icon-button
+            *ngIf="authManager.getIsLogin()"
             (click)="exitApp()">
             <md-icon>exit_to_app</md-icon>
         </button>

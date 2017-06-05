@@ -5,7 +5,7 @@ import { LoginComponent } from '../login/login.component';
 import { AuthManager } from './authentication.manage';
 
 const registerRoutes: Routes = [
-  { path: 'authentication/login',  component: LoginComponent, canActivate: [AuthManager] },
+  { path: 'authentication/login',  component: LoginComponent },
 ];
 
 export const AuthenticationRouting: ModuleWithProviders = RouterModule.forChild(registerRoutes);
