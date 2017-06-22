@@ -14,17 +14,20 @@
             <form (ngSubmit)="onSubmit()"
                 [formGroup]="form">
 
-                <span style="color:red">*</span>
+                <span mdPrefix
+                    style="color:red">*</span>
                 <md-select placeholder="{{'app.retry.applications' | translate}}"
                     class="item"
                     color="accent"
                     (change)="onSelectApplication($event.value)"
                     formControlName="application">
+
                     <md-option [value]="-1">{{'app.common.select' | translate}}</md-option>
                     <md-option *ngFor="let application of applications"
                         [value]="application.id">{{ application.name }}</md-option>
                 </md-select>
-                <span style="color:red">*</span>
+                <span mdPrefix
+                    style="color:red">*</span>
                 <md-select placeholder="{{'app.retry.services' | translate}}"
                     class="item"
                     color="accent"
@@ -35,7 +38,8 @@
                         [value]="service.id">{{ service.name }}
                     </md-option>
                 </md-select>
-                <span style="color:red">*</span>
+                <span mdPrefix
+                    style="color:red">*</span>
                 <md-select placeholder="{{'app.retry.operations' | translate}}"
                     class="item button"
                     color="accent"
@@ -63,8 +67,12 @@
 
                 <md-input-container color="accent"
                     class="date_picker">
+                    <button mdSuffix
+                        [mdDatepickerToggle]="resultPickerInitial"></button>
+
                     <input mdInput
                         #initial
+                        (click)="resultPickerInitial.open()"
                         maxlength="10"
                         (change)="validateInitial(initial.value, final.value)"
                         [readonly]="false"
@@ -72,11 +80,9 @@
                         formControlName="initialDate"
                         [min]="minDate"
                         [max]="maxDate"
-                        placeholder="{{'app.retry.initialDate' | translate}}">
+                        placeholder="{{'app.retry.initialDate'}}">
 
                 </md-input-container>
-                <button type="button"
-                    [mdDatepickerToggle]="resultPickerInitial"></button>
                 <md-datepicker #resultPickerInitial
                     [touchUi]="touch"
                     [startAt]="startAt"
@@ -85,8 +91,11 @@
 
                 <md-input-container color="accent"
                     class="date_picker">
+                    <button mdSuffix
+                        [mdDatepickerToggle]="resultPicker"></button>
                     <input mdInput
                         #final
+                        (click)="resultPicker.open()"
                         (change)="validateFinal(initial.value, final.value)"
                         [readonly]="false"
                         [mdDatepicker]="resultPicker"
@@ -94,16 +103,15 @@
                         [min]="minDate"
                         [max]="maxDate"
                         maxlength="10"
-                        placeholder="{{'app.retry.finalDate' | translate}}">
+                        placeholder="{{'app.retry.finalDate'}}">
 
                 </md-input-container>
-                <button type="button"
-                    [mdDatepickerToggle]="resultPicker"></button>
                 <md-datepicker #resultPicker
                     [touchUi]="touch"
                     [startAt]="startAt"
                     [startView]="yearView ? 'year' : 'month'">
                 </md-datepicker>
+
             </form>
         </md-card-content>
 
@@ -241,7 +249,7 @@
                                 color="accent"
                                 *ngIf="isShowingXmlRequest && ( selectedTransactionXml && transactionTemplate.id == selectedTransactionXml.id)"
                                 mode="indeterminate">
-                            </md-spinner>                            
+                            </md-spinner>
                         </div>
                     </ng-template>
                 </p-column>
