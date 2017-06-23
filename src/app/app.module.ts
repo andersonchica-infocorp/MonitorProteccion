@@ -21,6 +21,9 @@ import { AuthService } from './authentication/shared/authentication.service';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader, TranslateService } from 'ng2-translate/ng2-translate';
 import { ControlsModule } from './controls/shared/controls.module';
 
+import {AdalService} from 'ng2-adal/core';
+import {SecretService} from './services/adal.config.service';
+
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/globalization/i18n', '.json');
 }
@@ -49,12 +52,13 @@ export function createTranslateLoader(http: Http) {
       deps: [Http]
     }),
   ],
-  providers: [AuthManager, AuthService],
+  providers: [AuthManager, AuthService, AdalService, SecretService],
   bootstrap: [AppComponent]
 })
 
 export class AppModule {
-  constructor(translate: TranslateService) {
+  constructor(translate: TranslateService, private adalService: AdalService, private secretService: SecretService) {
+    this.adalService.init(this.secretService.adalConfig);
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('es');
 

@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from 'ng2-translate';
 import { AuthManager } from './authentication/shared/authentication.manage';
 
+import { SecretService } from './services/adal.config.service';
+import { AdalService } from 'ng2-adal/core';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +15,12 @@ export class AppComponent {
   title = 'app works!';
 
 
-  constructor(private router: Router, private translate: TranslateService, public authManager: AuthManager) {
-console.log(this.authManager.getIsAdmin());
+  constructor(private router: Router,
+    private translate: TranslateService,
+    public authManager: AuthManager,
+
+  ) {
+
   }
 
 
@@ -48,7 +54,7 @@ console.log(this.authManager.getIsAdmin());
     this.translate.use(language);
   }
 
-  exitApp(){
+  exitApp() {
     this.authManager.logOut();
     this.router.navigate(['/authentication/login/']);
   }

@@ -5,6 +5,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { UserService } from '../../services/user.service';
 import { MdSnackBar } from '@angular/material';
 import { AuthManager } from '../shared/authentication.manage';
+import {AdalService} from 'ng2-adal/core';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   isLogging: boolean;
 
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, public fb: FormBuilder, private userService: UserService, public snackBar: MdSnackBar, public authManager: AuthManager) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, public fb: FormBuilder, private userService: UserService, public snackBar: MdSnackBar, public authManager: AuthManager,
+    private adalService: AdalService) {
     this.form = this.fb.group({
       userName: ["", [Validators.required, Validators.maxLength(50)]],
       password: ["", [Validators.required, Validators.maxLength(50)]],

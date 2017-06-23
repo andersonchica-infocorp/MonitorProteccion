@@ -4,6 +4,7 @@ import { AppConfigService } from '../../services/app-config.service';
 import { Observable } from 'rxJs';
 import { User } from '../../Model/user.model';
 import { MdSnackBar } from '@angular/material';
+import {AdalService } from 'ng2-adal/core';
 
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
@@ -17,17 +18,21 @@ export class AuthManager implements CanActivate {
 	private userName: string;
 	private password: string;
 
-	constructor(private router: Router, private http: Http, public snackBar: MdSnackBar) {
-		this.isAdmin = true;
+	constructor(private router: Router, private http: Http, public snackBar: MdSnackBar, private adalService: AdalService) {
+		this.isAdmin = false;
 	}
 
-
 	canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-		if (!this.isLogin) {
 
-			this.router.navigate(['/authentication/login/']);
-			return false;
-		}
+debugger;
+		this.adalService.handleWindowCallback();
+        if (!this.adalService.userInfo.isAuthenticated) {
+		    this.adalService.login();   
+		    return false;     
+        }
+
+        let user = this.adalService.userInfo.userName.split('@')[0];
+        this.login(user, "");
 
 		return true;
 	}
@@ -60,6 +65,7 @@ export class AuthManager implements CanActivate {
 		this.userName = "";
 		this.isLogin = false;
 		this.isAdmin = false;
+		this.adalService.logOut();
 	}
 
 	login(userName: string, password: string) {
@@ -93,22 +99,5 @@ export class AuthManager implements CanActivate {
 			let details = err.json();
 			return Observable.throw(details);
 		});
-
-		/*console.log(this.getCredentials());
-		headers.append('Content-Type', 'application/x-www-form-urlencoded');
-		headers.append('Accept', 'application/json; charset=utf-8');
-
-		return this.http.post(url,
-			data,
-			{ headers }
-		).map(response => {
-			return {
-				error: "",
-				status: response.json()
-			};
-		}).catch((err: Response) => Observable.of({
-			error: err.text(),
-			status: "error"
-		}));*/
 	}
 }
