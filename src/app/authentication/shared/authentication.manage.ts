@@ -4,7 +4,7 @@ import { AppConfigService } from '../../services/app-config.service';
 import { Observable } from 'rxJs';
 import { User } from '../../Model/user.model';
 import { MdSnackBar } from '@angular/material';
-import {AdalService } from 'ng2-adal/core';
+import { AdalService } from 'ng2-adal/core';
 
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 export class AuthManager implements CanActivate {
 
 	public isAdmin: boolean;
-	private isLogin: boolean;
+	private isLogin: boolean = false;
 
 	private userName: string;
 	private password: string;
@@ -24,15 +24,32 @@ export class AuthManager implements CanActivate {
 
 	canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-debugger;
-		this.adalService.handleWindowCallback();
-        if (!this.adalService.userInfo.isAuthenticated) {
-		    this.adalService.login();   
-		    return false;     
-        }
+		if (next.fragment) {
+			if (!(next.fragment.indexOf("error") < 0)) {
+				if (next.fragment.indexOf("access_denied") >= 0) {
+					this.router.navigate(['../../error/El usuario no tiene accesso a la aplicación.']);
+					return false;
+				}
+			}
+		}
 
-        let user = this.adalService.userInfo.userName.split('@')[0];
-        this.login(user, "");
+		this.adalService.handleWindowCallback();
+		if (!this.adalService.userInfo.isAuthenticated) {
+			this.adalService.login();
+			return false;
+		}
+
+		if (!this.isLogin) {
+			let user = this.adalService.userInfo.userName.split('@')[0];
+			this.login(user, "").subscribe(() => {
+				if (this.isLogin) {
+					this.router.navigate(['../../report/history']);
+				}
+				else{
+					this.router.navigate(['../../error/El usuario no tiene accesso a la aplicación.']);
+				}
+			});
+		}
 
 		return true;
 	}
@@ -42,7 +59,7 @@ debugger;
 	}
 
 	getIsLogin() {
-		return this.userName;
+		return this.isLogin;
 	}
 
 	getCredentials() {
@@ -69,9 +86,6 @@ debugger;
 	}
 
 	login(userName: string, password: string) {
-		var url = `${AppConfigService.config.webApiUrl}/login`;
-		var headers = new Headers();
-		//var data = "user=" + userName + "&password=" + password;
 
 		this.userName = userName;
 		this.password = password;

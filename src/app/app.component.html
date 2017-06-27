@@ -82,7 +82,8 @@
 
         <button md-icon-button
             *ngIf="authManager.getIsLogin()"
-            (click)="exitApp()">
+            (click)="exitApp()" mdTooltip="Salir">
+
             <md-icon>exit_to_app</md-icon>
         </button>
 

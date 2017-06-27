@@ -80,7 +80,7 @@
                         formControlName="initialDate"
                         [min]="minDate"
                         [max]="maxDate"
-                        placeholder="{{'app.retry.initialDate'}}">
+                        placeholder="{{'app.retry.initialDate'| translate}}">
 
                 </md-input-container>
                 <md-datepicker #resultPickerInitial
@@ -103,7 +103,7 @@
                         [min]="minDate"
                         [max]="maxDate"
                         maxlength="10"
-                        placeholder="{{'app.retry.finalDate'}}">
+                        placeholder="{{'app.retry.finalDate' | translate}}">
 
                 </md-input-container>
                 <md-datepicker #resultPicker

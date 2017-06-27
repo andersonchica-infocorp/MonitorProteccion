@@ -53,8 +53,8 @@
             "clearFilters": "Limpiar Filtros",
             "deleteAll": "Eliminar Transacciones y Transacción",
             "select": "Seleccione...",
-            "xmlRequest":"Xml Request",
-            "xmlResponse":"Xml Response",
+            "xmlRequest": "Xml Request",
+            "xmlResponse": "Xml Response",
             "error": {
                 "required": "Este campo es requerido"
             }
@@ -123,7 +123,7 @@
             "transactions": "Transacciones",
             "selectedTransactions": "Transacciones Seleccionadas",
             "viewDetailService": "Ver Detalle Servicio",
-            "operations":"Operaciones",
+            "operations": "Operaciones",
             "title": "Reintentos",
             "application": "Aplicación",
             "service": "Servicio",
