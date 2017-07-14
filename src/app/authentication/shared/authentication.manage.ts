@@ -45,7 +45,7 @@ export class AuthManager implements CanActivate {
 				if (this.isLogin) {
 					this.router.navigate(['../../report/history']);
 				}
-				else{
+				else {
 					this.router.navigate(['../../error/El usuario no tiene accesso a la aplicación.']);
 				}
 			});
@@ -63,19 +63,24 @@ export class AuthManager implements CanActivate {
 	}
 
 	getCredentials() {
+		debugger;
 		if (!this.isLogin) {
-			this.snackBar.open("Usuario No se encuentra logueado, por favor ingrese al sistema.", 'Error', {
-				duration: 7000,
-			});
+			if (!this.adalService.userInfo.isAuthenticated) {
+				this.snackBar.open("Usuario No se encuentra logueado, por favor ingrese al sistema.", 'Error', {
+					duration: 7000,
+				});
 
-			this.router.navigate(['/authentication/login/']);
+				this.router.navigate(['/authentication/login/']);
+			}
+
+			let user = this.adalService.userInfo.userName.split('@')[0];
+			this.userName = user;
 		}
-		else {
-			return {
-				login: this.userName,
-				password: this.password
-			};
-		}
+		
+		return {
+			login: this.userName,
+			password: this.password
+		};
 	}
 
 	logOut() {

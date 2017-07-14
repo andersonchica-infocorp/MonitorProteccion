@@ -22,12 +22,14 @@ export class ReportComponent implements OnInit {
         this.isChargingInitialData = true;
         this.dashboardService.getDashboard().subscribe(
             dashboard => {
+                
                 this.dashboard = dashboard;
                 this.assignApplicationsHistoryFiltered(this.dashboard.history);
 
                 this.isChargingInitialData = false;
             },
             error => {
+                
                 this.isChargingInitialData = false;
                 this.alertType = 'alert-danger';
                 this.translate.get('app.common.errorService')
