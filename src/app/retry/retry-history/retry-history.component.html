@@ -1,280 +1,292 @@
 <md-toolbar class="toolbar_header">
-    <font color="white">{{'app.retry.history.title'|translate}}</font>
+  <font color="white">{{'app.retry.history.title'|translate}}</font>
 </md-toolbar>
 <md-progress-bar mode="indeterminate"
-    color="accent"
-    *ngIf="isChargingInitialData">
+  color="accent"
+  *ngIf="isChargingInitialData">
 </md-progress-bar>
 <div class="card-container">
-    <md-card class="search md_card_app">
-        <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
-        <md-divider class="divider"></md-divider>
+  <md-card class="search md_card_app">
+    <md-card-title>{{'app.retry.filter' | translate}}</md-card-title>
+    <md-divider class="divider"></md-divider>
 
-        <md-card-content class="flex_container">
-            <form (ngSubmit)="onSubmit()"
-                [formGroup]="form">
+    <md-card-content class="flex_container">
+      <form (ngSubmit)="onSubmit()"
+        [formGroup]="form">
 
-                <span mdPrefix
-                    style="color:red">*</span>
-                <md-select placeholder="{{'app.retry.applications' | translate}}"
-                    class="item"
-                    color="accent"
-                    (change)="onSelectApplication($event.value)"
-                    formControlName="application">
+        <span mdPrefix
+          style="color:red">*</span>
+        <md-select placeholder="{{'app.retry.applications' | translate}}"
+          class="item"
+          color="accent"
+          (change)="onSelectApplication($event.value)"
+          formControlName="application">
 
-                    <md-option [value]="-1">{{'app.common.select' | translate}}</md-option>
-                    <md-option *ngFor="let application of applications"
-                        [value]="application.id">{{ application.name }}</md-option>
-                </md-select>
-                <span mdPrefix
-                    style="color:red">*</span>
-                <md-select placeholder="{{'app.retry.services' | translate}}"
-                    class="item"
-                    color="accent"
-                    (change)="onSelectService($event.value)"
-                    formControlName="serviceControl">
-                    <md-option [value]="-1">{{'app.common.select' | translate}}</md-option>
-                    <md-option *ngFor="let service of servicesOut"
-                        [value]="service.id">{{ service.name }}
-                    </md-option>
-                </md-select>
-                <span mdPrefix
-                    style="color:red">*</span>
-                <md-select placeholder="{{'app.retry.operations' | translate}}"
-                    class="item button"
-                    color="accent"
-                    formControlName="operation">
-                    <md-option [value]="">{{'app.common.select' | translate}}</md-option>
-                    <md-option *ngFor="let operation of operations"
-                        [value]="operation.id">{{ operation.opration }}</md-option>
-                </md-select>
-                <md-select placeholder="{{'app.retry.consumer' | translate}}"
-                    class="item"
-                    color="accent"
-                    formControlName="consumer">
-                    <md-option [value]="''">{{'app.common.select' | translate}}</md-option>
-                    <md-option *ngFor="let consumer of consumers"
-                        [value]="consumer">{{ consumer }}
-                    </md-option>
-                </md-select>
-                <md-input-container class="item"
-                    color="accent">
-                    <input mdInput
-                        type="text"
-                        placeholder="{{'app.retry.message' | translate}}"
-                        formControlName="messageId">
-                </md-input-container>
+          <md-option [value]="-1">{{'app.common.select' | translate}}</md-option>
+          <md-option *ngFor="let application of applications"
+            [value]="application.id">{{ application.name }}</md-option>
+        </md-select>
+        <span mdPrefix
+          style="color:red">*</span>
+        <md-select placeholder="{{'app.retry.services' | translate}}"
+          class="item"
+          color="accent"
+          (change)="onSelectService($event.value)"
+          formControlName="serviceControl">
+          <md-option [value]="-1">{{'app.common.select' | translate}}</md-option>
+          <md-option *ngFor="let service of servicesOut"
+            [value]="service.id">{{ service.name }}
+          </md-option>
+        </md-select>
+        <span mdPrefix
+          style="color:red">*</span>
+        <md-select placeholder="{{'app.retry.operations' | translate}}"
+          class="item button"
+          color="accent"
+          formControlName="operation">
+          <md-option [value]="">{{'app.common.select' | translate}}</md-option>
+          <md-option *ngFor="let operation of operations"
+            [value]="operation.id">{{ operation.opration }}</md-option>
+        </md-select>
+        <md-select placeholder="{{'app.retry.consumer' | translate}}"
+          class="item"
+          color="accent"
+          formControlName="consumer">
+          <md-option [value]="''">{{'app.common.select' | translate}}</md-option>
+          <md-option *ngFor="let consumer of consumers"
+            [value]="consumer">{{ consumer }}
+          </md-option>
+        </md-select>
+        <md-input-container class="item"
+          color="accent">
+          <input mdInput
+            type="text"
+            placeholder="{{'app.retry.message' | translate}}"
+            formControlName="messageId">
+        </md-input-container>
 
-                <md-input-container color="accent"
-                    class="date_picker">
-                    <button mdSuffix
-                        [mdDatepickerToggle]="resultPickerInitial"></button>
+        <md-input-container color="accent"
+          class="date_picker">
+          <button mdSuffix
+            [mdDatepickerToggle]="resultPickerInitial"></button>
 
-                    <input mdInput
-                        #initial
-                        (click)="resultPickerInitial.open()"
-                        maxlength="10"
-                        (change)="validateInitial(initial.value, final.value)"
-                        [readonly]="false"
-                        [mdDatepicker]="resultPickerInitial"
-                        formControlName="initialDate"
-                        [min]="minDate"
-                        [max]="maxDate"
-                        placeholder="{{'app.retry.initialDate'| translate}}">
+          <input mdInput
+            #initial
+            (click)="resultPickerInitial.open()"
+            maxlength="10"
+            (change)="validateInitial(initial.value, final.value)"
+            [readonly]="false"
+            [mdDatepicker]="resultPickerInitial"
+            formControlName="initialDate"
+            [min]="minDate"
+            [max]="maxDate"
+            placeholder="{{'app.retry.initialDate'| translate}}">
 
-                </md-input-container>
-                <md-datepicker #resultPickerInitial
-                    [touchUi]="touch"
-                    [startAt]="startAt"
-                    [startView]="yearView ? 'year' : 'month'">
-                </md-datepicker>
+        </md-input-container>
+        <md-datepicker #resultPickerInitial
+          [touchUi]="touch"
+          [startAt]="startAt"
+          [startView]="yearView ? 'year' : 'month'">
+        </md-datepicker>
 
-                <md-input-container color="accent"
-                    class="date_picker">
-                    <button mdSuffix
-                        [mdDatepickerToggle]="resultPicker"></button>
-                    <input mdInput
-                        #final
-                        (click)="resultPicker.open()"
-                        (change)="validateFinal(initial.value, final.value)"
-                        [readonly]="false"
-                        [mdDatepicker]="resultPicker"
-                        formControlName="finalDate"
-                        [min]="minDate"
-                        [max]="maxDate"
-                        maxlength="10"
-                        placeholder="{{'app.retry.finalDate' | translate}}">
+        <md-input-container color="accent"
+          class="date_picker">
+          <button mdSuffix
+            [mdDatepickerToggle]="resultPicker"></button>
+          <input mdInput
+            #final
+            (click)="resultPicker.open()"
+            (change)="validateFinal(initial.value, final.value)"
+            [readonly]="false"
+            [mdDatepicker]="resultPicker"
+            formControlName="finalDate"
+            [min]="minDate"
+            [max]="maxDate"
+            maxlength="10"
+            placeholder="{{'app.retry.finalDate' | translate}}">
 
-                </md-input-container>
-                <md-datepicker #resultPicker
-                    [touchUi]="touch"
-                    [startAt]="startAt"
-                    [startView]="yearView ? 'year' : 'month'">
-                </md-datepicker>
+        </md-input-container>
+        <md-datepicker #resultPicker
+          [touchUi]="touch"
+          [startAt]="startAt"
+          [startView]="yearView ? 'year' : 'month'">
+        </md-datepicker>
 
-            </form>
-        </md-card-content>
+      </form>
+    </md-card-content>
 
-        <md-card-actions align="end">
-            <button md-mini-fab
-                type="button"
-                class="buttonClear"
-                (click)="clearFilter()"
-                [disabled]="!form.dirty"
-                color="primary"
-                mdTooltip="{{'app.common.clearFilters' | translate}}">
-                <md-icon class="">delete_sweep</md-icon>
-            </button>
-            <button md-mini-fab
-                type="button"
-                class="buttonClear"
-                (click)="onSearch(initial.value, final.value)"
-                [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value || !form.controls.operation.value)"
-                color="primary"
-                mdTooltip="{{'app.common.search' | translate}}">
-                <md-icon>search</md-icon>
-            </button>
-        </md-card-actions>
-    </md-card>
-    <md-card class="result md_card_app"
-        *ngIf="showTransactions"
-        [@flyInOut]="'in'">
-        <md-card-content>
-            <md-progress-bar mode="indeterminate"
-                color="accent"
-                *ngIf="isSearching"></md-progress-bar>
-            <div class="top_action_container"
-                *ngIf="!isSearching">
-                <div>
-                    <span class="fontClass">{{ 'app.retry.application' | translate}}: </span>
-                    <span>{{ applicationName }}</span>
-                    <br/>
-                    <span class="fontClass">{{ 'app.retry.service' | translate}}: </span>
-                    <span>{{ serviceName }}</span>
-                </div>
-                <button md-raised-button
-                    (click)="viewDetailService()"
-                    color="primary">{{'app.retry.viewDetailService' | translate}}</button>
+    <md-card-actions align="end">
+      <button md-mini-fab
+        type="button"
+        class="buttonClear"
+        (click)="clearFilter()"
+        [disabled]="!form.dirty"
+        color="primary"
+        mdTooltip="{{'app.common.clearFilters' | translate}}">
+        <md-icon class="">delete_sweep</md-icon>
+      </button>
+      <button md-mini-fab
+        type="button"
+        class="buttonClear"
+        (click)="onSearch(initial.value, final.value)"
+        [disabled]="(isSearching || !form.controls.application.value || !form.controls.serviceControl.value || !form.controls.operation.value)"
+        color="primary"
+        mdTooltip="{{'app.common.search' | translate}}">
+        <md-icon>search</md-icon>
+      </button>
+    </md-card-actions>
+  </md-card>
+  <md-card class="result md_card_app"
+    *ngIf="showTransactions"
+    [@flyInOut]="'in'">
+    <md-card-content>
+      <md-progress-bar mode="indeterminate"
+        color="accent"
+        *ngIf="isSearching"></md-progress-bar>
+      <div class="top_action_container"
+        *ngIf="!isSearching">
+        <div>
+          <span class="fontClass">{{ 'app.retry.application' | translate}}: </span>
+          <span>{{ applicationName }}</span>
+          <br/>
+          <span class="fontClass">{{ 'app.retry.service' | translate}}: </span>
+          <span>{{ serviceName }}</span>
+        </div>
+        <button md-raised-button
+          (click)="viewDetailService()"
+          color="primary">{{'app.retry.viewDetailService' | translate}}</button>
+      </div>
+      <p-dataTable [value]="transactions">
+        <p-header>{{'app.retry.transactions' | translate}}</p-header>
+        <p-column field="idIIB"
+          [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+          header="{{'app.retry.results.iib' | translate}}">
+          <ng-template let-col
+            let-transaction="rowData"
+            pTemplate="body">
+            <div>
+              <span class="spanwrap">{{ transaction[col.field] }}</span>
             </div>
-            <p-dataTable [value]="transactions">
-                <p-header>{{'app.retry.transactions' | translate}}</p-header>
-                <p-column field="idIIB"
-                    [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                    header="{{'app.retry.results.iib' | translate}}">
-                    <ng-template let-col
-                        let-transaction="rowData"
-                        pTemplate="body">
-                        <div>
-                            <span class="spanwrap">{{ transaction[col.field] }}</span>
-                        </div>
-                    </ng-template>
-                </p-column>
-                <p-column field="UUID"
-                    [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                    header="{{'app.retry.results.uuid' | translate}}"></p-column>
-                <p-column field="consumer"
-                    [style]="{'width':'100px'}"
-                    header="{{'app.retry.results.consumer' | translate}}"></p-column>
-                <p-column field="msgId"
-                    [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                    header="{{'app.retry.results.messageId' | translate}}">
-                    <ng-template let-col
-                        let-transaction="rowData"
-                        pTemplate="body">
-                        <div>
-                            <span class="spanwrap">{{ transaction[col.field] }}</span>
-                        </div>
-                    </ng-template>
-                </p-column>
-                <p-column field="recieveDate"
-                    [style]="{'width':'100px'}"
-                    header="{{'app.retry.results.receiveDate' | translate}}"></p-column>
-                <p-column field="start"
-                    [style]="{'width':'100px'}"
-                    header="{{'app.retry.results.initialDate' | translate}}"></p-column>
-                <p-column field="end"
-                    [style]="{'width':'100px'}"
-                    header="{{'app.retry.results.finalDate' | translate}}"></p-column>
-                <p-column field="errorType"
-                    [style]="{'width':'100px'}"
-                    header="{{'app.retry.results.errorType' | translate}}"></p-column>
-                <p-column field="errorMessage"
-                    [style]="{'overflow':'visible'}"
-                    header="{{'app.retry.results.error' | translate}}">
-                    <ng-template let-col
-                        let-transaction="rowData"
-                        pTemplate="body">
-                        <textarea mdInput
-                            class="textAreaScroll"
-                            mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+          </ng-template>
+        </p-column>
+        <p-column field="UUID"
+          [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+          header="{{'app.retry.results.uuid' | translate}}">
+          <ng-template let-col
+            let-transaction="rowData"
+            pTemplate="body">
+            <textarea mdInput
+              class="textAreaScroll"
+              mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+          </ng-template>
+        </p-column>
+        <p-column field="consumer"
+          [style]="{'width':'100px'}"
+          header="{{'app.retry.results.consumer' | translate}}"></p-column>
+        <p-column field="msgId"
+          [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+          header="{{'app.retry.results.messageId' | translate}}">
+          <ng-template let-col
+            let-transaction="rowData"
+            pTemplate="body">
+            <ng-template let-col
+              let-transaction="rowData"
+              pTemplate="body">
+              <textarea mdInput
+                class="textAreaScroll"
+                mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+            </ng-template>
+          </ng-template>
+        </p-column>
+        <p-column field="recieveDate"
+          [style]="{'width':'100px'}"
+          header="{{'app.retry.results.receiveDate' | translate}}"></p-column>
+        <p-column field="start"
+          [style]="{'width':'100px'}"
+          header="{{'app.retry.results.initialDate' | translate}}"></p-column>
+        <p-column field="end"
+          [style]="{'width':'100px'}"
+          header="{{'app.retry.results.finalDate' | translate}}"></p-column>
+        <p-column field="errorType"
+          [style]="{'width':'100px'}"
+          header="{{'app.retry.results.errorType' | translate}}"></p-column>
+        <p-column field="errorMessage"
+          [style]="{'overflow':'visible'}"
+          header="{{'app.retry.results.error' | translate}}">
+          <ng-template let-col
+            let-transaction="rowData"
+            pTemplate="body">
+            <textarea mdInput
+              class="textAreaScroll"
+              mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
 
-                    </ng-template>
+          </ng-template>
 
-                </p-column>
-                <p-column styleClass="col-button"
-                    [style]="styleCellActions">
-                    <ng-template pTemplate="header">
-                        <span>{{'app.common.xmlResponse' | translate}}</span>
-                    </ng-template>
-                    <ng-template let-transactionTemplate="rowData"
-                        pTemplate="body">
-                        <div class="container_actions">
-                            <md-icon md-list-icon
-                                *ngIf="!isShowingXmlResponse && transactionTemplate.end"
-                                class="xml"
-                                (click)="showXmlResponse(transactionTemplate)"
-                                mdTooltip="{{'app.common.xmlResponse' | translate}}">subdirectory_arrow_left</md-icon>
-                            <md-spinner class="example-margin"
-                                color="accent"
-                                *ngIf="isShowingXmlResponse && ( selectedTransactionXml && transactionTemplate.id == selectedTransactionXml.id)"
-                                mode="indeterminate">
-                            </md-spinner>
-                        </div>
-                    </ng-template>
-                </p-column>
-                <p-column styleClass="col-button"
-                    [style]="styleCellActions">
-                    <ng-template pTemplate="header">
-                        <span>{{'app.common.xmlRequest' | translate}}</span>
-                    </ng-template>
-                    <ng-template let-transactionTemplate="rowData"
-                        pTemplate="body">
-                        <div class="container_actions">
-                            <md-icon md-list-icon
-                                *ngIf="!isShowingXmlRequest"
-                                class="xml"
-                                (click)="showXmlRequest(transactionTemplate)"
-                                mdTooltip="{{'app.common.xmlRequest' | translate}}">subdirectory_arrow_right</md-icon>
-                            <md-spinner class="example-margin"
-                                color="accent"
-                                *ngIf="isShowingXmlRequest && ( selectedTransactionXml && transactionTemplate.id == selectedTransactionXml.id)"
-                                mode="indeterminate">
-                            </md-spinner>
-                        </div>
-                    </ng-template>
-                </p-column>
-                <ng-template let-transactionTemplate
-                    pTemplate="rowexpansion">
-                    <p-dataTable [value]="transactionTemplate.transactions">
-                        <p-column field="id"
-                            header="{{'app.retry.results.transaction' | translate}}"></p-column>
-                        <p-column field="msgId"
-                            header="{{'app.retry.results.messageId' | translate}}"></p-column>
-                        <p-column field="start"
-                            header="{{'app.retry.results.initialDate' | translate}}"></p-column>
-                        <p-column field="end"
-                            header="{{'app.retry.results.finalDate' | translate}}"></p-column>
-                    </p-dataTable>
-                </ng-template>
-            </p-dataTable>
-            <p-paginator rows="10"
-                *ngIf="!resetPaginator"
-                [style.display]="isSearching ? 'none' : 'block' "
-                [totalRecords]="cantidad"
-                pageLinkSize="5"
-                (onPageChange)="paginate($event)"></p-paginator>
-        </md-card-content>
-        <md-card-actions align="end">
-        </md-card-actions>
-    </md-card>
+        </p-column>
+        <p-column styleClass="col-button"
+          [style]="styleCellActions">
+          <ng-template pTemplate="header">
+            <span>{{'app.common.xmlResponse' | translate}}</span>
+          </ng-template>
+          <ng-template let-transactionTemplate="rowData"
+            pTemplate="body">
+            <div class="container_actions">
+              <md-icon md-list-icon
+                *ngIf="!isShowingXmlResponse && transactionTemplate.end"
+                class="xml"
+                (click)="showXmlResponse(transactionTemplate)"
+                mdTooltip="{{'app.common.xmlResponse' | translate}}">subdirectory_arrow_left</md-icon>
+              <md-spinner class="example-margin"
+                color="accent"
+                *ngIf="isShowingXmlResponse && ( selectedTransactionXml && transactionTemplate.id == selectedTransactionXml.id)"
+                mode="indeterminate">
+              </md-spinner>
+            </div>
+          </ng-template>
+        </p-column>
+        <p-column styleClass="col-button"
+          [style]="styleCellActions">
+          <ng-template pTemplate="header">
+            <span>{{'app.common.xmlRequest' | translate}}</span>
+          </ng-template>
+          <ng-template let-transactionTemplate="rowData"
+            pTemplate="body">
+            <div class="container_actions">
+              <md-icon md-list-icon
+                *ngIf="!isShowingXmlRequest"
+                class="xml"
+                (click)="showXmlRequest(transactionTemplate)"
+                mdTooltip="{{'app.common.xmlRequest' | translate}}">subdirectory_arrow_right</md-icon>
+              <md-spinner class="example-margin"
+                color="accent"
+                *ngIf="isShowingXmlRequest && ( selectedTransactionXml && transactionTemplate.id == selectedTransactionXml.id)"
+                mode="indeterminate">
+              </md-spinner>
+            </div>
+          </ng-template>
+        </p-column>
+        <ng-template let-transactionTemplate
+          pTemplate="rowexpansion">
+          <p-dataTable [value]="transactionTemplate.transactions">
+            <p-column field="id"
+              header="{{'app.retry.results.transaction' | translate}}"></p-column>
+            <p-column field="msgId"
+              header="{{'app.retry.results.messageId' | translate}}"></p-column>
+            <p-column field="start"
+              header="{{'app.retry.results.initialDate' | translate}}"></p-column>
+            <p-column field="end"
+              header="{{'app.retry.results.finalDate' | translate}}"></p-column>
+          </p-dataTable>
+        </ng-template>
+      </p-dataTable>
+      <p-paginator rows="10"
+        *ngIf="!resetPaginator"
+        [style.display]="isSearching ? 'none' : 'block' "
+        [totalRecords]="cantidad"
+        pageLinkSize="5"
+        (onPageChange)="paginate($event)"></p-paginator>
+    </md-card-content>
+    <md-card-actions align="end">
+    </md-card-actions>
+  </md-card>
 </div>
