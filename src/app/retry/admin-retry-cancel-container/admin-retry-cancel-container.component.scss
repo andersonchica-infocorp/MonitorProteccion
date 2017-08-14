@@ -1,0 +1,18 @@
+.close{
+    float: right;
+    font: bold;
+    &:hover{
+        color:red;
+        cursor: pointer;
+    }
+}
+
+.container_fail_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer_modal{
+	display: flex;
+	flex-direction:row-reverse;
+}

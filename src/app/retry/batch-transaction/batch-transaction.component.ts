@@ -23,24 +23,25 @@ export class BatchTransactionComponent implements OnInit {
     @Input()
     serviceId: number;
 
-    selectedAction = null;
+    selectedAction = "call_missed_outgoing";
     isSendingBulk: boolean;
     transactionsSent: number[];
     transactionsCompleted: number[];
 
     constructor(public transactionService: TransactionService, public snackBar: MdSnackBar) { }
 
-    actions = [{
+    actions = [
+    /*{
         id: "delete",
         name: "Eliminar"
-    },
+    },*/
     {
         id: "call_missed_outgoing",
         name: "Reintentar"
     },
     {
         id: "clear",
-        name: "Cancelar Transacciones y Transacción"
+        name: "Cancelar"
     }];
 
     ngOnInit() {

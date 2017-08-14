@@ -104,7 +104,9 @@
           (click)="viewDetailService()"
           color="primary">{{'app.retry.viewDetailService' | translate}}</button>
       </div>
-      <p-dataTable [value]="transactions"
+      <p-dataTable #tableRetries
+        [loading]="isSearching"
+        [value]="transactions"
         *ngIf="!isSearching"
         (onRowExpand)="getTransactionsTransaction($event)"
         [(selection)]="selectedTransactions"
@@ -206,11 +208,11 @@
                 color="accent"
                 mode="indeterminate">
               </md-spinner>
-              <md-icon md-list-icon
+              <!--<md-icon md-list-icon
                 *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml && !isDeletingAll"
                 class="delete"
                 (click)="deleteTransaction(transactionTemplate)"
-                mdTooltip="{{'app.common.delete' | translate}}">delete_forever</md-icon>
+                mdTooltip="{{'app.common.delete' | translate}}">delete_forever</md-icon>-->
               <md-spinner class="example-margin"
                 *ngIf="isDeletingRetry && ( selectedTransactionAction &&transactionTemplate.id == selectedTransactionAction.id)"
                 color="warn"
@@ -220,7 +222,7 @@
                 *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml && !isDeletingAll"
                 class="delete"
                 (click)="deleteAllTransactionsTransaction(transactionTemplate)"
-                mdTooltip="{{'app.common.deleteAll' | translate}}">clear</md-icon>
+                mdTooltip="{{'app.common.deleteAllTransaction' | translate}}">clear</md-icon>
               <md-spinner class="example-margin"
                 *ngIf="isDeletingAll && ( selectedTransactionAction &&transactionTemplate.id == selectedTransactionAction.id)"
                 color="warn"
@@ -283,12 +285,19 @@
           </p-dataTable>
         </ng-template>
       </p-dataTable>
-      <p-paginator rows="10"
-        *ngIf="!resetPaginator"
-        [style.display]="isSearching ? 'none' : 'block' "
-        [totalRecords]="cantidad"
-        pageLinkSize="5"
-        (onPageChange)="paginate($event)"></p-paginator>
+      <p-footer>
+
+        <p-paginator rows="50"
+          *ngIf="!resetPaginator"
+          [style.display]="isSearching ? 'none' : 'block' "
+          [totalRecords]="cantidad"
+          pageLinkSize="5"
+          (onPageChange)="paginate($event)"></p-paginator>
+        <div class="container_paginator">
+          <span *ngIf="totalPages > 0"> Página {{page + 1}} de {{totalPages}}</span>
+        </div>
+      </p-footer>
+
     </md-card-content>
     <md-card-actions align="end">
     </md-card-actions>

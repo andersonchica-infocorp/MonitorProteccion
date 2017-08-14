@@ -1,93 +1,82 @@
 <md-card class="result md_card_app">
-    <md-card-title>
-        <md-icon md-icon
-            class="close"
-            (click)="closeSelectedTransactions()"
-            mdTooltipPosition="above"
-            mdTooltip="{{'app.common.close' | translate}}">close</md-icon>
-    </md-card-title>
-    <md-card-content>
+<md-card-title>
+    <md-icon md-icon
+      class="close"
+      (click)="closeSelectedTransactions()"
+      mdTooltipPosition="above"
+      mdTooltip="{{'app.common.close' | translate}}">close</md-icon>
+  </md-card-title>
+  <md-card-content class="content_batch">
 
-        <div class="container_actions">
-            <md-select placeholder="{{'app.common.actions' | translate}}"
-                color="accent"
-                [disabled]="isSendingBulk"
-                class="item"
-                (change)="onActionChange($event.value)">
-                <md-option *ngFor="let item of actions"
-                    [value]="item.id">{{ item.name }}</md-option>
-            </md-select>
-            <button md-mini-fab
-                [disabled]="isSendingBulk"
-                *ngIf="selectedAction"
-                type="button"
-                (click)="executeAction()"
-                color="primary">
-                <md-icon>{{ selectedAction }}</md-icon>
-            </button>            
-        </div>
-        <md-progress-bar mode="indeterminate"
-            color="accent"
-            *ngIf="isSendingBulk"></md-progress-bar>
-        <p-dataTable [value]="transactions"
-            dataKey="id">
-            <p-header>{{'app.retry.selectedTransactions' | translate}}</p-header>
+    <md-progress-bar mode="indeterminate"
+      color="accent"
+      *ngIf="isSendingBulk"></md-progress-bar>
+    <p-dataTable [value]="transactions"
+      dataKey="id">
+      <p-header>{{'app.retry.selectedTransactions' | translate}}</p-header>
 
-            <p-column field="idIIB"
-                [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                header="{{'app.retry.results.iib' | translate}}">
-                <ng-template let-col
-                    let-transaction="rowData"
-                    pTemplate="body">
-                    <textarea mdInput
-                        mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+      <p-column field="idIIB"
+        [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+        header="{{'app.retry.results.iib' | translate}}">
+        <ng-template let-col
+          let-transaction="rowData"
+          pTemplate="body">
+          <textarea mdInput
+            mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
 
-                </ng-template>
-            </p-column>
-            <p-column field="UUID"
-                [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                header="{{'app.retry.results.uuid' | translate}}"></p-column>
-            <p-column field="consumer"
-                [style]="{'width':'100px'}"
-                header="{{'app.retry.results.consumer' | translate}}"></p-column>
-            <p-column field="msgId"
-                [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
-                header="{{'app.retry.results.messageId' | translate}}">
-                <ng-template let-col
-                    let-transaction="rowData"
-                    pTemplate="body">
-                   <textarea mdInput
-                            class="textAreaScroll"
-                            mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+        </ng-template>
+      </p-column>
+      <p-column field="UUID"
+        [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+        header="{{'app.retry.results.uuid' | translate}}"></p-column>
+      <p-column field="consumer"
+        [style]="{'width':'100px'}"
+        header="{{'app.retry.results.consumer' | translate}}"></p-column>
+      <p-column field="msgId"
+        [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
+        header="{{'app.retry.results.messageId' | translate}}">
+        <ng-template let-col
+          let-transaction="rowData"
+          pTemplate="body">
+          <textarea mdInput
+            class="textAreaScroll"
+            mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
 
-                </ng-template>
-            </p-column>
-            <p-column field="recieveDate"
-                [style]="{'width':'100px'}"
-                header="{{'app.retry.results.receiveDate' | translate}}"></p-column>
-            <p-column field="start"
-                [style]="{'width':'100px'}"
-                header="{{'app.retry.results.initialDate' | translate}}"></p-column>
-            <p-column field="end"
-                [style]="{'width':'100px'}"
-                header="{{'app.retry.results.finalDate' | translate}}"></p-column>
-            <p-column field="errorType"
-                [style]="{'width':'100px'}"
-                header="{{'app.retry.results.errorType' | translate}}"></p-column>
-            <p-column field="errorMessage"
-                [style]="{'overflow':'visible'}"
-                header="{{'app.retry.results.error' | translate}}">
-                <ng-template let-col
-                    let-transaction="rowData"
-                    pTemplate="body">
-                    <textarea mdInput
-                        mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
+        </ng-template>
+      </p-column>
+      <p-column field="recieveDate"
+        [style]="{'width':'100px'}"
+        header="{{'app.retry.results.receiveDate' | translate}}"></p-column>
+      <p-column field="start"
+        [style]="{'width':'100px'}"
+        header="{{'app.retry.results.initialDate' | translate}}"></p-column>
+      <p-column field="end"
+        [style]="{'width':'100px'}"
+        header="{{'app.retry.results.finalDate' | translate}}"></p-column>
+      <p-column field="errorType"
+        [style]="{'width':'100px'}"
+        header="{{'app.retry.results.errorType' | translate}}"></p-column>
+      <p-column field="errorMessage"
+        [style]="{'overflow':'visible'}"
+        header="{{'app.retry.results.error' | translate}}">
+        <ng-template let-col
+          let-transaction="rowData"
+          pTemplate="body">
+          <textarea mdInput
+            mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
 
-                </ng-template>
+        </ng-template>
 
-            </p-column>
-        </p-dataTable>
-    </md-card-content>
-    <md-card-actions align="end">
-    </md-card-actions>
+      </p-column>
+    </p-dataTable>
+  </md-card-content>
+  <md-card-actions align="end">
+    <button md-raised-button
+      [disabled]="isSendingBulk"
+      type="button"
+      (click)="executeAction()"
+      color="primary">Reintentar Todo
+      <md-icon>call_missed_outgoing</md-icon>
+    </button>
+  </md-card-actions>
 </md-card>

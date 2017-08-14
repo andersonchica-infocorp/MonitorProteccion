@@ -45,7 +45,7 @@ export class RetryHistoryComponent implements OnInit {
 	config = { lineNumbers: true };
 	page: number = 0;
 
-
+	totalPages: number = 0;
 	applications: Application[];
 	services: Service[];
 	form: FormGroup;
@@ -148,12 +148,21 @@ export class RetryHistoryComponent implements OnInit {
 			finalDate = moment.utc(this.form.controls.finalDate.value).format('YYYY-MM-DD');
 		}
 
-		this.transactionService.getGlobalSearchTransaction(applicationId, serviceId, consumer, messageId, initialDate, finalDate, this.page, 10)
+		this.transactionService.getGlobalSearchTransaction(applicationId, 
+			serviceId, 
+			consumer,
+			messageId, 
+			initialDate, 
+			finalDate, 
+			this.page, 
+			50)
 			.subscribe(parentTransaction => {
 				this.transactions = parentTransaction.transactions;
 				this.cantidad = parentTransaction.records;
 				this.isSearching = false;
 				this.resetPaginator = false;
+
+				this.totalPages = Math.ceil(this.cantidad/50);
 			});
 	}
 

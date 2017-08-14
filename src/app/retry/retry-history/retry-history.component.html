@@ -156,7 +156,7 @@
           (click)="viewDetailService()"
           color="primary">{{'app.retry.viewDetailService' | translate}}</button>
       </div>
-      <p-dataTable [value]="transactions">
+      <p-dataTable [value]="transactions" [loading]="isSearching">
         <p-header>{{'app.retry.transactions' | translate}}</p-header>
         <p-column field="idIIB"
           [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
@@ -279,12 +279,18 @@
           </p-dataTable>
         </ng-template>
       </p-dataTable>
-      <p-paginator rows="10"
-        *ngIf="!resetPaginator"
-        [style.display]="isSearching ? 'none' : 'block' "
-        [totalRecords]="cantidad"
-        pageLinkSize="5"
-        (onPageChange)="paginate($event)"></p-paginator>
+       <p-footer>
+
+        <p-paginator rows="50"
+          *ngIf="!resetPaginator"
+          [style.display]="isSearching ? 'none' : 'block' "
+          [totalRecords]="cantidad"
+          pageLinkSize="5"
+          (onPageChange)="paginate($event)"></p-paginator>
+        <div class="container_paginator">
+          <span *ngIf="totalPages > 0"> Página {{page + 1}} de {{totalPages}}</span>
+        </div>
+      </p-footer>
     </md-card-content>
     <md-card-actions align="end">
     </md-card-actions>

@@ -1,42 +1,47 @@
 .container_actions {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 
-.item{
-	flex: 0 0 auto;
-	margin: 5px;
-	padding: 10px;
+.item {
+  flex: 0 0 auto;
+  margin: 5px;
+  padding: 10px;
 }
 
-.close{
-    float: right;
-    font: bold;
-    &:hover{
-        color:red;
-        cursor: pointer;
-    }
+.close {
+  float: right;
+  font: bold;
+  padding-bottom: 15px;
+  &:hover {
+    color: red;
+    cursor: pointer;
+  }
 }
 
 .card-container {
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: space-between;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
 }
 
 md-card {
-    box-sizing: border-box;
-    margin: 12px;
-    flex: 1;
+  box-sizing: border-box;
+  margin: 12px;
+  flex: 1;
 }
 
-.textAreaScroll{
-    height: 60px;
+.textAreaScroll {
+  height: 60px;
 }
 
-.spanwrap{
-    display:block;
-    width:90px;
-    word-wrap:break-word;
+.spanwrap {
+  display: block;
+  width: 90px;
+  word-wrap: break-word;
+}
+
+.content_batch {
+  padding-top: 15px;
 }

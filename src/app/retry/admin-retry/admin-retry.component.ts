@@ -27,8 +27,10 @@ import 'brace/mode/sql';
     styleUrls: ['./admin-retry.component.scss']
 })
 export class AdminRetryComponent implements OnInit {
+
     options: any = { maxLines: 100, printMargin: true };
     page: number = 0;
+    totalPages: number = 0;
 
     prueba: string[] = [];
     applications: Application[];
@@ -105,7 +107,6 @@ export class AdminRetryComponent implements OnInit {
 
     search(input) {
 
-
         this.isSearching = true;
         this.cantidad = 0;
         this.showTransactions = true;
@@ -115,9 +116,14 @@ export class AdminRetryComponent implements OnInit {
             input.consumer,
             input.messageId,
             input.initialDate,
-            input.finalDate, this.page, 10)
+            input.finalDate,
+            this.page, 
+            50)
             .subscribe(parentTransaction => {
                 this.transactions = parentTransaction.transactions;
+                this.cantidad = parentTransaction.records;
+
+                this.totalPages = Math.ceil(this.cantidad/50);
                 this.isSearching = false;
                 this.resetPaginator = false;
             },
@@ -253,6 +259,7 @@ export class AdminRetryComponent implements OnInit {
 
     paginate(event) {
         this.page = event.page;
+        this.totalPages = event.pageCount;
         this.search(this.searchData);
     }
 

@@ -1,0 +1,24 @@
+<h2 md-dialog-title>
+     {{ 'app.retry.results.transaction.cancel' | translate }} - {{ transactionId }}
+     <md-icon md-icon
+        class="close"
+        (click)="dialogRef.close()"
+        mdTooltipPosition="above"
+        mdTooltip="{{'app.common.close' | translate}}">close</md-icon>
+    </h2>
+
+<app-admin-retry-cancel-select-state (change)="changeState($event)"></app-admin-retry-cancel-select-state>
+
+<div *ngIf="state==0">
+  <app-admin-retry-cancel-fail-form class="container_fail_form"
+    [(failForm)]="failForm" ngDefaultControl
+    ></app-admin-retry-cancel-fail-form>
+</div>
+
+<div class="footer_modal">
+    <button md-raised-button
+    [disabled]="validateForm()"
+    style="margin: 5px"
+    color="primary"
+    (click)="nextStep()">{{ placeholderStep }}</button>
+</div>

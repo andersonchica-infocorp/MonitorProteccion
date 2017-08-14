@@ -200,7 +200,7 @@ export class TransactionService {
   cancelAll(transaction: Transaction, serviceId: number) {
     var url = `${AppConfigService.config.webApiUrl}/cancelall`;
     var headers = new Headers();
-    var data = "trx=111111" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" + serviceId;
+    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" + serviceId;
     var user = this.authManager.getCredentials();
 
     headers.append('authorization', JSON.stringify(user));

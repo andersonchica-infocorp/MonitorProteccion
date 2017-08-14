@@ -52,6 +52,7 @@
             "actions": "Acciones",
             "clearFilters": "Limpiar Filtros",
             "deleteAll": "Eliminar Transacciones y Transacción",
+            "deleteAllTransaction": "Cancelar",
             "select": "Seleccione...",
             "xmlRequest": "Xml Request",
             "xmlResponse": "Xml Response",
@@ -142,7 +143,15 @@
                 "xml": "Xml",
                 "actions": "Acciones",
                 "retry": "Reintentar",
-                "receiveDate": "Fecha Recepción"
+                "receiveDate": "Fecha Recepción",
+                "transaction":{
+                    "initStep": "Siguiente",
+                    "success": "Exitoso",
+                    "fail": "Fallo",
+                    "cancel": "Cancelar Transacción",
+                    "reason": "Razón del Fallo",
+                    "description": "Descripción del Fallo"
+                }
             },
             "history": {
                 "back": "View Grid",

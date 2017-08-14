@@ -63,7 +63,6 @@ export class AuthManager implements CanActivate {
 	}
 
 	getCredentials() {
-		debugger;
 		if (!this.isLogin) {
 			if (!this.adalService.userInfo.isAuthenticated) {
 				this.snackBar.open("Usuario No se encuentra logueado, por favor ingrese al sistema.", 'Error', {

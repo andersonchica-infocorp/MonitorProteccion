@@ -1,0 +1,4 @@
+<md-radio-group class="container_radio" [(ngModel)]="state" (change)="onChange($event)">
+  <md-radio-button value="1">{{ 'app.retry.results.transaction.success' | translate }}</md-radio-button>
+  <md-radio-button value="0">{{ 'app.retry.results.transaction.fail' | translate }}</md-radio-button>
+</md-radio-group>

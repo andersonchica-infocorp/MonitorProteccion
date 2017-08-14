@@ -20,9 +20,10 @@ import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 import { BatchTransactionComponent } from '../batch-transaction/batch-transaction.component';
 import { ServiceDetailComponent } from '../../master/service/service-detail/service-detail.component';
 
-
-
-
+import { AdminRetryCancelContainerComponent } from '../admin-retry-cancel-container/admin-retry-cancel-container.component';
+import { AdminRetryCancelSelectStateComponent } from '../admin-retry-cancel-select-state/admin-retry-cancel-select-state.component';
+import { AdminRetryCancelEditXmlComponent } from '../admin-retry-cancel-edit-xml/admin-retry-cancel-edit-xml.component';
+import { AdminRetryCancelFailFormComponent } from '../admin-retry-cancel-fail-form/admin-retry-cancel-fail-form.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,11 @@ import { ServiceDetailComponent } from '../../master/service/service-detail/serv
     AdminRetryComponent,
     RetryHistoryComponent,
     ModalXmlComponent,
-    BatchTransactionComponent
+    BatchTransactionComponent,
+    AdminRetryCancelContainerComponent,
+    AdminRetryCancelSelectStateComponent,
+    AdminRetryCancelEditXmlComponent,
+    AdminRetryCancelFailFormComponent
   ],
   providers: [
     UserService,
