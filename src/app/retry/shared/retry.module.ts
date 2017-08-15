@@ -57,7 +57,8 @@ import { AdminRetryCancelFailFormComponent } from '../admin-retry-cancel-fail-fo
   ],
   entryComponents: [
     ModalXmlComponent,
-    ServiceDetailComponent
+    ServiceDetailComponent,
+    AdminRetryCancelContainerComponent
   ]
 })
 export class RetryModule {}

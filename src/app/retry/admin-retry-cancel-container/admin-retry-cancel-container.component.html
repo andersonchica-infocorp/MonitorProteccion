@@ -1,24 +1,56 @@
+<md-progress-bar mode="indeterminate"
+  color="accent"
+  *ngIf="isCanceling"></md-progress-bar>
+
 <h2 md-dialog-title>
-     {{ 'app.retry.results.transaction.cancel' | translate }} - {{ transactionId }}
+     {{ 'app.retry.results.transaction.cancel' | translate }} - {{ transaction.id }}
      <md-icon md-icon
         class="close"
         (click)="dialogRef.close()"
         mdTooltipPosition="above"
         mdTooltip="{{'app.common.close' | translate}}">close</md-icon>
     </h2>
+<div class="modal_container">
+  <md-card class="form_container">
+    <md-card-title>
+      {{ 'app.retry.results.transaction.state' | translate}}
+    </md-card-title>
+    <md-card-content>
+      <app-admin-retry-cancel-select-state (change)="changeState($event)"></app-admin-retry-cancel-select-state>
 
-<app-admin-retry-cancel-select-state (change)="changeState($event)"></app-admin-retry-cancel-select-state>
+      <div *ngIf="state==0">
+        <app-admin-retry-cancel-fail-form class="container_fail_form"
+          [(failForm)]="failForm"
+          ngDefaultControl></app-admin-retry-cancel-fail-form>
+      </div>
+    </md-card-content>
+  </md-card>
 
-<div *ngIf="state==0">
-  <app-admin-retry-cancel-fail-form class="container_fail_form"
-    [(failForm)]="failForm" ngDefaultControl
-    ></app-admin-retry-cancel-fail-form>
+  <md-card class="xml_container"
+    *ngIf="xml">
+    <md-card-title>
+      {{ 'app.retry.results.transaction.xmlState' | translate}}
+    </md-card-title>
+    <md-card-content>
+      <div style="height: 450px">
+        <div ace-editor
+          [(text)]="xml"
+          [mode]="'xml'"
+          [theme]="'dawn'"
+          [options]="options"
+          [readOnly]="readOnly"
+          (textChanged)="change()"
+          style="min-height: 90%;max-height: 90%; width:100%; overflow: auto;">
+
+        </div>
+      </div>
+    </md-card-content>
+  </md-card>
 </div>
-
 <div class="footer_modal">
-    <button md-raised-button
-    [disabled]="validateForm()"
+  <button md-raised-button
+    [disabled]="!validateForm() || isCanceling"
     style="margin: 5px"
     color="primary"
-    (click)="nextStep()">{{ placeholderStep }}</button>
+    (click)="sendCancelTransaction()">{{ placeholderStep }}</button>
 </div>

@@ -1,10 +1,10 @@
-.close{
-    float: right;
-    font: bold;
-    &:hover{
-        color:red;
-        cursor: pointer;
-    }
+.close {
+  float: right;
+  font: bold;
+  &:hover {
+    color: red;
+    cursor: pointer;
+  }
 }
 
 .container_fail_form {
@@ -12,7 +12,29 @@
   flex-direction: column;
 }
 
-.footer_modal{
-	display: flex;
-	flex-direction:row-reverse;
+.footer_modal {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.container_xml {
+  width: 100px;
+  height: 300px;
+}
+
+.modal_container {
+  display: flex;
+}
+
+md-card {
+  box-sizing: border-box;
+  margin: 12px;
+}
+
+.form_container {
+  flex: 1 1 40%;
+}
+
+.xml_container {
+  flex: 0 0 60%;
 }

@@ -1,4 +1,4 @@
-export class TranslationFail {
+export class TransactionFail {
 
 	public id: number;
 

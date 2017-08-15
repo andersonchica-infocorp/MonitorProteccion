@@ -137,7 +137,6 @@
                 "messageId": "Message Id",
                 "initialDate": "Fecha Inicial",
                 "finalDate": "Fecha Final",
-                "transaction": "Transacción",
                 "errorType": "Tipo Error",
                 "error": "Error",
                 "xml": "Xml",
@@ -145,6 +144,9 @@
                 "retry": "Reintentar",
                 "receiveDate": "Fecha Recepción",
                 "transaction":{
+                    "title": "Transacción",
+                    "state": "Estado de la Transacción",
+                    "xmlState": "Xml de la transacción",
                     "initStep": "Siguiente",
                     "success": "Exitoso",
                     "fail": "Fallo",

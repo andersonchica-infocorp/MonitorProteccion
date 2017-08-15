@@ -12,7 +12,7 @@ import { Consumer } from '../../Model/consumer.model';
 import { MdDialog } from '@angular/material';
 import { TranslateService } from 'ng2-translate';
 import { ServiceDetailComponent } from '../../master/service/service-detail/service-detail.component';
-
+import { AdminRetryCancelContainerComponent } from '../admin-retry-cancel-container/admin-retry-cancel-container.component';
 
 import { ModalXmlComponent } from '../modal-xml/modal-xml.component';
 import { MdSnackBar } from '@angular/material';
@@ -117,13 +117,13 @@ export class AdminRetryComponent implements OnInit {
             input.messageId,
             input.initialDate,
             input.finalDate,
-            this.page, 
+            this.page,
             50)
             .subscribe(parentTransaction => {
                 this.transactions = parentTransaction.transactions;
                 this.cantidad = parentTransaction.records;
 
-                this.totalPages = Math.ceil(this.cantidad/50);
+                this.totalPages = Math.ceil(this.cantidad / 50);
                 this.isSearching = false;
                 this.resetPaginator = false;
             },
@@ -383,6 +383,18 @@ export class AdminRetryComponent implements OnInit {
 
     onSubmit() {
 
+    }
+
+    cancelTransaction(transaction: Transaction) {
+        let dialogRef = this.dialog.open(AdminRetryCancelContainerComponent, {
+            data: {
+                readOnly: false,
+                transaction: transaction,
+                service: this.searchData.operation
+            },
+            disableClose: true,
+            width: '80%',
+        });
     }
 
     formatXML(input) {

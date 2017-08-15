@@ -221,7 +221,7 @@
               <md-icon md-list-icon
                 *ngIf="!isDeletingRetry && !isSendingRetry && !isShowingXml && !isDeletingAll"
                 class="delete"
-                (click)="deleteAllTransactionsTransaction(transactionTemplate)"
+                (click)="cancelTransaction(transactionTemplate)"
                 mdTooltip="{{'app.common.deleteAllTransaction' | translate}}">clear</md-icon>
               <md-spinner class="example-margin"
                 *ngIf="isDeletingAll && ( selectedTransactionAction &&transactionTemplate.id == selectedTransactionAction.id)"

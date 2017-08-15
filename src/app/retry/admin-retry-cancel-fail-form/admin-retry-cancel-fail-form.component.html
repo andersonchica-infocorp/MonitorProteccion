@@ -2,14 +2,7 @@
   <span mdPrefix
     class="required_span">*</span>
   <textarea mdInput
+    
     [(ngModel)]="failForm.reason"
     placeholder="{{'app.retry.results.transaction.reason' | translate}}"></textarea>
-</md-input-container>
-
-<md-input-container color="accent">
-  <span mdPrefix
-    class="required_span">*</span>
-  <textarea mdInput
-    [(ngModel)]="failForm.description"
-    placeholder="{{'app.retry.results.transaction.description' | translate}}"></textarea>
 </md-input-container>

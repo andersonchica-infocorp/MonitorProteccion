@@ -5,8 +5,11 @@ import { Observable } from 'rxJs';
 import { AppConfigService } from './app-config.service';
 import { ParentTransaction } from '../Model/parentTransaction.model';
 import { TransactionChild } from '../Model/transactionChildResponse.model';
+import { XmlState } from '../Model/xmlState.model';
 import { Service } from '../Model/service.model';
 import { AuthManager } from '../authentication/shared/authentication.manage';
+import { TransactionFail } from '../Model/transactionFail.model';
+
 
 @Injectable()
 export class TransactionService {
@@ -197,6 +200,26 @@ export class TransactionService {
     }));
   }
 
+  getStateXml(service: number) {
+    var url = `${AppConfigService.config.webApiUrl}/servicedata?service=` + 23;
+    var headers = new Headers();
+    var data = "";
+    var user = this.authManager.getCredentials();
+
+    headers.append('authorization', JSON.stringify(data));
+    headers.append('Content-Type', 'application/xml; charset=utf-8');
+    headers.append('Accept', 'application/json, text/plain, */*');
+
+    return this.http.get(url,
+      { headers }
+    ).map(response => {
+      return response.json();
+    }).catch((err: Response) => Observable.of({
+      error: err.text(),
+      status: ""
+    }));
+  }
+
   cancelAll(transaction: Transaction, serviceId: number) {
     var url = `${AppConfigService.config.webApiUrl}/cancelall`;
     var headers = new Headers();
@@ -222,4 +245,37 @@ export class TransactionService {
       status: ""
     }));
   }
+
+  cancelSuccesFail(transaction: Transaction, failForm: TransactionFail, xml: string, serviceId: number) {
+    var url = `${AppConfigService.config.webApiUrl}/cancel`;
+    var headers = new Headers();
+    var data = "trx=" + transaction.id + "&msg_id=" + transaction.msgId + "&service=" + serviceId + "&data=" + xml;
+    
+    if (failForm.reason) {
+      data = data + "&error=" + failForm.reason;
+    }
+
+    var user = this.authManager.getCredentials();
+
+    headers.append('authorization', JSON.stringify(user));
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Accept', 'application/json; charset=utf-8');
+
+    return this.http.post(url,
+      data,
+      { headers }
+    ).map(response => {
+      return {
+        transactionId: transaction.id,
+        status: response.text(),
+        error: ""
+      }
+    }).catch((err: Response) => Observable.of({
+      transactionId: transaction.id,
+      error: err.text(),
+      status: ""
+    }));
+
+  }
 }
+
