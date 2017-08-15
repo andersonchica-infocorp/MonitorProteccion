@@ -130,7 +130,7 @@ export class AdminRetryCancelContainerComponent implements OnInit {
 				this.isCanceling = false;
 				if (response.error == "" && response.status == "OK") {
 
-					this.dialogRef.close();
+					this.dialogRef.close("OK");
 					this.snackBar.open("Se ha cancelado la transacción satisfactoriamente.", '', {
 						duration: 5000,
 					});

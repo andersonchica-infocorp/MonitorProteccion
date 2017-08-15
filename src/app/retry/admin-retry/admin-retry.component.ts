@@ -395,6 +395,12 @@ export class AdminRetryComponent implements OnInit {
             disableClose: true,
             width: '80%',
         });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result == "OK") {
+                this.search(this.searchData);
+            }
+        });
     }
 
     formatXML(input) {
