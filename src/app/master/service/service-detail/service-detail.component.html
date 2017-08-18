@@ -9,6 +9,7 @@
         mdTooltipPosition="above"
         mdTooltip="{{'app.common.close' | translate}}">close</md-icon>
     </h2>
+    <md-dialog-content class="container_dialog">
 <form (ngSubmit)="onSubmit()"
     [formGroup]="form">
     <div class="container_form">
@@ -125,7 +126,8 @@
         </md-input-container>
     </div>
 </form>
-<div class="container_actions"
+</md-dialog-content>
+<md-dialog-actions class="container_actions" align="end"
     *ngIf="!readOnly">
     <button md-raised-button
         color="primary"
@@ -133,4 +135,4 @@
         style="submit"
         (click)="onSubmit()"
         [disabled]="!form.valid || isUpdating">{{'app.common.save' | translate}}</button>
-</div>
+</md-dialog-actions>

@@ -6,11 +6,6 @@
     display: none !important;
 }
 
-.container_actions {
-    display: flex;
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-}
 
 .button {
     align-self: end;
@@ -29,4 +24,10 @@
         color:red;
         cursor: pointer;
     }
+}
+
+.container_dialog{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

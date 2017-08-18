@@ -12,7 +12,7 @@
         },
         "sideNav": {
             "user": {
-                "title": "Administra Usuarios",
+                "title": "Administrar Usuarios",
                 "description": ""
             },
             "application": {
@@ -20,20 +20,20 @@
                 "description": "Adminsitrar Aplicaciones"
             },
             "report": {
-                "title": "Dashboard",
-                "description": "Ver histórico de transacciones"
+                "title": "Ver Estadísticas",
+                "description": ""
             },
             "service": {
-                "title": "Servicios",
-                "description": "Ver servicios"
+                "title": "Administrar Servicios",
+                "description": ""
             },
             "retry": {
-                "title": "Reintentos",
-                "description": "Administrar Reintentos"
+                "title": "Bandeja de Errores",
+                "description": ""
             },
             "historyRetry": {
-                "title": "Histórico Reintentos",
-                "description": "Ver Histórico de Reintentos"
+                "title": "Ver Histórico Transacciones",
+                "description": ""
             }
         },
         "common": {
@@ -91,15 +91,15 @@
                 "genResponse": "Gen Response",
                 "parseResponse": "Parse Response",
                 "actions": "Acciones",
-                "url": "Url",
-                "timeOut": "Invoke Time Out",
-                "retryCount": "Retry Count",
-                "retryDelay": "Retry Delay",
-                "reqCallBack": "Requiere Callback",
-                "callBackStatus": "Callback Status",
-                "verCode": "Ver Code",
-                "verCodeUrl": "Ver Code Url",
-                "verCodeTimeOut": "Ver Code Timeout",
+                "url": "URL",
+                "timeOut": "Máximo Tiempo de Esperar Para Respuesta",
+                "retryCount": "Cantidad de Reintentos",
+                "retryDelay": "Espera de Reitentos (Segundos)",
+                "reqCallBack": "Necesita responder a Framework IIB",
+                "callBackStatus": "Estado de transacción(es) para responder",
+                "verCode": "Código de Servicio Para Verificaciones",
+                "verCodeUrl": "URL de Servicio Para Verificaciones",
+                "verCodeTimeOut": "Máximo Tiempo de Esperar Para Respuesta de Verificaciones",
                 "name": "Nombre"
             }
         },

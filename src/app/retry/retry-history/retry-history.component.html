@@ -156,7 +156,8 @@
           (click)="viewDetailService()"
           color="primary">{{'app.retry.viewDetailService' | translate}}</button>
       </div>
-      <p-dataTable [value]="transactions" [loading]="isSearching">
+      <p-dataTable [value]="transactions"
+        [loading]="isSearching">
         <p-header>{{'app.retry.transactions' | translate}}</p-header>
         <p-column field="idIIB"
           [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
@@ -186,16 +187,13 @@
         <p-column field="msgId"
           [style]="{'width':'100px', 'font-weight': 'bold','color':'black'}"
           header="{{'app.retry.results.messageId' | translate}}">
+
           <ng-template let-col
             let-transaction="rowData"
             pTemplate="body">
-            <ng-template let-col
-              let-transaction="rowData"
-              pTemplate="body">
-              <textarea mdInput
-                class="textAreaScroll"
-                mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
-            </ng-template>
+            <textarea mdInput
+              class="textAreaScroll"
+              mdAutosizeMinRows="4">{{ transaction[col.field] }}</textarea>
           </ng-template>
         </p-column>
         <p-column field="recieveDate"
@@ -279,7 +277,7 @@
           </p-dataTable>
         </ng-template>
       </p-dataTable>
-       <p-footer>
+      <p-footer>
 
         <p-paginator rows="50"
           *ngIf="!resetPaginator"

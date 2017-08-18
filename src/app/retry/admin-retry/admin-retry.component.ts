@@ -54,6 +54,7 @@ export class AdminRetryComponent implements OnInit {
 
     isSendingRetry: boolean;
     isShowingXml: boolean;
+    isShowingXmlResponse: boolean;
     cantidad: number = 0;
     messageError: string;
     alertType: string;
@@ -102,6 +103,36 @@ export class AdminRetryComponent implements OnInit {
                     .subscribe((res: string) => {
                         this.messageError = res;
                     });
+            });
+    }
+
+    showXmlResponse(transactionTemplate) {
+        this.isShowingXmlResponse = true;
+        this.selectedTransactionAction = transactionTemplate;
+        this.transactionService.getXmlTransaction(transactionTemplate.id, 'RESP')
+            .subscribe(xml => {
+                this.isShowingXmlResponse = false;
+
+                if (xml.error == '') {
+                    this.xmlTransactionSelected = this.formatXML(xml.xml);
+
+                    let dialogRef = this.dialog.open(ModalXmlComponent, {
+                        data: {
+                            xml: this.xmlTransactionSelected,
+                            readOnly: true,
+                            transaction: transactionTemplate,
+                            type: " - Response "
+                        },
+                        disableClose: false,
+                        width: '80%',
+                    });
+                }
+                else {
+                    this.snackBar.open("Se ha presentado un error, vuelva a intentarlo más tarde.", 'Error', {
+                        duration: 5000,
+                    });
+                }
+
             });
     }
 

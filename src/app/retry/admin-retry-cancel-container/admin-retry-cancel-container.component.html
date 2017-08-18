@@ -18,7 +18,7 @@
     <md-card-content>
       <app-admin-retry-cancel-select-state (change)="changeState($event)"></app-admin-retry-cancel-select-state>
 
-      <div *ngIf="state==0">
+      <div *ngIf="state=='0'">
         <app-admin-retry-cancel-fail-form class="container_fail_form"
           [(failForm)]="failForm"
           ngDefaultControl></app-admin-retry-cancel-fail-form>

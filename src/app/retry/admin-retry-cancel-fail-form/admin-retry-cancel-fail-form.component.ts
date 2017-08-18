@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TranslationFail } from '../../Model/transactionFail.model';
+import { TransactionFail } from '../../Model/transactionFail.model';
 
 @Component({
 	selector: 'app-admin-retry-cancel-fail-form',
@@ -9,7 +9,7 @@ import { TranslationFail } from '../../Model/transactionFail.model';
 export class AdminRetryCancelFailFormComponent implements OnInit {
 
 	@Input()
-	public failForm: TranslationFail;
+	public failForm: TransactionFail;
 
 	constructor() { }
 

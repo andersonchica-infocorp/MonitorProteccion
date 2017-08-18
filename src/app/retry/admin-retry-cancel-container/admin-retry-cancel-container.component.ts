@@ -61,10 +61,7 @@ export class AdminRetryCancelContainerComponent implements OnInit {
 					this.xmlState = xmlState
 				}
 				else {
-					if (xmlState.error.indexOf("01403") > 1) {
-						this.xmlState = new XmlState("No se encontró datos en el sistema.", "No se encontró datos en el sistema.");
-					}
-
+					this.xmlState = new XmlState("No fue posible consultar los datos.", "No fue posible consultar los datos.");
 				}
 			});
 
