@@ -147,7 +147,7 @@
                     "title": "Transacción",
                     "state": "Estado de la Transacción",
                     "xmlState": "Xml de la transacción",
-                    "initStep": "Siguiente",
+                    "initStep": "Aceptar",
                     "success": "Exitoso",
                     "fail": "Fallo",
                     "cancel": "Cancelar Transacción",

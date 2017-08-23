@@ -201,7 +201,7 @@ export class TransactionService {
   }
 
   getStateXml(service: number) {
-    var url = `${AppConfigService.config.webApiUrl}/servicedata?service=` + 23;
+    var url = `${AppConfigService.config.webApiUrl}/servicedata?service=` + service;
     var headers = new Headers();
     var data = "";
     var user = this.authManager.getCredentials();

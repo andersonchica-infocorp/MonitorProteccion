@@ -10,4 +10,4 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule, [AdalService, SecretService]);
+platformBrowserDynamic().bootstrapModule(AppModule);

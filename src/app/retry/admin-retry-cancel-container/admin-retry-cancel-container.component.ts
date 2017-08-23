@@ -29,6 +29,7 @@ export class AdminRetryCancelContainerComponent implements OnInit {
 	public isValidXml: boolean;
 	public service: number;
 	public isCanceling: boolean;
+	public isError: boolean;
 
 	public xmlState: XmlState;
 
@@ -61,6 +62,7 @@ export class AdminRetryCancelContainerComponent implements OnInit {
 					this.xmlState = xmlState
 				}
 				else {
+					this.isError = true;
 					this.xmlState = new XmlState("No fue posible consultar los datos.", "No fue posible consultar los datos.");
 				}
 			});
@@ -111,10 +113,10 @@ export class AdminRetryCancelContainerComponent implements OnInit {
 
 	validateForm() {
 
-		let valid = this.failForm && this.failForm.reason != "" && this.xml && this.isValidXml;
-
+		let valid = this.failForm && this.failForm.reason != "" && this.xml && this.isValidXml && !this.isError;
+		
 		if (this.state == "1") {
-			valid = this.isValidXml
+			valid = this.isValidXml && !this.isError
 		}
 
 		return valid;
